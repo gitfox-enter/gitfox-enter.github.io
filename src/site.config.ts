@@ -5,9 +5,9 @@ export const theme: ThemeUserConfig = {
   /** Title for your website. Will be used in metadata and as browser tab title. */
   title: 'GitFox',
   /** Will be used in index page & copyright declaration */
-  author: '金军',
+  author: 'GitFox',
   /** Description metadata for your website. Can be used in page metadata. */
-  description: '亳州学院 | 酒店管理 | 全栈开发',
+  description: 'GitFox · 自动化 · AI 编程',
   /** The default favicon for your site which should be a path to an image in the `public/` directory. */
   favicon: '/favicon/favicon.ico',
   /** The default social card image for your site which should be a path to an image in the `public/` directory. */
@@ -72,8 +72,7 @@ export const theme: ThemeUserConfig = {
     credits: true,
     /** Optional details about the social media accounts for this site. */
     social: [
-      { icon: 'github', label: 'GitHub', href: 'https://github.com/gitfox-enter' },
-      { icon: 'rss', label: 'RSS', href: '/rss.xml' }
+      { icon: 'github', label: 'GitHub', href: 'https://github.com/gitfox-enter' }
     ]
   },
 

@@ -55,8 +55,8 @@ if (!images[imagePath])
     <div id='content' class='animate flex flex-col gap-y-10 md:w-4/5 lg:w-5/6'>
       <Section title='关于我'>
         <p class='text-muted-foreground'>
-          亳州学院酒店管理专业在读。对计算机和自动化感兴趣，喜欢用脚本解决校园生活中的实际问题。
-          正在自学前端开发和 Linux 基础。
+          亳州学院酒店管理专业在读，正在探索 AI 编程。喜欢用脚本解决实际生活中的问题 —— 从校园网自动登录到羊毛线报监控，
+          能用代码自动化的事情绝不手动重复。WorkBuddy 重度用户。
         </p>
       </Section>
 
@@ -81,10 +81,16 @@ if (!images[imagePath])
           subheading='酒店管理 · 本科'
           date='2025 - 2027'
         >
-          <ul class='ms-4 list-disc text-muted-foreground'>
-            <li>主修课程：酒店管理概论、旅游学概论、服务运营管理</li>
-            <li>课外自学：前端开发、Linux、自动化脚本</li>
-          </ul>
+          <div class='flex items-start gap-x-4 mb-3'>
+            <img src='/gold-bear-blog/bzuu-logo.png' alt='亳州学院' class='h-16 w-auto rounded-lg' loading='lazy' />
+            <div>
+              <a href='https://www.bzuu.edu.cn' target='_blank' class='text-sm text-primary hover:underline'>www.bzuu.edu.cn ↗</a>
+              <ul class='ms-4 mt-2 list-disc text-muted-foreground'>
+                <li>主修课程：酒店管理概论、旅游学概论、服务运营管理</li>
+                <li>课外自学：AI 编程、自动化脚本、Linux</li>
+              </ul>
+            </div>
+          </div>
         </Card>
       </Section>
 
@@ -110,15 +116,47 @@ if (!images[imagePath])
         />
       </Section>
 
-      <Section title='正在学习'>
-        <div class='flex flex-wrap gap-2'>
-          {
-            ['HTML', 'CSS', 'JavaScript', 'Git', 'Linux', 'Astro'].map((skill) => (
-              <span class='rounded-full border px-3 py-1 text-sm text-muted-foreground'>
-                {skill}
-              </span>
-            ))
-          }
+      <Section title='网站服务'>
+        <Card
+          heading='羊毛线报监控'
+          subheading='实时监控多个羊毛线报站点，自动推送最新优惠信息'
+          date='2026'
+        >
+          <p class='text-sm text-muted-foreground'>
+            基于 Playwright + 自定义解析器，覆盖 24 个站点，自动抓取并过滤优惠线报。
+          </p>
+        </Card>
+      </Section>
+
+      <Section title='技能'>
+        <div class='flex flex-col gap-y-4'>
+          <!-- 已掌握 -->
+          <div>
+            <h4 class='mb-2 text-sm font-medium'>已掌握</h4>
+            <div class='flex flex-wrap gap-2'>
+              {['Node.js', 'Python', 'Astro', '自动化脚本', '爬虫开发', 'Electron', 'WorkBuddy', '海阔视界'].map(skill => (
+                <span class='rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-sm text-foreground'>{skill}</span>
+              ))}
+            </div>
+          </div>
+          <!-- 在学中 -->
+          <div>
+            <h4 class='mb-2 text-sm font-medium'>在学中</h4>
+            <div class='flex flex-wrap gap-2'>
+              {['AI 编程', 'Docker', 'Linux'].map(skill => (
+                <span class='rounded-full border border-dashed px-3 py-1 text-sm text-muted-foreground'>{skill}</span>
+              ))}
+            </div>
+          </div>
+          <!-- 证书 -->
+          <div>
+            <h4 class='mb-2 text-sm font-medium'>证书/资质</h4>
+            <div class='flex flex-wrap gap-2'>
+              {['C2 驾驶证', '普通话二级乙等'].map(skill => (
+                <span class='rounded-full border border-muted px-3 py-1 text-sm text-muted-foreground/70'>{skill}</span>
+              ))}
+            </div>
+          </div>
         </div>
       </Section>
     </div>
