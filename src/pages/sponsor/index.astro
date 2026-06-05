@@ -1,0 +1,36 @@
+---
+import { Quote } from 'astro-pure/advanced'
+import PageLayout from '@/layouts/CommonPage.astro'
+
+const headings = [
+  { depth: 2, slug: 'wechat', text: '微信赞赏' },
+  { depth: 2, slug: 'more', text: '更多方式' }
+]
+---
+
+<PageLayout title='赞助' {headings} view>
+  <p>
+    如果我的内容对你有所帮助，欢迎请我喝杯咖啡 ☕。
+    你的支持是我持续输出的动力！
+  </p>
+
+  <h2 id='wechat'>微信赞赏</h2>
+  <div class='flex flex-col items-center gap-3 rounded-xl border p-6'>
+    <img
+      src='/gold-bear-blog/wechat-tip.jpg'
+      alt='微信赞赏码'
+      class='w-56 rounded-xl shadow-md'
+      loading='lazy'
+    />
+    <p class='text-sm text-muted-foreground'>
+      微信扫一扫，请我喝杯咖啡
+    </p>
+  </div>
+
+  <h2 id='more'>更多方式</h2>
+  <p class='text-muted-foreground italic'>
+    更多赞助方式正在规划中，敬请期待。
+  </p>
+
+  <Quote class='mt-10' />
+</PageLayout>
