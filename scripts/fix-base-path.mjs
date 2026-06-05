@@ -1,6 +1,6 @@
 // Post-build: fix hardcoded links in dist that don't respect Astro base path
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs'
-import { join } from 'node:path'
+import { join, basename } from 'node:path'
 
 const BASE = '/gold-bear-blog'
 const DIST = 'dist'
@@ -18,8 +18,23 @@ function walk(dir) {
   return files
 }
 
+// Collect all blog article slugs from content directory
+function getBlogSlugs() {
+  const blogDir = join('src', 'content', 'blog')
+  try {
+    return readdirSync(blogDir, { withFileTypes: true })
+      .filter(d => d.isDirectory())
+      .map(d => d.name)
+  } catch {
+    return []
+  }
+}
+
 const htmlFiles = walk(DIST)
+const blogSlugs = getBlogSlugs()
 let fixed = 0
+
+console.log(`Found ${blogSlugs.length} blog article slugs: ${blogSlugs.join(', ')}`)
 
 for (const file of htmlFiles) {
   let content = readFileSync(file, 'utf-8')
@@ -37,6 +52,20 @@ for (const file of htmlFiles) {
   content = content.replace(/href="\/blog"(?=\s|>)/g, `href="${BASE}/blog"`)
   // Fix coffee link (Buy me a cup of coffee) — redirect to sponsor page
   content = content.replace(/href="\/projects#sponsorship"/g, `href="${BASE}/sponsor"`)
+
+  // Fix prev/next post navigation in blog detail pages
+  // ArticleBottom.astro uses slice(0,2) which drops /blog/ from path
+  // e.g. /gold-bear-blog/my-projects → /gold-bear-blog/blog/my-projects
+  // Use normalized path (forward slashes) for cross-platform matching
+  const normalized = file.replace(/\\/g, '/')
+  if (normalized.includes('dist/blog/') && blogSlugs.length > 0) {
+    for (const slug of blogSlugs) {
+      content = content.replace(
+        new RegExp(`href="${BASE}/${slug}"`, 'g'),
+        `href="${BASE}/blog/${slug}"`
+      )
+    }
+  }
 
   if (content !== original) {
     writeFileSync(file, content, 'utf-8')
