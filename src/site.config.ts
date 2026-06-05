@@ -48,8 +48,11 @@ export const theme: ThemeUserConfig = {
   /** Configure the header of your site. */
   header: {
     menu: [
-      { title: '博客', link: '/blog' },
-      { title: '关于', link: '/about' }
+      { title: '博客', link: '/gold-bear-blog/blog' },
+      { title: '文档', link: '/gold-bear-blog/docs' },
+      { title: '项目', link: '/gold-bear-blog/projects' },
+      { title: '链接', link: '/gold-bear-blog/links' },
+      { title: '关于', link: '/gold-bear-blog/about' }
     ]
   },
 
