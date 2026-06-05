@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <!-- 圆形背景 -->
+  <circle cx="120" cy="120" r="120" fill="#1a1a2e"/>
+  <!-- 狐狸脸主体 -->
+  <path d="M60 100 L60 170 Q60 200 90 200 L150 200 Q180 200 180 170 L180 100 Z" fill="#E8751A"/>
+  <!-- 左耳 -->
+  <path d="M60 100 L50 30 L95 85 Z" fill="#E8751A"/>
+  <path d="M62 95 L55 42 L90 85 Z" fill="#FFD6A0"/>
+  <!-- 右耳 -->
+  <path d="M180 100 L190 30 L145 85 Z" fill="#E8751A"/>
+  <path d="M178 95 L185 42 L150 85 Z" fill="#FFD6A0"/>
+  <!-- 白色面部区域 -->
+  <path d="M75 120 L75 175 Q75 195 100 195 L140 195 Q165 195 165 175 L165 120 Q165 105 150 105 L90 105 Q75 105 75 120 Z" fill="#FFF5E6"/>
+  <!-- 左眼 -->
+  <ellipse cx="100" cy="130" rx="14" ry="16" fill="#1a1a2e"/>
+  <circle cx="104" cy="126" r="5" fill="white"/>
+  <!-- 右眼 -->
+  <ellipse cx="140" cy="130" rx="14" ry="16" fill="#1a1a2e"/>
+  <circle cx="144" cy="126" r="5" fill="white"/>
+  <!-- 鼻子 -->
+  <ellipse cx="120" cy="155" rx="10" ry="7" fill="#1a1a2e"/>
+  <!-- 嘴 -->
+  <path d="M110 165 Q120 178 130 165" stroke="#1a1a2e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+</svg>
