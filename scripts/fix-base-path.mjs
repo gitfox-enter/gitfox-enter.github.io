@@ -31,6 +31,10 @@ for (const file of htmlFiles) {
   content = content.replace(/href="\/blog\//g, `href="${BASE}/blog/`)
   // Fix tag links (from PostPreview tag badges)
   content = content.replace(/href="\/tags\//g, `href="${BASE}/tags/`)
+  // Fix brand/logo home link (Header component hardcodes href="/")
+  content = content.replace(/href="\/"(?=\s|>)/g, `href="${BASE}/"`)
+  // Fix Back button link in blog posts (hardcoded href="/blog")
+  content = content.replace(/href="\/blog"(?=\s|>)/g, `href="${BASE}/blog"`)
   // Fix coffee link (Buy me a cup of coffee) — points to /projects#sponsorship without base path
   content = content.replace(/href="\/projects#sponsorship"/g, `href="${BASE}/projects#sponsorship"`)
   // Replace "Buy me a coffee" text + icon with WeChat tip QR code image
