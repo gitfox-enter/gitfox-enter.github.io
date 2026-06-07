@@ -9,6 +9,8 @@ tags:
 language: 中文
 ---
 
+![我的两个开源项目](cover.jpg)
+
 目前我在 GitHub 上有两个自己的项目，记录一下它们的来龙去脉。
 
 ## 1. gitfox 的博客 (gold-bear-blog)
