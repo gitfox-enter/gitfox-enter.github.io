@@ -1,6 +1,7 @@
 ---
 title: 高原情思
-publishDate: 2026-06-07 15:40:00
+publishDate: 2026-06-07 14:00:00
+author: 洪和胜
 description: 西藏是一片人间净土，离天堂最近，让灵魂在雪域高原肆意徜徉
 tags:
   - 高原
