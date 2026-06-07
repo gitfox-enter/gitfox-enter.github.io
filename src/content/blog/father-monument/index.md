@@ -1,6 +1,7 @@
 ---
 title: 父亲，我心中的丰碑
-publishDate: 2026-06-07 15:20:00
+publishDate: 2026-06-07 12:00:00
+author: 马作辉
 description: 一位乡村医生的一生，悬壶济世医苍生，长留肝胆照后人
 tags:
   - 亲情
