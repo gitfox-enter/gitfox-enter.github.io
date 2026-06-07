@@ -36,6 +36,16 @@ export const theme: ThemeUserConfig = {
 
   // Still in test
   head: [
+    // DNS Prefetch & Preconnect for performance
+    { tag: 'link', attrs: { rel: 'dns-prefetch', href: 'https://cdn.jsdelivr.net' }, content: '' },
+    { tag: 'link', attrs: { rel: 'preconnect', href: 'https://cdn.jsdelivr.net', crossorigin: 'anonymous' }, content: '' },
+    { tag: 'link', attrs: { rel: 'dns-prefetch', href: 'https://fonts.googleapis.com' }, content: '' },
+    { tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.googleapis.com', crossorigin: 'anonymous' }, content: '' },
+    { tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' }, content: '' },
+    { tag: 'link', attrs: { rel: 'manifest', href: '/gold-bear-blog/manifest.json' }, content: '' },
+    { tag: 'meta', attrs: { name: 'theme-color', content: '#659EB9' }, content: '' },
+    { tag: 'meta', attrs: { name: 'apple-mobile-web-app-capable', content: 'yes' }, content: '' },
+    { tag: 'meta', attrs: { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }, content: '' },
     /* Telegram channel */
     // {
     //   tag: 'meta',
