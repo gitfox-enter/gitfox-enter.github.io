@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d1b00;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#4a2800;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="blade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c0c0c0;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#c0c0c0;stop-opacity:1"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg)"/>
+
+  <!-- Top decorative pattern -->
+  <g opacity="0.1">
+    <line x1="0" y1="0" x2="800" y2="500" stroke="#ffd700" stroke-width="0.5"/>
+    <line x1="800" y1="0" x2="0" y2="500" stroke="#ffd700" stroke-width="0.5"/>
+    <line x1="400" y1="0" x2="400" y2="500" stroke="#ffd700" stroke-width="0.3"/>
+  </g>
+
+  <!-- Tibetan knife illustration -->
+  <g transform="translate(400, 260)" filter="url(#glow)">
+    <!-- Blade -->
+    <path d="M -120,0 L 80,0 L 95,-8 L 100,0 L 95,8 Z" fill="url(#blade)" stroke="#999" stroke-width="0.5"/>
+    <!-- Blade edge shine -->
+    <line x1="-110" y1="-2" x2="85" y2="-2" stroke="#fff" stroke-width="1" opacity="0.6"/>
+    <!-- Handle -->
+    <rect x="-160" y="-12" width="45" height="24" rx="3" fill="#8b4513" stroke="#5c2e00" stroke-width="1"/>
+    <rect x="-155" y="-9" width="35" height="3" rx="1" fill="#ffd700" opacity="0.6"/>
+    <rect x="-155" y="-3" width="35" height="3" rx="1" fill="#ffd700" opacity="0.6"/>
+    <rect x="-155" y="3" width="35" height="3" rx="1" fill="#ffd700" opacity="0.6"/>
+    <!-- Guard -->
+    <rect x="-120" y="-14" width="8" height="28" rx="2" fill="#ffd700" stroke="#ccaa00" stroke-width="0.5"/>
+    <!-- Blood accent -->
+    <ellipse cx="60" cy="0" rx="15" ry="4" fill="#cc0000" opacity="0.3"/>
+  </g>
+
+  <!-- Main title -->
+  <text x="400" y="130" text-anchor="middle" font-family="serif, 宋体" font-size="44" font-weight="bold" fill="#ffd700" filter="url(#glow)">藏刀</text>
+
+  <!-- Subtitle -->
+  <text x="400" y="175" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#cccccc">莽夫与血性的可爱</text>
+
+  <!-- Divider with knife motif -->
+  <line x1="180" y1="205" x2="620" y2="205" stroke="#ffd700" stroke-width="1" stroke-dasharray="8,4" opacity="0.5"/>
+
+  <!-- Themes -->
+  <text x="400" y="260" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#ffd700">折勒干布 · 藏刀传说</text>
+  <text x="400" y="300" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#ffaa44">莽夫之勇亦是勇</text>
+  <text x="400" y="340" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#aaaaaa">康巴人的血性 · 李逵式的勇敢</text>
+
+  <!-- Bottom decoration -->
+  <rect x="0" y="480" width="800" height="20" fill="#2d1b00" opacity="0.8"/>
+  <text x="400" y="494" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#ffd700" opacity="0.6">扬卡洛夫 · Tibetan Knife · Courage</text>
+
+  <!-- Decorative corners -->
+  <g transform="translate(30,30)" opacity="0.3">
+    <path d="M 0,20 L 0,0 L 20,0" fill="none" stroke="#ffd700" stroke-width="2"/>
+  </g>
+  <g transform="translate(770,30)" opacity="0.3">
+    <path d="M 0,20 L 0,0 L -20,0" fill="none" stroke="#ffd700" stroke-width="2"/>
+  </g>
+  <g transform="translate(30,470)" opacity="0.3">
+    <path d="M 0,-20 L 0,0 L 20,0" fill="none" stroke="#ffd700" stroke-width="2"/>
+  </g>
+  <g transform="translate(770,470)" opacity="0.3">
+    <path d="M 0,-20 L 0,0 L -20,0" fill="none" stroke="#ffd700" stroke-width="2"/>
+  </g>
+</svg>
