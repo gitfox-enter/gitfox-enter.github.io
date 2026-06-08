@@ -51,17 +51,7 @@ export const theme: ThemeUserConfig = {
     {
       tag: 'script',
       attrs: { type: 'application/ld+json' },
-      content: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'WebSite',
-        name: 'GitFox Blog',
-        url: 'https://gitfox-enter.github.io/gold-bear-blog/',
-        description: 'GitFox · 自动化 · AI 编程 · 生活与远方',
-        author: {
-          '@type': 'Person',
-          name: 'GitFox'
-        }
-      })
+      content: '{"@context":"https://schema.org","@type":"WebSite","name":"GitFox Blog","url":"https://gitfox-enter.github.io/gold-bear-blog/","description":"GitFox · 自动化 · AI 编程 · 生活与远方","author":{"@type":"Person","name":"GitFox"}}'
     },
     /* Telegram channel */
     // {
