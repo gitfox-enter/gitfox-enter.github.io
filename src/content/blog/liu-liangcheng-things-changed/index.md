@@ -8,6 +8,8 @@ tags:
   - 乡土
   - 哲思
 language: 中文
+heroImage:
+  src: ./cover.jpg
 ---
 
 ![我改变的事物](cover.jpg)
