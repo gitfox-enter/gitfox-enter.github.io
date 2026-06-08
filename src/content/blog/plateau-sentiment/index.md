@@ -9,6 +9,8 @@ tags:
   - 旅行
   - 散文
 language: 中文
+heroImage:
+  src: ./cover.jpg
 ---
 
 ![高原情思](cover.jpg)
