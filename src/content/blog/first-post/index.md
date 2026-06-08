@@ -6,6 +6,8 @@ tags:
   - 随笔
   - Astro
 language: 中文
+heroImage:
+  src: ./cover.jpg
 ---
 
 ![Hello World - 我的第一篇博客](cover.jpg)
