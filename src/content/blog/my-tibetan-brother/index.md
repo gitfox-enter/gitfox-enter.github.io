@@ -10,6 +10,8 @@ tags:
 language: 中文
 heroImage:
   src: https://cdn.jsdelivr.net/gh/gitfox-enter/gold-bear-blog@main/src/content/blog/my-tibetan-brother/cover.jpg
+  width: 1536
+  height: 1024
 ---
 **作者：李文化**
 
