@@ -8,6 +8,8 @@ tags:
   - 自然
   - 乡土
 language: 中文
+heroImage:
+  src: ./cover.jpg
 ---
 
 ![与虫共眠](cover.jpg)
