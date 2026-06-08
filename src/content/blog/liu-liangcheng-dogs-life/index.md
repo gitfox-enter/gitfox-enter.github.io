@@ -8,6 +8,8 @@ tags:
   - 乡土
   - 动物
 language: 中文
+heroImage:
+  src: ./cover.jpg
 ---
 
 ![狗这一辈子](cover.jpg)
