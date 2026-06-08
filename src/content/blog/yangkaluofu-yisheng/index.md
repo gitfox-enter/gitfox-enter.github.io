@@ -9,6 +9,8 @@ tags:
 language: 中文
 heroImage:
   src: https://cdn.jsdelivr.net/gh/gitfox-enter/gold-bear-blog@main/src/content/blog/yangkaluofu-yisheng/cover.jpg
+  width: 1200
+  height: 800
 ---
 **作者：扬卡洛夫（杨队长）**
 
