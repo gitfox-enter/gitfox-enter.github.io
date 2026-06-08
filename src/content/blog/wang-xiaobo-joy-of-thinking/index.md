@@ -8,6 +8,8 @@ tags:
   - 思想
   - 经典散文
 language: 中文
+heroImage:
+  src: ./cover.jpg
 ---
 
 ![思维的乐趣](cover.jpg)
