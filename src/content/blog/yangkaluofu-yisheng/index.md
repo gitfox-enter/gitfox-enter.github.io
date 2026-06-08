@@ -7,6 +7,8 @@ tags:
   - 文学
   - 转载
 language: 中文
+heroImage:
+  src: ./cover.jpg
 ---
 
 ![医生和诗人 - 藏族风格的医生与诗集配图](cover.jpg)
