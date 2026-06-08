@@ -115,11 +115,11 @@ const shares = {
 
 <div class='mx-6 rounded-b-xl border border-t-0 px-3 pb-1.5 pt-1 sm:mx-8 sm:px-4'>
   <a
-    href='/projects#sponsorship'
+    href={new URL('/projects#sponsorship', Astro.site).href}
     class='flex items-center justify-between text-muted-foreground no-underline'
     target='_blank'
   >
-    <!--CUSTOM_COPYRIGHT-->Buy me a cup of coffee ☕.
+    Buy me a cup of coffee ☕.
     <Icon class='box-content size-5 p-1' name='receive-money' />
   </a>
 </div>
