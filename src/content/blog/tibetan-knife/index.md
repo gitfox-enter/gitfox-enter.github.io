@@ -8,6 +8,8 @@ tags:
   - 藏刀
   - 康巴人
 language: 中文
+heroImage:
+  src: ./cover.jpg
 ---
 
 
