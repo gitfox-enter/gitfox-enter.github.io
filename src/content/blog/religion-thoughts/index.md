@@ -8,6 +8,8 @@ tags:
   - 宗教
   - 藏族文化
 language: 中文
+heroImage:
+  src: ./cover.jpg
 ---
 
 
