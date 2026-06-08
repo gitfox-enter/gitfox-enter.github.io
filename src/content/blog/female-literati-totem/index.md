@@ -8,6 +8,8 @@ tags:
   - 幽默
   - 文化观察
 language: 中文
+heroImage:
+  src: ./cover.jpg
 ---
 
 
