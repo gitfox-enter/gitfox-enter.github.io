@@ -9,9 +9,6 @@ language: 中文
 heroImage:
   src: ./cover.jpg
 ---
-
-![Hello World - 我的第一篇博客](cover.jpg)
-
 ## 为什么写博客
 
 记录技术折腾的过程，方便以后回看，也分享给有需要的人。
