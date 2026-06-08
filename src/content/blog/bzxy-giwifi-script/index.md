@@ -8,6 +8,8 @@ tags:
   - 开源
   - 自动化
 language: 中文
+heroImage:
+  src: ./cover.jpg
 ---
 
 ![亳州学院校园网自动登录脚本](cover.jpg)
