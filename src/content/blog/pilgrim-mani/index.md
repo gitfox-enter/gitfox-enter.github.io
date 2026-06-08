@@ -10,7 +10,7 @@ tags:
   - 散文
 language: 中文
 heroImage:
-  src: ./cover.jpg
+  src: https://cdn.jsdelivr.net/gh/gitfox-enter/gold-bear-blog@main/src/content/blog/pilgrim-mani/cover.jpg
 ---
 **作者：史传统**
 
