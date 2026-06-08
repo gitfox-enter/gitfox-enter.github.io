@@ -11,6 +11,8 @@ tags:
 language: 中文
 heroImage:
   src: https://cdn.jsdelivr.net/gh/gitfox-enter/gold-bear-blog@main/src/content/blog/plateau-sentiment/cover.jpg
+  width: 1536
+  height: 1024
 ---
 **作者：洪和胜**
 
