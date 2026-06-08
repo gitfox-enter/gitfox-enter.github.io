@@ -8,6 +8,8 @@ tags:
   - 自然
   - 哲思
 language: 中文
+heroImage:
+  src: ./cover.jpg
 ---
 
 ![对一朵花微笑](cover.jpg)
