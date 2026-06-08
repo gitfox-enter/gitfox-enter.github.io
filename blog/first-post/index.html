@@ -77,12 +77,12 @@
         "><div class="ready"><svg class="size-5"><use href="/icons/code.svg#mingcute-clipboard-line"></use></svg></div><div class="success hidden"><svg class="size-5"><use href="/icons/code.svg#mingcute-file-check-line"></use></svg></div></button><button class="collapse-toggle bg-card text-muted-foreground rounded-lg m-2" aria-label="Toggle collapse code block" onclick="this.parentElement.classList.toggle(&#x27;collapsed&#x27;)"><svg class="size-5"><use href="/icons/code.svg#mingcute-arrow-down-line"></use></svg><span class="desc"> code</span></button><div class="collapse-fade"></div></div>
 <h2 id="怎么写文章">怎么写文章<a class="anchor" href="#怎么写文章">#</a></h2>
 <p>在 <code>src/content/blog/</code> 目录下新建 <code>.md</code> 文件，顶部加上 frontmatter：</p>
-<div class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="markdown"><pre><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">---</span></span>
-<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">title</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"文章标题"</span></span>
-<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">date</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"2026-06-04"</span></span>
-<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">tags</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: [</span><span style="color:#032F62;--shiki-dark:#9ECBFF">"标签1"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"标签2"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">]</span></span>
-<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">description</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"一句话描述"</span></span>
-<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">---</span></span>
+<div class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="markdown"><pre><code><span class="line"><span style="color:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold">---</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">title: "文章标题"</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">date: "2026-06-04"</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">tags: ["标签1", "标签2"]</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">description: "一句话描述"</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold">---</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">正文内容...</span></span></code></pre><span class="language ps-1 pe-3 text-sm bg-muted text-muted-foreground">markdown</span><button class="copy text-muted-foreground p-1 box-content border rounded-lg bg-card" aria-label="Copy code" data-code="---
 title: &#x22;文章标题&#x22;
