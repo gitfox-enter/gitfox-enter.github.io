@@ -16,6 +16,18 @@
       'color:#fff;background:linear-gradient(90deg,#448bff,#44e9ff);padding:5px 0;',
       'color:#000;background:linear-gradient(90deg,#44e9ff,#ffffff);padding:5px 10px 5px 0px;' )
     </script><script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/gold-bear-blog/sw.js')
+        .then(function(registration) {
+          console.log('[SW] Registered:', registration.scope);
+        })
+        .catch(function(error) {
+          console.log('[SW] Registration failed:', error);
+        });
+    });
+  }
+</script><script>
   function simpleSetTheme() {
     let theme = localStorage.getItem('theme')
     // If undefined or 'system', get from system
