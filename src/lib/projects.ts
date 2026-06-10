@@ -3,9 +3,7 @@
  * 合并 GitHub API 数据和自定义配置
  */
 
-// @ts-ignore - generated at build time by fetch-github-projects.mjs
 import githubData from '@/data/github-projects.json'
-// @ts-ignore - may not exist
 import projectConfig from '@/data/project-config.json'
 
 export interface Project {
@@ -47,8 +45,8 @@ interface CustomConfig {
  * 获取合并后的项目列表
  */
 export function getProjects(): Project[] {
-  const githubProjects: GithubRepo[] = githubData.allProjects
-  const config: Record<string, CustomConfig> = projectConfig.projects
+  const githubProjects: GithubRepo[] = (githubData as any).allProjects ?? []
+  const config: Record<string, CustomConfig> = (projectConfig as any).projects ?? {}
   
   // 合并 GitHub 数据和配置
   const mergedProjects: Project[] = githubProjects.map((repo: GithubRepo) => {
@@ -72,7 +70,7 @@ export function getProjects(): Project[] {
   
   // 添加配置中有但 GitHub 没有的项目（如外部项目）
   for (const [name, customConfig] of Object.entries(config) as [string, CustomConfig][]) {
-    if (!githubProjects.find((r: GithubRepo) => r.name === name)) {
+    if (!mergedProjects.find(p => p.name === name)) {
       mergedProjects.push({
         name,
         title: customConfig.title || name,
@@ -104,5 +102,5 @@ export function getFeaturedProjects(): Project[] {
  * 获取项目统计信息
  */
 export function getProjectStats() {
-  return githubData.stats
+  return (githubData as any).stats ?? { total_repos: 0, total_stars: 0, total_forks: 0, languages: [], last_updated: '' }
 }
