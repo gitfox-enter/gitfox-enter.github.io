@@ -2,13 +2,14 @@
 interface Props {
   user: string
   class?: string
-  profileLink?: boolean
+  profileLink?: boolean | string
 }
 
 const { user, class: className = '', profileLink = true } = Astro.props
+const profileLinkStr = String(profileLink)
 ---
 
-<github-repos class={`github-repos-container ${className}`} data-user={user} data-profile-link={String(profileLink)}>
+<github-repos class={`github-repos-container ${className}`} data-user={user} data-profile-link={profileLinkStr}>
   <div class='github-repos-grid'>
     {Array.from({ length: 6 }).map(() => (
       <div class='github-repo-card loading'>

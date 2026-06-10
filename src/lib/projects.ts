@@ -3,7 +3,9 @@
  * 合并 GitHub API 数据和自定义配置
  */
 
+// @ts-ignore - generated at build time by fetch-github-projects.mjs
 import githubData from '@/data/github-projects.json'
+// @ts-ignore - may not exist
 import projectConfig from '@/data/project-config.json'
 
 export interface Project {
@@ -21,16 +23,36 @@ export interface Project {
   order: number
 }
 
+interface GithubRepo {
+  name: string
+  description: string
+  language?: string
+  url: string
+  homepage?: string
+  stars: number
+  forks: number
+}
+
+interface CustomConfig {
+  title?: string
+  subtitle?: string
+  customDescription?: string
+  image?: string
+  homepage?: string
+  featured?: boolean
+  order?: number
+}
+
 /**
  * 获取合并后的项目列表
  */
 export function getProjects(): Project[] {
-  const githubProjects = githubData.allProjects
-  const config = projectConfig.projects
+  const githubProjects: GithubRepo[] = githubData.allProjects
+  const config: Record<string, CustomConfig> = projectConfig.projects
   
   // 合并 GitHub 数据和配置
-  const mergedProjects: Project[] = githubProjects.map(repo => {
-    const customConfig = config[repo.name] || {}
+  const mergedProjects: Project[] = githubProjects.map((repo: GithubRepo) => {
+    const customConfig: CustomConfig = config[repo.name] || {}
     
     return {
       name: repo.name,
@@ -49,8 +71,8 @@ export function getProjects(): Project[] {
   })
   
   // 添加配置中有但 GitHub 没有的项目（如外部项目）
-  for (const [name, customConfig] of Object.entries(config)) {
-    if (!githubProjects.find(r => r.name === name)) {
+  for (const [name, customConfig] of Object.entries(config) as [string, CustomConfig][]) {
+    if (!githubProjects.find((r: GithubRepo) => r.name === name)) {
       mergedProjects.push({
         name,
         title: customConfig.title || name,
