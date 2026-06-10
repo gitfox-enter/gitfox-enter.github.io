@@ -1,6 +1,6 @@
 // Post-build: fix hardcoded links in dist that don't respect Astro base path
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs'
-import { join, basename } from 'node:path'
+import { join } from 'node:path'
 
 const BASE = '/gold-bear-blog'
 const DIST = 'dist'
@@ -52,6 +52,16 @@ for (const file of htmlFiles) {
   content = content.replace(/href="\/blog"(?=\s|>)/g, `href="${BASE}/blog"`)
   // Fix coffee link (Buy me a cup of coffee) — redirect to sponsor page
   content = content.replace(/href="\/projects#sponsorship"/g, `href="${BASE}/sponsor"`)
+  // Fix archives link
+  content = content.replace(/href="\/archives"/g, `href="${BASE}/archives"`)
+  // Fix docs internal links
+  content = content.replace(/href="\/docs\//g, `href="${BASE}/docs/`)
+  // Fix terms links
+  content = content.replace(/href="\/terms\//g, `href="${BASE}/terms/`)
+  // Fix sponsor page link
+  content = content.replace(/href="\/sponsor"/g, `href="${BASE}/sponsor"`)
+  // Fix projects page link
+  content = content.replace(/href="\/projects"/g, `href="${BASE}/projects"`)
 
   // Fix prev/next post navigation in blog detail pages
   // ArticleBottom.astro uses slice(0,2) which drops /blog/ from path

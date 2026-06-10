@@ -38,20 +38,9 @@ const jsonLd = JSON.stringify({
 <link rel='icon' type='image/png' sizes='32x32' href='/favicon/favicon-32x32.png' />
 <link rel='icon' type='image/png' sizes='16x16' href='/favicon/favicon-16x16.png' />
 <link rel='apple-touch-icon' sizes='180x180' href='/favicon/apple-touch-icon.png' />
-<link rel='manifest' href='/gold-bear-blog/manifest.json' />
+{/* DNS/manifest/PWA meta already in site.config.ts head[], keeping only font preloads here */}
 
-{/* DNS Prefetch & Preconnect for Performance */}
-<link rel='dns-prefetch' href='https://cdn.jsdelivr.net' />
-<link rel='preconnect' href='https://cdn.jsdelivr.net' crossorigin />
-<link rel='dns-prefetch' href='https://fonts.googleapis.com' />
-<link rel='preconnect' href='https://fonts.googleapis.com' crossorigin />
-<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
-
-{/* PWA Manifest */}
-<link rel='manifest' href='/gold-bear-blog/manifest.json' />
-<meta name='theme-color' content='#659EB9' />
-<meta name='apple-mobile-web-app-capable' content='yes' />
-<meta name='apple-mobile-web-app-status-bar-style' content='default' />
+{/* PWA - manifest/theme-color already in site.config.ts head[], removed duplicates */}
 
 {/* Font preloads */}
 <Font cssVariable='--font-satoshi' preload={[{ subset: 'latin', style: 'normal' }]} />
@@ -109,14 +98,14 @@ const jsonLd = JSON.stringify({
 <meta content={socialImageURL} property='twitter:image' />
 
 {/* Sitemap */}
-<link href='/sitemap-index.xml' rel='sitemap' />
+<link href='/gold-bear-blog/sitemap-index.xml' rel='sitemap' />
 
 {/* RSS auto-discovery */}
 <link
   rel='alternate'
   type='application/rss+xml'
   title={config.title}
-  href={`${Astro.site}rss.xml`}
+  href={`${Astro.site}gold-bear-blog/rss.xml`}
 />
 
 <meta content={Astro.generator} name='generator' />
