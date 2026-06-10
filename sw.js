@@ -1,11 +1,11 @@
 // GitFox Blog Service Worker
-const CACHE_NAME = 'gitfox-blog-v2';
+const CACHE_NAME = 'gitfox-blog-v3';
 const CACHE_URLS = [
   '/gold-bear-blog/',
-  '/gold-bear-blog/blog',
-  '/gold-bear-blog/about',
-  '/gold-bear-blog/projects',
-  '/gold-bear-blog/links',
+  '/gold-bear-blog/blog/',
+  '/gold-bear-blog/about/',
+  '/gold-bear-blog/projects/',
+  '/gold-bear-blog/links/',
   '/gold-bear-blog/favicon/favicon.ico',
   '/gold-bear-blog/favicon/favicon-32x32.png',
   '/gold-bear-blog/favicon/android-chrome-192x192.png'
