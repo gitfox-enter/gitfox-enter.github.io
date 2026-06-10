@@ -1,0 +1,51 @@
+{
+  "projects": {
+    "site-update-monitor": {
+      "title": "站点更新监控",
+      "subtitle": "多站点巡检面板",
+      "image": "/gold-bear-blog/project-1.png",
+      "featured": true,
+      "order": 1,
+      "customDescription": "自动化多站点更新监控系统，GitHub Actions 定时抓取 35 个站点，覆盖羊毛线报和免费软件"
+    },
+    "gold-bear-blog": {
+      "title": "个人博客",
+      "subtitle": "Astro + Pure 主题",
+      "image": "/gold-bear-blog/project-2.png",
+      "featured": true,
+      "order": 2,
+      "customDescription": "基于 Astro 搭建的个人博客，部署到 GitHub Pages，支持 RSS 和 Sitemap"
+    },
+    "BZXY_GWIFI": {
+      "title": "校园网自动登录",
+      "subtitle": "脚本猫发布",
+      "image": "/gold-bear-blog/project-3.png",
+      "featured": true,
+      "order": 3,
+      "homepage": "https://scriptcat.org/zh-CN/script-show-page/5981",
+      "customDescription": "亳州学院校园网 GiWiFi 自动登录工具，支持断网重连、后台运行"
+    },
+    "qinglong-checkin": {
+      "title": "青龙面板自动签到",
+      "subtitle": "Docker 部署",
+      "image": "/gold-bear-blog/project-4.png",
+      "featured": true,
+      "order": 4,
+      "customDescription": "青龙面板自动签到脚本"
+    },
+    "video-viewer": {
+      "title": "视频播放器",
+      "subtitle": "GitHub Actions 下载 YouTube",
+      "image": "/gold-bear-blog/project-5.png",
+      "featured": true,
+      "order": 5
+    },
+    "github-trending": {
+      "title": "GitHub 热门项目",
+      "subtitle": "Python 项目排行榜",
+      "image": "/gold-bear-blog/project-6.png",
+      "featured": true,
+      "order": 6
+    }
+  }
+}

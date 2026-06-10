@@ -8,10 +8,12 @@ import { Button, Card, Icon, Label } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import Section from '@/components/home/Section.astro'
 import config from '@/site-config'
+import { getFeaturedProjects } from '@/lib/projects'
 
 const MAX_POSTS = 10
 const allPosts = await getBlogCollection()
 const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
+const featuredProjects = getFeaturedProjects()
 
 const imagePath = config.logo.src
 const images = import.meta.glob<{ default: ImageMetadata }>(
@@ -88,98 +90,34 @@ if (!images[imagePath])
 
       <Section title='项目'>
         <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
-          <a
-            href='https://gitfox-enter.github.io/site-update-monitor/'
-            target='_blank'
-            class='group relative overflow-hidden rounded-xl border border-border bg-card transition hover:shadow-md'
-          >
-            <img
-              src='/gold-bear-blog/project-1.png'
-              alt='站点更新监控'
-              class='aspect-[16/9] w-full object-cover transition group-hover:scale-105'
-              loading='lazy'
-            />
-            <div class='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 pt-8'>
-              <h4 class='text-sm font-medium text-white'>站点更新监控</h4>
-              <p class='text-xs text-white/70'>多站点巡检面板</p>
-            </div>
-          </a>
-          <a
-            href='https://gitfox-enter.github.io/gold-bear-blog/'
-            target='_blank'
-            class='group relative overflow-hidden rounded-xl border border-border bg-card transition hover:shadow-md'
-          >
-            <img
-              src='/gold-bear-blog/project-2.png'
-              alt='个人博客'
-              class='aspect-[16/9] w-full object-cover transition group-hover:scale-105'
-              loading='lazy'
-            />
-            <div class='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 pt-8'>
-              <h4 class='text-sm font-medium text-white'>个人博客</h4>
-              <p class='text-xs text-white/70'>Astro + Pure 主题</p>
-            </div>
-          </a>
-          <a
-            href='https://scriptcat.org/zh-CN/script-show-page/5981'
-            target='_blank'
-            class='group relative overflow-hidden rounded-xl border border-border bg-card transition hover:shadow-md'
-          >
-            <img
-              src='/gold-bear-blog/project-3.png'
-              alt='校园网自动登录'
-              class='aspect-[16/9] w-full object-cover transition group-hover:scale-105'
-              loading='lazy'
-            />
-            <div class='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 pt-8'>
-              <h4 class='text-sm font-medium text-white'>校园网自动登录</h4>
-              <p class='text-xs text-white/70'>脚本猫发布</p>
-            </div>
-          </a>
-          <div class='group relative overflow-hidden rounded-xl border border-border bg-card'>
-            <img
-              src='/gold-bear-blog/project-4.png'
-              alt='青龙面板自动签到'
-              class='aspect-[16/9] w-full object-cover transition group-hover:scale-105'
-              loading='lazy'
-            />
-            <div class='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 pt-8'>
-              <h4 class='text-sm font-medium text-white'>青龙面板自动签到</h4>
-              <p class='text-xs text-white/70'>Docker 部署</p>
-            </div>
-          </div>
-          <a
-            href='https://gitfox-enter.github.io/video-viewer/'
-            target='_blank'
-            class='group relative overflow-hidden rounded-xl border border-border bg-card transition hover:shadow-md'
-          >
-            <img
-              src='/gold-bear-blog/project-5.png'
-              alt='视频播放器'
-              class='aspect-[16/9] w-full object-cover transition group-hover:scale-105'
-              loading='lazy'
-            />
-            <div class='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 pt-8'>
-              <h4 class='text-sm font-medium text-white'>视频播放器</h4>
-              <p class='text-xs text-white/70'>GitHub Actions 下载 YouTube</p>
-            </div>
-          </a>
-          <a
-            href='https://gitfox-enter.github.io/github-trending/'
-            target='_blank'
-            class='group relative overflow-hidden rounded-xl border border-border bg-card transition hover:shadow-md'
-          >
-            <img
-              src='/gold-bear-blog/project-6.png'
-              alt='GitHub 热门项目'
-              class='aspect-[16/9] w-full object-cover transition group-hover:scale-105'
-              loading='lazy'
-            />
-            <div class='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 pt-8'>
-              <h4 class='text-sm font-medium text-white'>GitHub 热门项目</h4>
-              <p class='text-xs text-white/70'>Python 项目排行榜</p>
-            </div>
-          </a>
+          {featuredProjects.map((project) => (
+            <a
+              href={project.homepage || project.url}
+              target='_blank'
+              class='group relative overflow-hidden rounded-xl border border-border bg-card transition hover:shadow-md'
+            >
+              <img
+                src={project.image}
+                alt={project.title}
+                class='aspect-[16/9] w-full object-cover transition group-hover:scale-105'
+                loading='lazy'
+              />
+              <div class='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 pt-8'>
+                <div class='flex items-center gap-2'>
+                  <h4 class='text-sm font-medium text-white'>{project.title}</h4>
+                  {project.stars > 0 && (
+                    <span class='flex items-center gap-1 text-xs text-yellow-300'>
+                      <svg class='h-3 w-3' fill='currentColor' viewBox='0 0 20 20'>
+                        <path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z' />
+                      </svg>
+                      {project.stars}
+                    </span>
+                  )}
+                </div>
+                <p class='text-xs text-white/70'>{project.subtitle}</p>
+              </div>
+            </a>
+          ))}
         </div>
       </Section>
 

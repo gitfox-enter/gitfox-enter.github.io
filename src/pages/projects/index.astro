@@ -4,6 +4,10 @@ import PageLayout from '@/layouts/CommonPage.astro'
 import ProjectSection from '@/components/projects/ProjectSection.astro'
 import Sponsorship from '@/components/projects/Sponsorship.astro'
 import wechat from '@/assets/images/wechat-tip.jpg'
+import { getProjects, getProjectStats } from '@/lib/projects'
+
+const projects = getProjects()
+const stats = getProjectStats()
 
 const headings = [
   { depth: 2, slug: 'programs', text: '开源项目' },
@@ -17,31 +21,14 @@ const headings = [
 
   <h2 id='programs'>开源项目</h2>
   <ProjectSection
-    projects={[
-      {
-        name: '🐻 gold-bear-blog',
-        description: '基于 Astro 搭建的个人博客，部署到 GitHub Pages，支持 RSS 和 Sitemap',
-        links: [
-          { type: 'github', href: 'https://github.com/gitfox-enter/gold-bear-blog' },
-          { type: 'site', href: 'https://gitfox-enter.github.io/gold-bear-blog/' }
-        ]
-      },
-      {
-        name: '🔭 site-update-monitor',
-        description: '自动化多站点更新监控系统，GitHub Actions 定时抓取 35 个站点，覆盖羊毛线报和免费软件',
-        links: [
-          { type: 'github', href: 'https://github.com/gitfox-enter/site-update-monitor' },
-          { type: 'site', href: 'https://gitfox-enter.github.io/site-update-monitor/' }
-        ]
-      },
-      {
-        name: '📡 BZXY_GWIFI',
-        description: '亳州学院校园网 GiWiFi 自动登录工具，支持断网重连、后台运行',
-        links: [
-          { type: 'site', href: 'https://scriptcat.org/zh-CN/script-show-page/5981' }
-        ]
-      }
-    ]}
+    projects={projects.map(project => ({
+      name: `${project.name}${project.stars > 0 ? ` ⭐ ${project.stars}` : ''}`,
+      description: project.description,
+      links: [
+        { type: 'github', href: project.url },
+        ...(project.homepage ? [{ type: 'site' as const, href: project.homepage }] : [])
+      ]
+    }))}
   />
 
   <h2 id='github'>GitHub 活动</h2>

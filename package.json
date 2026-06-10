@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "dev:check": "astro check --watch & astro dev",
-    "build": "astro-pure check && astro check && astro build && node scripts/fix-base-path.mjs",
+    "build": "node scripts/fetch-github-projects.mjs && astro-pure check && astro check && astro build && node scripts/fix-base-path.mjs",
     "preview": "astro preview",
     "sync": "astro sync",
     "check": "astro check",
