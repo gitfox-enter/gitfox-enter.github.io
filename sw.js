@@ -1,5 +1,5 @@
 // GitFox Blog Service Worker
-const CACHE_NAME = 'gitfox-blog-v1';
+const CACHE_NAME = 'gitfox-blog-v2';
 const CACHE_URLS = [
   '/gold-bear-blog/',
   '/gold-bear-blog/blog',
