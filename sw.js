@@ -1,14 +1,14 @@
 // GitFox Blog Service Worker
 const CACHE_NAME = 'gitfox-blog-v3';
 const CACHE_URLS = [
-  '/gold-bear-blog/',
-  '/gold-bear-blog/blog/',
-  '/gold-bear-blog/about/',
-  '/gold-bear-blog/projects/',
-  '/gold-bear-blog/links/',
-  '/gold-bear-blog/favicon/favicon.ico',
-  '/gold-bear-blog/favicon/favicon-32x32.png',
-  '/gold-bear-blog/favicon/android-chrome-192x192.png'
+  '/',
+  '/blog/',
+  '/about/',
+  '/projects/',
+  '/links/',
+  '/favicon/favicon.ico',
+  '/favicon/favicon-32x32.png',
+  '/favicon/android-chrome-192x192.png'
 ];
 
 // Install: cache core assets
@@ -46,7 +46,7 @@ self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   
   const url = new URL(event.request.url);
-  if (!url.pathname.startsWith('/gold-bear-blog/')) return;
+  if (!url.pathname.startsWith('/')) return;
   
   event.respondWith(
     caches.match(event.request)
@@ -76,7 +76,7 @@ self.addEventListener('fetch', event => {
           })
           .catch(() => {
             if (event.request.destination === 'document') {
-              return caches.match('/gold-bear-blog/');
+              return caches.match('/');
             }
           });
       })
