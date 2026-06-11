@@ -2,8 +2,8 @@
   "name": "GitFox Blog",
   "short_name": "GitFox",
   "description": "GitFox · 自动化 · AI 编程 · 生活与远方",
-  "start_url": "/gold-bear-blog/",
-  "scope": "/gold-bear-blog/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
@@ -12,19 +12,19 @@
   "lang": "zh-CN",
   "icons": [
     {
-      "src": "/gold-bear-blog/favicon/favicon-32x32.png",
+      "src": "/favicon/favicon-32x32.png",
       "sizes": "32x32",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/gold-bear-blog/favicon/android-chrome-192x192.png",
+      "src": "/favicon/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/gold-bear-blog/favicon/android-chrome-512x512.png",
+      "src": "/favicon/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
