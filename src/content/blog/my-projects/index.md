@@ -12,7 +12,7 @@ heroImage:
 ---
 目前我在 GitHub 上有两个自己的项目，记录一下它们的来龙去脉。
 
-## 1. gitfox 的博客 (gold-bear-blog)
+## 1. gitfox 的博客 (gitfox-enter.github.io)
 
 - **地址**: [gitfox-enter/gitfox-enter.github.io](https://github.com/gitfox-enter/gitfox-enter.github.io)
 - **技术栈**: Astro 4.16
