@@ -11,7 +11,7 @@ export const theme: ThemeUserConfig = {
   /** The default favicon for your site which should be a path to an image in the `public/` directory. */
   favicon: '/favicon/favicon-32x32.png',
   /** The default social card image for your site which should be a path to an image in the `public/` directory. */
-  socialCard: '/gold-bear-blog/images/social-card.png',
+  socialCard: '/images/social-card.png',
   /** Specify the default language for this site. */
   locale: {
     lang: 'zh-CN',
@@ -42,8 +42,8 @@ export const theme: ThemeUserConfig = {
     { tag: 'link', attrs: { rel: 'dns-prefetch', href: 'https://fonts.googleapis.com' }, content: '' },
     { tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.googleapis.com', crossorigin: 'anonymous' }, content: '' },
     { tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' }, content: '' },
-    { tag: 'script', attrs: { src: '/gold-bear-blog/sw-register.js', defer: true }, content: '' },
-    { tag: 'link', attrs: { rel: 'manifest', href: '/gold-bear-blog/manifest.json' }, content: '' },
+    { tag: 'script', attrs: { src: '/sw-register.js', defer: true }, content: '' },
+    { tag: 'link', attrs: { rel: 'manifest', href: '/manifest.json' }, content: '' },
     { tag: 'meta', attrs: { name: 'theme-color', content: '#659EB9' }, content: '' },
     { tag: 'meta', attrs: { name: 'apple-mobile-web-app-capable', content: 'yes' }, content: '' },
     { tag: 'meta', attrs: { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }, content: '' },
@@ -51,7 +51,7 @@ export const theme: ThemeUserConfig = {
     {
       tag: 'script',
       attrs: { type: 'application/ld+json' },
-      content: '{"@context":"https://schema.org","@type":"WebSite","name":"GitFox Blog","url":"https://gitfox-enter.github.io/gold-bear-blog/","description":"GitFox · 自动化 · AI 编程 · 生活与远方","author":{"@type":"Person","name":"GitFox"}}'
+      content: '{"@context":"https://schema.org","@type":"WebSite","name":"GitFox Blog","url":"https://gitfox-enter.github.io/","description":"GitFox · 自动化 · AI 编程 · 生活与远方","author":{"@type":"Person","name":"GitFox"}}'
     },
     /* Telegram channel */
     // {
@@ -68,11 +68,11 @@ export const theme: ThemeUserConfig = {
   /** Configure the header of your site. */
   header: {
     menu: [
-      { title: '博客', link: '/gold-bear-blog/blog' },
-      { title: '文档', link: '/gold-bear-blog/docs' },
-      { title: '项目', link: '/gold-bear-blog/projects' },
-      { title: '链接', link: '/gold-bear-blog/links' },
-      { title: '关于', link: '/gold-bear-blog/about' }
+      { title: '博客', link: '/blog' },
+      { title: '文档', link: '/docs' },
+      { title: '项目', link: '/projects' },
+      { title: '链接', link: '/links' },
+      { title: '关于', link: '/about' }
     ]
   },
 
@@ -124,8 +124,8 @@ export const integ: IntegrationUserConfig = {
     applyTip: [
       { name: 'Name', val: theme.title },
       { name: 'Desc', val: theme.description || 'Null' },
-      { name: 'Link', val: 'https://gitfox-enter.github.io/gold-bear-blog/' },
-      { name: 'Avatar', val: 'https://gitfox-enter.github.io/gold-bear-blog/favicon/favicon.ico' }
+      { name: 'Link', val: 'https://gitfox-enter.github.io/' },
+      { name: 'Avatar', val: 'https://gitfox-enter.github.io/favicon/favicon.ico' }
     ],
     // Cache avatars in `public/avatars/` to improve user experience.
     cacheAvatar: false
