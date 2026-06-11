@@ -8,7 +8,7 @@
       "order": 1,
       "customDescription": "自动化多站点更新监控系统，GitHub Actions 定时抓取 35 个站点，覆盖羊毛线报和免费软件"
     },
-    "gold-bear-blog": {
+    "gitfox-enter.github.io": {
       "title": "个人博客",
       "subtitle": "Astro + Pure 主题",
       "image": "/project-2.png",
