@@ -2,7 +2,7 @@
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
-const BASE = '/gold-bear-blog'
+const BASE = ''
 const DIST = 'dist'
 
 function walk(dir) {
@@ -65,7 +65,7 @@ for (const file of htmlFiles) {
 
   // Fix prev/next post navigation in blog detail pages
   // ArticleBottom.astro uses slice(0,2) which drops /blog/ from path
-  // e.g. /gold-bear-blog/my-projects → /gold-bear-blog/blog/my-projects
+  // e.g. /gitfox-enter.github.io/my-projects → /gitfox-enter.github.io/blog/my-projects
   // Use normalized path (forward slashes) for cross-platform matching
   const normalized = file.replace(/\\/g, '/')
   if (normalized.includes('dist/blog/') && blogSlugs.length > 0) {
