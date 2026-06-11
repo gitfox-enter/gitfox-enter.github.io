@@ -25,7 +25,7 @@ heroImage:
 ## 项目结构
 
 ```
-gold-bear-blog/
+gitfox-enter.github.io/
 ├── src/
 │   ├── content/
 │   │   ├── config.ts        # 文章 schema 定义
