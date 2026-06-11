@@ -8,7 +8,7 @@ tags:
   - 转载
 language: 中文
 heroImage:
-  src: https://cdn.jsdelivr.net/gh/gitfox-enter/gold-bear-blog@main/src/content/blog/yangkaluofu-yisheng/cover.jpg
+  src: https://cdn.jsdelivr.net/gh/gitfox-enter/gitfox-enter.github.io@main/src/content/blog/yangkaluofu-yisheng/cover.jpg
   width: 1200
   height: 800
 ---
