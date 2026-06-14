@@ -1,4 +1,16 @@
 ---
+interface RepoData {
+  name: string
+  html_url: string
+  description: string | null
+  stargazers_count: number
+  forks: number
+  language: string | null
+  updated_at: string
+  private: boolean
+  fork: boolean
+}
+
 interface Props {
   user: string
   class?: string
@@ -7,22 +19,77 @@ interface Props {
 
 const { user, class: className = '', profileLink = true } = Astro.props
 const profileLinkStr = String(profileLink)
+
+let reposData: RepoData[] = []
+let fetchError = false
+
+try {
+  const token = import.meta.env.GITHUB_TOKEN || ''
+  const res = await fetch(
+    `https://api.github.com/users/${user}/repos?per_page=100&sort=updated&type=owner`,
+    {
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: 'application/vnd.github.v3+json',
+        'User-Agent': 'gitfox-enter-blog'
+      }
+    }
+  )
+
+  if (!res.ok) {
+    throw new Error(`GitHub API error: ${res.status}`)
+  }
+
+  let repos: RepoData[] = await res.json()
+
+  repos = repos.filter((r) => !r.private && !r.fork)
+  repos.sort((a, b) => {
+    if (b.stargazers_count !== a.stargazers_count) {
+      return b.stargazers_count - a.stargazers_count
+    }
+    return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+  })
+
+  reposData = repos.slice(0, 6)
+} catch (e) {
+  console.error('Failed to fetch GitHub repos at build time:', e)
+  fetchError = true
+}
 ---
 
 <github-repos class={`github-repos-container ${className}`} data-user={user} data-profile-link={profileLinkStr}>
-  <div class='github-repos-grid'>
-    {Array.from({ length: 6 }).map(() => (
-      <div class='github-repo-card loading'>
-        <div class='load-block repo-name-block'>&nbsp;</div>
-        <div class='load-block repo-desc-block'>&nbsp;</div>
-        <div class='repo-stats'>
-          <div class='load-block repo-stat-block'>&nbsp;</div>
-          <div class='load-block repo-stat-block'>&nbsp;</div>
-          <div class='load-block repo-stat-block'>&nbsp;</div>
+  {
+    fetchError || reposData.length === 0 ? (
+      <p class="repos-error">GitHub 项目加载失败，请稍后刷新</p>
+    ) : (
+      <div>
+        <div class='github-repos-grid'>
+          {reposData.map((repo) => (
+            <div class='github-repo-card'>
+              <a class='repo-link' href={repo.html_url} target='_blank' rel='noopener noreferrer'>
+                <div class='repo-name'>{repo.name}</div>
+                <div class='repo-desc'>
+                  {repo.description || <span style="opacity:0.5">暂无描述</span>}
+                </div>
+              </a>
+              <div class='repo-stats'>
+                <span class='repo-stat'><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M10.92 2.868a1.25 1.25 0 0 1 2.16 0l2.795 4.798l5.428 1.176a1.25 1.25 0 0 1 .667 2.054l-3.7 4.141l.56 5.525a1.25 1.25 0 0 1-1.748 1.27L12 19.592l-5.082 2.24a1.25 1.25 0 0 1-1.748-1.27l.56-5.525l-3.7-4.14a1.25 1.25 0 0 1 .667-2.055l5.428-1.176zM12 4.987L9.687 8.959a1.25 1.25 0 0 1-.816.592l-4.492.973l3.062 3.427c.234.262.347.61.312.959l-.463 4.573l4.206-1.854a1.25 1.25 0 0 1 1.008 0l4.206 1.854l-.463-4.573a1.25 1.25 0 0 1 .311-.959l3.063-3.427l-4.492-.973a1.25 1.25 0 0 1-.816-.592z"/></g></svg> {repo.stargazers_count.toLocaleString('en-us', { notation: 'compact', maximumFractionDigits: 1 })}</span>
+                <span class='repo-stat'><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M18 3a3 3 0 0 1 1 5.83V9a4 4 0 0 1-4 4H9a2 2 0 0 0-2 2v.17a3.001 3.001 0 1 1-2 0V8.83a3.001 3.001 0 1 1 2 0v2.705A4 4 0 0 1 9 11h6a2 2 0 0 0 2-2v-.17A3.001 3.001 0 0 1 18 3M6 17a1 1 0 1 0 0 2a1 1 0 0 0 0-2M6 5a1 1 0 1 0 0 2a1 1 0 0 0 0-2m12 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2"/></g></svg> {repo.forks.toLocaleString('en-us', { notation: 'compact', maximumFractionDigits: 1 })}</span>
+                {repo.language && (
+                  <span class='repo-stat'><span class='lang-dot' style={`background-color:${getLangColor(repo.language)}`}></span> {repo.language}</span>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
+        {profileLink && (
+          <div class='profile-link-row'>
+            <a href={`https://github.com/${user}`} target='_blank' rel='noopener noreferrer'>查看全部 GitHub 项目 &rarr;</a>
+          </div>
+        )}
       </div>
-    ))}
-  </div>
+    )
+  }
 </github-repos>
 
 <style>
@@ -124,173 +191,49 @@ const profileLinkStr = String(profileLink)
     text-align: right;
   }
 
-  /* Loading skeleton */
-  @keyframes pulsate {
-    0% { opacity: 1; }
-    50% { opacity: 0.4; }
-    to { opacity: 1; }
+  .profile-link-row a {
+    font-size: 0.875rem;
+    color: hsl(var(--muted-foreground));
+    text-decoration: none;
+    transition: color 0.2s;
   }
 
-  .loading .load-block {
-    border-radius: 4px;
-    background-color: hsl(var(--muted));
-    animation: pulsate 2s infinite linear;
-    user-select: none;
+  .profile-link-row a:hover {
+    color: hsl(var(--primary));
   }
 
-  .loading .repo-name-block {
-    height: 1.25rem;
-    width: 60%;
-  }
-
-  .loading .repo-desc-block {
-    height: 1rem;
-    width: 90%;
-    animation-delay: 0.5s;
-  }
-
-  .loading .repo-stat-block {
-    height: 0.875rem;
-    width: 3rem;
-  }
-
-  .loading .repo-stats {
-    animation-delay: 1s;
+  .repos-error {
+    color: hsl(var(--muted-foreground));
+    font-size: 0.875rem;
   }
 </style>
+---
 
-<script>
-  interface RepoData {
-    name: string
-    html_url: string
-    description: string | null
-    stargazers_count: number
-    forks: number
-    language: string | null
-    updated_at: string
-    private: boolean
-    fork: boolean
-  }
-
-  const LANG_COLORS: Record<string, string> = {
-    TypeScript: '#3178c6',
-    JavaScript: '#f1e05a',
-    Python: '#3572A5',
-    HTML: '#e34c26',
-    CSS: '#563d7c',
-    Shell: '#89e051',
-    Vue: '#41b883',
-    Go: '#00ADD8',
-    Rust: '#dea584',
-    Java: '#b07219',
-    'C++': '#f34b7d',
-    C: '#555555',
-    'C#': '#178600',
-    Ruby: '#701516',
-    PHP: '#4F5D95',
-    Swift: '#F05138',
-    Kotlin: '#A97BFF',
-    Dart: '#00B4AB',
-    Astro: '#ff5a03',
-    MDX: '#fcb32c',
-    Svelte: '#ff3e00'
-  }
-
-  // SVG icons (mingcute style, matching GithubCard)
-  const STAR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M10.92 2.868a1.25 1.25 0 0 1 2.16 0l2.795 4.798l5.428 1.176a1.25 1.25 0 0 1 .667 2.054l-3.7 4.141l.56 5.525a1.25 1.25 0 0 1-1.748 1.27L12 19.592l-5.082 2.24a1.25 1.25 0 0 1-1.748-1.27l.56-5.525l-3.7-4.14a1.25 1.25 0 0 1 .667-2.055l5.428-1.176zM12 4.987L9.687 8.959a1.25 1.25 0 0 1-.816.592l-4.492.973l3.062 3.427c.234.262.347.61.312.959l-.463 4.573l4.206-1.854a1.25 1.25 0 0 1 1.008 0l4.206 1.854l-.463-4.573a1.25 1.25 0 0 1 .311-.959l3.063-3.427l-4.492-.973a1.25 1.25 0 0 1-.816-.592z"/></g></svg>`
-  const FORK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M18 3a3 3 0 0 1 1 5.83V9a4 4 0 0 1-4 4H9a2 2 0 0 0-2 2v.17a3.001 3.001 0 1 1-2 0V8.83a3.001 3.001 0 1 1 2 0v2.705A4 4 0 0 1 9 11h6a2 2 0 0 0 2-2v-.17A3.001 3.001 0 0 1 18 3M6 17a1 1 0 1 0 0 2a1 1 0 0 0 0-2M6 5a1 1 0 1 0 0 2a1 1 0 0 0 0-2m12 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2"/></g></svg>`
-
-  function numberFormat(value: number): string {
-    return Intl.NumberFormat('en-us', {
-      notation: 'compact',
-      maximumFractionDigits: 1
-    }).format(value)
-  }
-
-  function escapeHtml(str: string): string {
-    const div = document.createElement('div')
-    div.textContent = str
-    return div.innerHTML
-  }
-
-  function createRepoCard(repo: RepoData): string {
-    const stars = numberFormat(repo.stargazers_count)
-    const forks = numberFormat(repo.forks)
-    const langColor = repo.language ? LANG_COLORS[repo.language] || '#858585' : null
-    const desc = repo.description
-      ? escapeHtml(repo.description.replace(/:[a-zA-Z0-9_]+:/g, ''))
-      : '<span style="opacity:0.5">暂无描述</span>'
-
-    return `
-      <div class="github-repo-card">
-        <a class="repo-link" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">
-          <div class="repo-name">${escapeHtml(repo.name)}</div>
-          <div class="repo-desc">${desc}</div>
-        </a>
-        <div class="repo-stats">
-          <span class="repo-stat">${STAR_SVG} ${stars}</span>
-          <span class="repo-stat">${FORK_SVG} ${forks}</span>
-          ${repo.language
-            ? `<span class="repo-stat"><span class="lang-dot" style="background-color:${langColor}"></span> ${escapeHtml(repo.language)}</span>`
-            : ''
-          }
-        </div>
-      </div>
-    `
-  }
-
-  class GithubRepos extends HTMLElement {
-    async connectedCallback() {
-      const user = this.dataset.user
-      if (!user) return
-
-      const showProfileLink = this.dataset.profileLink !== 'false'
-
-      try {
-        const res = await fetch(
-          `https://api.github.com/users/${user}/repos?per_page=100&sort=updated&type=owner`,
-          { referrerPolicy: 'no-referrer' }
-        )
-
-        if (!res.ok) {
-          throw new Error(`GitHub API error: ${res.status}`)
-        }
-
-        let repos = (await res.json()) as RepoData[]
-
-        // Filter: only public, non-fork repos
-        repos = repos.filter((r) => !r.private && !r.fork)
-
-        // Sort: most stars first, then recently updated
-        repos.sort((a, b) => {
-          if (b.stargazers_count !== a.stargazers_count) {
-            return b.stargazers_count - a.stargazers_count
-          }
-          return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
-        })
-
-        const grid = this.querySelector('.github-repos-grid')
-        if (!grid) return
-
-        grid.innerHTML = repos.map(createRepoCard).join('')
-
-        // Add profile link
-        if (showProfileLink) {
-          const profileRow = document.createElement('div')
-          profileRow.className = 'profile-link-row'
-          profileRow.innerHTML = `<a href="https://github.com/${user}" target="_blank" rel="noopener noreferrer" style="font-size:0.875rem;color:hsl(var(--muted-foreground));text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='hsl(var(--primary))'" onmouseout="this.style.color='hsl(var(--muted-foreground))'">查看全部 GitHub 项目 &rarr;</a>`
-          this.appendChild(profileRow)
-        }
-      } catch (e) {
-        console.error('Failed to fetch GitHub repos:', e)
-        const grid = this.querySelector('.github-repos-grid')
-        if (grid) {
-          grid.innerHTML =
-            '<p style="color:hsl(var(--muted-foreground));font-size:0.875rem">GitHub 项目加载失败，请稍后刷新</p>'
-        }
-      }
+<script lang="ts">
+  function getLangColor(lang: string): string {
+    const colors: Record<string, string> = {
+      TypeScript: '#3178c6',
+      JavaScript: '#f1e05a',
+      Python: '#3572A5',
+      HTML: '#e34c26',
+      CSS: '#563d7c',
+      Shell: '#89e051',
+      Vue: '#41b883',
+      Go: '#00ADD8',
+      Rust: '#dea584',
+      Java: '#b07219',
+      'C++': '#f34b7d',
+      C: '#555555',
+      'C#': '#178600',
+      Ruby: '#701516',
+      PHP: '#4F5D95',
+      Swift: '#F05138',
+      Kotlin: '#A97BFF',
+      Dart: '#00B4AB',
+      Astro: '#ff5a03',
+      MDX: '#fcb32c',
+      Svelte: '#ff3e00'
     }
+    return colors[lang] || '#858585'
   }
-
-  customElements.define('github-repos', GithubRepos)
 </script>

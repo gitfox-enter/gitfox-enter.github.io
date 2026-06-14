@@ -69,7 +69,6 @@ export const theme: ThemeUserConfig = {
   header: {
     menu: [
       { title: '博客', link: '/blog' },
-      { title: '文档', link: '/docs' },
       { title: '项目', link: '/projects' },
       { title: '链接', link: '/links' },
       { title: '关于', link: '/about' }
@@ -86,7 +85,8 @@ export const theme: ThemeUserConfig = {
         title: 'GitHub',
         link: 'https://github.com/gitfox-enter',
         style: 'text-sm'
-      }
+      },
+      { title: 'RSS', link: '/rss.xml', style: 'text-sm' }
     ],
     /** Enable displaying a "Astro & Pure theme powered" link in your site's footer. */
     credits: true,
