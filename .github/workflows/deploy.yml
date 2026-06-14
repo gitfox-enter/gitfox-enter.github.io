@@ -34,7 +34,9 @@ jobs:
       - name: Build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bun run build
+        run: |
+          echo "GITHUB_TOKEN=$GITHUB_TOKEN" > .env
+          bun run build
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
