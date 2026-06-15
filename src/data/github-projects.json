@@ -2,166 +2,65 @@
   "featuredProjects": [
     {
       "name": "site-update-monitor",
-      "description": "Automated multi-site update monitoring system with GitHub Actions and email notifications",
+      "description": "Production-grade multi-site change detection and notification system powered by GitHub Actions",
       "stars": 1,
       "forks": 0,
-      "language": "HTML",
+      "language": "Python",
       "url": "https://github.com/gitfox-enter/site-update-monitor",
       "homepage": null,
       "topics": [],
-      "updated_at": "2026-06-10T09:45:53Z"
+      "updated_at": "2026-06-14T23:48:04Z"
     },
     {
       "name": "gitfox-enter.github.io",
-      "description": "暂无描述",
+      "description": "Personal blog powered by Astro - project showcases, technical articles, and live GitHub repo cards",
       "stars": 0,
       "forks": 0,
       "language": "Astro",
       "url": "https://github.com/gitfox-enter/gitfox-enter.github.io",
-      "homepage": null,
+      "homepage": "https://gitfox-enter.github.io/",
       "topics": [],
-      "updated_at": "2026-06-10T11:43:30Z"
-    },
-    {
-      "name": "proxy-ranking",
-      "description": "代理相关项目Stars排行",
-      "stars": 0,
-      "forks": 0,
-      "language": "HTML",
-      "url": "https://github.com/gitfox-enter/proxy-ranking",
-      "homepage": null,
-      "topics": [],
-      "updated_at": "2026-06-10T02:46:52Z"
-    },
-    {
-      "name": "github-trending",
-      "description": "GitHub Python热门项目",
-      "stars": 0,
-      "forks": 0,
-      "language": "HTML",
-      "url": "https://github.com/gitfox-enter/github-trending",
-      "homepage": null,
-      "topics": [],
-      "updated_at": "2026-06-10T02:02:12Z"
-    },
-    {
-      "name": "video-viewer",
-      "description": "用GitHub Actions下载YouTube视频，在线观看",
-      "stars": 0,
-      "forks": 0,
-      "language": "HTML",
-      "url": "https://github.com/gitfox-enter/video-viewer",
-      "homepage": null,
-      "topics": [],
-      "updated_at": "2026-06-10T00:51:35Z"
-    },
-    {
-      "name": "tv-downloader",
-      "description": "用Codespaces下载电视剧",
-      "stars": 0,
-      "forks": 0,
-      "language": "Shell",
-      "url": "https://github.com/gitfox-enter/tv-downloader",
-      "homepage": null,
-      "topics": [],
-      "updated_at": "2026-06-10T00:37:49Z"
+      "updated_at": "2026-06-14T03:52:34Z"
     }
   ],
   "allProjects": [
     {
       "name": "site-update-monitor",
       "full_name": "gitfox-enter/site-update-monitor",
-      "description": "Automated multi-site update monitoring system with GitHub Actions and email notifications",
+      "description": "Production-grade multi-site change detection and notification system powered by GitHub Actions",
       "stars": 1,
       "forks": 0,
-      "language": "HTML",
+      "language": "Python",
       "url": "https://github.com/gitfox-enter/site-update-monitor",
       "homepage": null,
       "topics": [],
       "is_fork": false,
       "created_at": "2026-06-03T03:31:53Z",
-      "updated_at": "2026-06-10T09:45:53Z"
+      "updated_at": "2026-06-14T23:48:04Z"
     },
     {
       "name": "gitfox-enter.github.io",
       "full_name": "gitfox-enter/gitfox-enter.github.io",
-      "description": "暂无描述",
+      "description": "Personal blog powered by Astro - project showcases, technical articles, and live GitHub repo cards",
       "stars": 0,
       "forks": 0,
       "language": "Astro",
       "url": "https://github.com/gitfox-enter/gitfox-enter.github.io",
-      "homepage": null,
+      "homepage": "https://gitfox-enter.github.io/",
       "topics": [],
       "is_fork": false,
       "created_at": "2026-06-04T14:09:31Z",
-      "updated_at": "2026-06-10T11:43:30Z"
-    },
-    {
-      "name": "proxy-ranking",
-      "full_name": "gitfox-enter/proxy-ranking",
-      "description": "代理相关项目Stars排行",
-      "stars": 0,
-      "forks": 0,
-      "language": "HTML",
-      "url": "https://github.com/gitfox-enter/proxy-ranking",
-      "homepage": null,
-      "topics": [],
-      "is_fork": false,
-      "created_at": "2026-06-10T02:19:16Z",
-      "updated_at": "2026-06-10T02:46:52Z"
-    },
-    {
-      "name": "github-trending",
-      "full_name": "gitfox-enter/github-trending",
-      "description": "GitHub Python热门项目",
-      "stars": 0,
-      "forks": 0,
-      "language": "HTML",
-      "url": "https://github.com/gitfox-enter/github-trending",
-      "homepage": null,
-      "topics": [],
-      "is_fork": false,
-      "created_at": "2026-06-10T02:00:34Z",
-      "updated_at": "2026-06-10T02:02:12Z"
-    },
-    {
-      "name": "video-viewer",
-      "full_name": "gitfox-enter/video-viewer",
-      "description": "用GitHub Actions下载YouTube视频，在线观看",
-      "stars": 0,
-      "forks": 0,
-      "language": "HTML",
-      "url": "https://github.com/gitfox-enter/video-viewer",
-      "homepage": null,
-      "topics": [],
-      "is_fork": false,
-      "created_at": "2026-06-10T00:15:34Z",
-      "updated_at": "2026-06-10T00:51:35Z"
-    },
-    {
-      "name": "tv-downloader",
-      "full_name": "gitfox-enter/tv-downloader",
-      "description": "用Codespaces下载电视剧",
-      "stars": 0,
-      "forks": 0,
-      "language": "Shell",
-      "url": "https://github.com/gitfox-enter/tv-downloader",
-      "homepage": null,
-      "topics": [],
-      "is_fork": false,
-      "created_at": "2026-06-10T00:34:04Z",
-      "updated_at": "2026-06-10T00:37:49Z"
+      "updated_at": "2026-06-14T03:52:34Z"
     }
   ],
   "stats": {
-    "total_repos": 6,
+    "total_repos": 2,
     "total_stars": 1,
     "total_forks": 0,
     "languages": [
-      "HTML",
-      "Astro",
-      "Shell"
+      "Python",
+      "Astro"
     ],
-    "last_updated": "2026-06-10T11:45:18.272Z"
+    "last_updated": "2026-06-15T01:31:37.594Z"
   }
 }
