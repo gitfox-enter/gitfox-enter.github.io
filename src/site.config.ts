@@ -47,12 +47,7 @@ export const theme: ThemeUserConfig = {
     { tag: 'meta', attrs: { name: 'theme-color', content: '#659EB9' }, content: '' },
     { tag: 'meta', attrs: { name: 'apple-mobile-web-app-capable', content: 'yes' }, content: '' },
     { tag: 'meta', attrs: { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }, content: '' },
-    // JSON-LD Structured Data for SEO
-    {
-      tag: 'script',
-      attrs: { type: 'application/ld+json' },
-      content: '{"@context":"https://schema.org","@type":"WebSite","name":"GitFox Blog","url":"https://gitfox-enter.github.io/","description":"GitFox · 自动化 · AI 编程 · 生活与远方","author":{"@type":"Person","name":"GitFox"}}'
-    },
+    // JSON-LD is handled dynamically in BaseHead.astro to avoid duplicate structured data
     /* Telegram channel */
     // {
     //   tag: 'meta',
