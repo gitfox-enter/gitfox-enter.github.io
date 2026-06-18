@@ -56,8 +56,7 @@ if (!images[imagePath])
     <div id='content' class='animate flex flex-col gap-y-10 md:w-4/5 lg:w-5/6'>
       <Section title='关于我'>
         <p class='text-muted-foreground'>
-          亳州学院酒店管理专业在读，正在探索 AI 编程。喜欢用脚本解决实际生活中的问题 —— 从校园网自动登录到羊毛线报监控，
-          能用代码自动化的事情绝不手动重复。WorkBuddy 重度用户。
+          本科在读，正在探索 AI 编程。喜欢用代码解决实际问题，能用代码自动化的事情绝不手动重复。
         </p>
       </Section>
 
@@ -78,10 +77,8 @@ if (!images[imagePath])
 
       <Section title='教育'>
         <Card
-          as='a'
-          href='https://www.bzuu.edu.cn'
-          heading='亳州学院'
-          subheading='酒店管理 · 本科'
+          heading='某高校'
+          subheading='本科在读'
           date='2025 - 2027'
         >
         </Card>
@@ -97,7 +94,7 @@ if (!images[imagePath])
           <div>
             <h4 class='mb-2 text-sm font-medium'>已掌握</h4>
             <div class='flex flex-wrap gap-2'>
-              {['Node.js', 'Python', 'Astro', '自动化脚本', '爬虫开发', 'Electron', 'WorkBuddy', '海阔视界'].map(skill => (
+              {['Node.js', 'Python', 'Astro', '自动化脚本', '爬虫开发', 'Electron'].map(skill => (
                 <span class='rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-sm text-foreground'>{skill}</span>
               ))}
             </div>
@@ -108,15 +105,6 @@ if (!images[imagePath])
             <div class='flex flex-wrap gap-2'>
               {['AI 编程', 'Docker', 'Linux', 'GitHub Actions'].map(skill => (
                 <span class='rounded-full border border-dashed px-3 py-1 text-sm text-muted-foreground'>{skill}</span>
-              ))}
-            </div>
-          </div>
-          <!-- 证书 -->
-          <div>
-            <h4 class='mb-2 text-sm font-medium'>证书/资质</h4>
-            <div class='flex flex-wrap gap-2'>
-              {['C2 驾驶证', '普通话二级乙等'].map(skill => (
-                <span class='rounded-full border border-muted px-3 py-1 text-sm text-muted-foreground/70'>{skill}</span>
               ))}
             </div>
           </div>
