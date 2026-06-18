@@ -1,14 +1,14 @@
 {
   "name": "GitFox Blog",
   "short_name": "GitFox",
-  "description": "GitFox · 自动化 · AI 编程 · 生活与远方",
+  "description": "GitFox · 自动化 · AI 编程",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#659EB9",
-  "categories": ["blog", "technology", "lifestyle"],
+  "categories": ["blog", "technology"],
   "lang": "zh-CN",
   "icons": [
     {
