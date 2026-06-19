@@ -8,7 +8,7 @@ export const prerender = true
 export const partial = true
 
 const docsCollection = (await getBlogCollection('docs')) as CollectionEntry<'docs'>[]
-// Group docs by id first part (setup, integrations, advanced, etc.)
+// Group docs by id first part (guide, reviews, tools, etc.)
 const docsByCate = docsCollection.reduce((acc: { [key: string]: typeof docsCollection }, doc) => {
   const id = doc.id.split('/')[0]
   if (!acc[id]) acc[id] = [] as typeof docsCollection
@@ -17,9 +17,9 @@ const docsByCate = docsCollection.reduce((acc: { [key: string]: typeof docsColle
 }, {})
 
 const docCategories = {
-  setup: 'Setup',
-  integrations: 'Integrations',
-  advanced: 'Advanced'
+  guide: 'Guide',
+  reviews: 'Reviews',
+  tools: 'Tools'
 }
 
 type Props = {
@@ -38,8 +38,8 @@ const { title = true, class: className, ...props } = Astro.props
         <li>
           <h3 class='text-muted-foreground text-xs tracking-widest uppercase'>{title}</h3>
           <ul class='mt-2 flex flex-col'>
-            {docsByCate[id]
-              .sort((a, b) => a.data.order - b.data.order)
+            {(docsByCate[id] || [])
+              .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
               .map((doc) => (
                 <li class='docs-item flex relative ms-2 px-3 py-1 text-foreground/75 transition-all rounded-2xl'>
                   <a class='flex-1 hover:text-foreground' href={`/docs/${doc.id}`}>
@@ -49,9 +49,8 @@ const { title = true, class: className, ...props } = Astro.props
               ))}
           </ul>
         </li>
-      ))
-    }
-  </ul>
+      ))}
+    </ul>
 </docs-toc>
 
 <style>
