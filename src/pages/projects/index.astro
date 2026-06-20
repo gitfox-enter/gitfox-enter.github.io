@@ -2,25 +2,30 @@
 import PageLayout from '@/layouts/CommonPage.astro'
 import Sponsorship from '@/components/projects/Sponsorship.astro'
 import wechat from '@/assets/images/wechat-tip.jpg'
-import { getCategories, getProjectsByCategory } from '@/lib/projects'
+import projectConfig from '@/data/project-config.json'
+
+const categories = (projectConfig as any).categories as Record<string, { title: string; description: string }>
+const projects = (projectConfig as any).projects as Record<string, any>
 
 const headings = [
+  { depth: 2, slug: 'applications', text: '应用项目' },
+  { depth: 2, slug: 'programs', text: '自动化脚本' },
+  { depth: 2, slug: 'learnings', text: '学习项目' },
   { depth: 2, slug: 'github', text: 'GitHub 活动' },
   { depth: 2, slug: 'roadmap', text: '学习路线' },
   { depth: 2, slug: 'sponsorship', text: '赞助' }
 ]
 
-const categories = getCategories()
-const groupedProjects = getProjectsByCategory()
+// Group projects by category
+const grouped: Record<string, any[]> = {}
+for (const [key, proj] of Object.entries(projects) as [string, any][]) {
+  const cat = proj.category || 'other'
+  if (!grouped[cat]) grouped[cat] = []
+  grouped[cat].push(proj)
+}
 
-// Add headings for each category
-const categoryHeadings = Object.entries(categories).map(([key, cat]) => ({
-  depth: 2, slug: key, text: cat.title
-}))
+const categoryOrder = ['applications', 'programs', 'learnings']
 
-headings.splice(0, 0, ...categoryHeadings)
-
-// Learning roadmap data
 const roadmap = [
   { step: 1, name: '学习笔记仓库', status: 'done', repo: 'github-learning-notes', desc: '熟悉 GitHub 基础操作、Markdown、Git 提交流程' },
   { step: 2, name: '个人名片页', status: 'current', desc: '学会 HTML + CSS + GitHub Pages 部署' },
@@ -28,39 +33,43 @@ const roadmap = [
   { step: 4, name: 'Python 小脚本', status: 'todo', desc: '接触后端逻辑 + CLI 开发' },
   { step: 5, name: '天气查询页面', status: 'todo', desc: '前后端交互 + API 调用' }
 ]
-
-function getLink(proj: any): string {
-  if (proj.repo) return `https://github.com/${proj.repo}`
-  if (proj.homepage) return proj.homepage
-  return proj.url || '#'
-}
 ---
 
 <PageLayout title='项目' {headings} view>
   <p>以下是我在 GitHub 上的项目，按类型分类展示。</p>
 
-  {Object.entries(categories).map(([key, cat]) => (
-    <h2 id={key}>{cat.title}</h2>
-    <p class="category-desc">{cat.description}</p>
-    <div class="project-grid">
-      {(groupedProjects[key] || []).map((proj: any) => (
-        <a class="project-card" href={getLink(proj)} target="_blank" rel="noopener noreferrer">
-          <div class="card-header">
-            <span class="card-title">{proj.title}</span>
-            <span class="card-subtitle">{proj.subtitle}</span>
-          </div>
-          <p class="card-desc">{proj.description || ''}</p>
-          {proj.tags && proj.tags.length > 0 && (
-            <div class="card-tags">
-              {proj.tags.map((tag: string) => (
-                <span class="tag">{tag}</span>
-              ))}
-            </div>
-          )}
-        </a>
-      ))}
-    </div>
-  ))}
+  {categoryOrder.map((catKey: string) => {
+    const cat = (categories as any)[catKey] as { title: string; description: string } | undefined
+    const items = grouped[catKey] || []
+    if (!cat || items.length === 0) return null
+    return (
+      <>
+        <h2 id={catKey}>{cat.title}</h2>
+        <p class="category-desc">{cat.description}</p>
+        <div class="project-grid">
+          {items.map((proj: any) => {
+            const link = proj.repo ? `https://github.com/${proj.repo}` : (proj.homepage || '#')
+            return (
+              <a class="project-card" href={link} target="_blank" rel="noopener noreferrer">
+                <div class="card-header">
+                  <span class="card-title">{proj.title}</span>
+                  <span class="card-subtitle">{proj.subtitle}</span>
+                </div>
+                <p class="card-desc">{proj.customDescription || ''}</p>
+                {proj.tags && proj.tags.length > 0 && (
+                  <div class="card-tags">
+                    {proj.tags.map((tag: string) => (
+                      <span class="tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </a>
+            )
+          })}
+        </div>
+      </>
+    )
+  })}
 
   <h2 id="github">GitHub 活动</h2>
   <p>
@@ -76,7 +85,7 @@ function getLink(proj: any): string {
   <h2 id="roadmap">学习路线</h2>
   <p>从零开始系统学习 GitHub 的进度，每个阶段对应一个实际项目。</p>
   <div class="roadmap">
-    {roadmap.map((item) => (
+    {roadmap.map((item: any) => (
       <div class:list={['roadmap-item', item.status]}>
         <div class="roadmap-marker">
           {item.status === 'done' && '✅'}
@@ -242,7 +251,6 @@ function getLink(proj: any): string {
     font-size: 0.8125rem;
     color: hsl(var(--primary));
     text-decoration: none;
-    transition: opacity 0.2s;
   }
 
   .repo-link:hover {
