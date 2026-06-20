@@ -1,119 +1,88 @@
 {
   "categories": {
     "applications": {
-      "title": "应用项目",
+      "title": "Applications",
       "description": "可以直接使用的产品和工具"
     },
     "programs": {
-      "title": "自动化脚本",
-      "description": "用代码解决重复性工作"
+      "title": "Programs",
+      "description": "用代码解决重复性工作的自动化脚本"
     },
     "learnings": {
-      "title": "学习项目",
+      "title": "Learnings",
       "description": "边学边做的练习仓库"
+    },
+    "others": {
+      "title": "Others",
+      "description": "其他项目"
     }
   },
   "projects": {
     "RSSForge": {
-      "title": "RSSForge",
-      "subtitle": "RSS 订阅源生成器",
+      "title": "⚡ RSSForge",
+      "label": "Python",
       "category": "applications",
-      "image": "/project-1.png",
-      "featured": true,
-      "order": 1,
       "repo": "gitfox-enter/RSSForge",
-      "customDescription": "基于 GitHub Actions 的免费 RSS 订阅源生成器，给任何网站生成 RSS",
-      "tags": [
-        "Python",
-        "GitHub Actions",
-        "RSS"
-      ]
+      "description": "基于 GitHub Actions 的免费 RSS 订阅源生成器，给任何网站生成 RSS",
+      "links": {
+        "github": true,
+        "homepage": "https://gitfox-enter.github.io/RSSForge/"
+      }
     },
     "gitfox-enter.github.io": {
-      "title": "个人博客",
-      "subtitle": "Astro + Pure 主题",
+      "title": "📝 个人博客",
+      "label": "Astro",
       "category": "applications",
-      "image": "/project-2.png",
-      "featured": true,
-      "order": 2,
       "repo": "gitfox-enter/gitfox-enter.github.io",
-      "customDescription": "基于 Astro 搭建的个人博客，部署到 GitHub Pages，支持 RSS 和 Sitemap",
-      "tags": [
-        "Astro",
-        "TypeScript",
-        "博客"
-      ]
+      "description": "基于 Astro 搭建的个人博客，部署到 GitHub Pages，支持 RSS 和 Sitemap",
+      "links": {
+        "github": true,
+        "homepage": "https://gitfox-enter.github.io/"
+      }
     },
     "site-backup": {
-      "title": "站点备份",
-      "subtitle": "互联网内容存档",
+      "title": "📦 站点备份",
+      "label": "Archive",
       "category": "applications",
-      "image": "/project-3.png",
-      "featured": true,
-      "order": 3,
       "repo": "gitfox-enter/site-backup",
-      "customDescription": "备份互联网上有价值的博客和网站内容，防止原站失效后资源丢失",
-      "tags": [
-        "备份",
-        "存档"
-      ]
+      "description": "备份互联网上有价值的博客和网站内容，防止原站失效后资源丢失",
+      "links": {
+        "github": true
+      }
     },
     "BZXY_GWIFI": {
-      "title": "校园网自动登录",
-      "subtitle": "脚本猫发布",
+      "title": "🌐 校园网自动登录",
+      "label": "JavaScript",
       "category": "programs",
-      "image": "/project-4.png",
-      "featured": true,
-      "order": 4,
       "homepage": "https://scriptcat.org/zh-CN/script-show-page/5981",
-      "customDescription": "亳州学院校园网 GiWiFi 自动登录工具，支持断网重连、后台运行",
-      "tags": [
-        "JavaScript",
-        "油猴脚本"
-      ]
+      "description": "亳州学院校园网 GiWiFi 自动登录工具，支持断网重连、后台运行",
+      "links": {
+        "scriptcat": true
+      }
     },
     "qinglong-checkin": {
-      "title": "青龙面板自动签到",
-      "subtitle": "Docker 部署",
+      "title": "✅ 青龙面板自动签到",
+      "label": "Python",
       "category": "programs",
-      "image": "/project-5.png",
-      "featured": true,
-      "order": 5,
-      "customDescription": "青龙面板自动签到脚本，Docker 部署，定时执行",
-      "tags": [
-        "Python",
-        "Docker",
-        "自动化"
-      ]
+      "description": "青龙面板自动签到脚本，Docker 部署，定时执行",
+      "links": {}
     },
     "site-update-monitor": {
-      "title": "站点更新监控",
-      "subtitle": "多站点巡检面板",
+      "title": "📡 站点更新监控",
+      "label": "Python",
       "category": "programs",
-      "image": "/project-6.png",
-      "featured": true,
-      "order": 6,
-      "customDescription": "自动化多站点更新监控系统，GitHub Actions 定时抓取 35 个站点",
-      "tags": [
-        "Python",
-        "GitHub Actions",
-        "监控"
-      ]
+      "description": "自动化多站点更新监控系统，GitHub Actions 定时抓取 35 个站点",
+      "links": {}
     },
     "github-learning-notes": {
-      "title": "GitHub 学习笔记",
-      "subtitle": "从零开始学 GitHub",
+      "title": "📖 GitHub 学习笔记",
+      "label": "Markdown",
       "category": "learnings",
-      "image": "/project-7.png",
-      "featured": true,
-      "order": 7,
       "repo": "gitfox-enter/github-learning-notes",
-      "customDescription": "系统化学习 GitHub 的完整笔记仓库，涵盖 Git 基础、前端开发、Python 脚本",
-      "tags": [
-        "学习",
-        "笔记",
-        "GitHub"
-      ]
+      "description": "系统化学习 GitHub 的完整笔记仓库，涵盖 Git 基础、前端开发、Python 脚本",
+      "links": {
+        "github": true
+      }
     }
   }
 }
