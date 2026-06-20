@@ -43,10 +43,10 @@ export default defineConfig({
     service: { entrypoint: 'astro/assets/services/sharp' },
     // Restrict remote patterns to specific known domains instead of wildcard
     remotePatterns: [
-      { protocol: 'https', domain: 'ghchart.rshah.org' },
-      { protocol: 'https', domain: 'avatars.githubusercontent.com' },
-      { protocol: 'https', domain: 'github.com' },
-      { protocol: 'https', domain: 'cdn.jsdelivr.net' }
+      { protocol: 'https', hostname: 'ghchart.rshah.org' },
+      { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
+      { protocol: 'https', hostname: 'github.com' },
+      { protocol: 'https', hostname: 'cdn.jsdelivr.net' }
     ]
   },
   // Enable font preloading and optimization
