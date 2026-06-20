@@ -1,51 +1,119 @@
 {
+  "categories": {
+    "applications": {
+      "title": "应用项目",
+      "description": "可以直接使用的产品和工具"
+    },
+    "programs": {
+      "title": "自动化脚本",
+      "description": "用代码解决重复性工作"
+    },
+    "learnings": {
+      "title": "学习项目",
+      "description": "边学边做的练习仓库"
+    }
+  },
   "projects": {
-    "site-update-monitor": {
-      "title": "站点更新监控",
-      "subtitle": "多站点巡检面板",
+    "RSSForge": {
+      "title": "RSSForge",
+      "subtitle": "RSS 订阅源生成器",
+      "category": "applications",
       "image": "/project-1.png",
       "featured": true,
       "order": 1,
-      "customDescription": "自动化多站点更新监控系统，GitHub Actions 定时抓取 35 个站点，覆盖羊毛线报和免费软件"
+      "repo": "gitfox-enter/RSSForge",
+      "customDescription": "基于 GitHub Actions 的免费 RSS 订阅源生成器，给任何网站生成 RSS",
+      "tags": [
+        "Python",
+        "GitHub Actions",
+        "RSS"
+      ]
     },
     "gitfox-enter.github.io": {
       "title": "个人博客",
       "subtitle": "Astro + Pure 主题",
+      "category": "applications",
       "image": "/project-2.png",
       "featured": true,
       "order": 2,
-      "customDescription": "基于 Astro 搭建的个人博客，部署到 GitHub Pages，支持 RSS 和 Sitemap"
+      "repo": "gitfox-enter/gitfox-enter.github.io",
+      "customDescription": "基于 Astro 搭建的个人博客，部署到 GitHub Pages，支持 RSS 和 Sitemap",
+      "tags": [
+        "Astro",
+        "TypeScript",
+        "博客"
+      ]
+    },
+    "site-backup": {
+      "title": "站点备份",
+      "subtitle": "互联网内容存档",
+      "category": "applications",
+      "image": "/project-3.png",
+      "featured": true,
+      "order": 3,
+      "repo": "gitfox-enter/site-backup",
+      "customDescription": "备份互联网上有价值的博客和网站内容，防止原站失效后资源丢失",
+      "tags": [
+        "备份",
+        "存档"
+      ]
     },
     "BZXY_GWIFI": {
       "title": "校园网自动登录",
       "subtitle": "脚本猫发布",
-      "image": "/project-3.png",
+      "category": "programs",
+      "image": "/project-4.png",
       "featured": true,
-      "order": 3,
+      "order": 4,
       "homepage": "https://scriptcat.org/zh-CN/script-show-page/5981",
-      "customDescription": "亳州学院校园网 GiWiFi 自动登录工具，支持断网重连、后台运行"
+      "customDescription": "亳州学院校园网 GiWiFi 自动登录工具，支持断网重连、后台运行",
+      "tags": [
+        "JavaScript",
+        "油猴脚本"
+      ]
     },
     "qinglong-checkin": {
       "title": "青龙面板自动签到",
       "subtitle": "Docker 部署",
-      "image": "/project-4.png",
-      "featured": true,
-      "order": 4,
-      "customDescription": "青龙面板自动签到脚本"
-    },
-    "video-viewer": {
-      "title": "视频播放器",
-      "subtitle": "GitHub Actions 下载 YouTube",
+      "category": "programs",
       "image": "/project-5.png",
       "featured": true,
-      "order": 5
+      "order": 5,
+      "customDescription": "青龙面板自动签到脚本，Docker 部署，定时执行",
+      "tags": [
+        "Python",
+        "Docker",
+        "自动化"
+      ]
     },
-    "github-trending": {
-      "title": "GitHub 热门项目",
-      "subtitle": "Python 项目排行榜",
+    "site-update-monitor": {
+      "title": "站点更新监控",
+      "subtitle": "多站点巡检面板",
+      "category": "programs",
       "image": "/project-6.png",
       "featured": true,
-      "order": 6
+      "order": 6,
+      "customDescription": "自动化多站点更新监控系统，GitHub Actions 定时抓取 35 个站点",
+      "tags": [
+        "Python",
+        "GitHub Actions",
+        "监控"
+      ]
+    },
+    "github-learning-notes": {
+      "title": "GitHub 学习笔记",
+      "subtitle": "从零开始学 GitHub",
+      "category": "learnings",
+      "image": "/project-7.png",
+      "featured": true,
+      "order": 7,
+      "repo": "gitfox-enter/github-learning-notes",
+      "customDescription": "系统化学习 GitHub 的完整笔记仓库，涵盖 Git 基础、前端开发、Python 脚本",
+      "tags": [
+        "学习",
+        "笔记",
+        "GitHub"
+      ]
     }
   }
 }
