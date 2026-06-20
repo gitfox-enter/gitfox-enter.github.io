@@ -21,7 +21,7 @@ async function fetchGitHubRepos() {
   const token = process.env.GITHUB_TOKEN
   const headers = {
     'Accept': 'application/vnd.github.v3+json',
-    'User-Agent': 'GoldBearBlog/1.0'
+    'User-Agent': 'gitfox-enter-blog/1.0'
   }
   
   if (token) {
@@ -29,15 +29,18 @@ async function fetchGitHubRepos() {
   }
   
   const url = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 10000)
   
   console.log(`[GitHub API] Fetching repos for ${GITHUB_USERNAME}...`)
   
-  const response = await fetch(url, { headers })
+  const response = await fetch(url, { headers, signal: controller.signal })
   
   if (!response.ok) {
     throw new Error(`GitHub API error: ${response.status} ${response.statusText}`)
   }
   
+  clearTimeout(timeout)
   const repos = await response.json()
   console.log(`[GitHub API] Fetched ${repos.length} repositories`)
   
