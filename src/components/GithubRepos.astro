@@ -52,16 +52,17 @@ let reposData: RepoData[] = []
 let fetchError = false
 
 try {
-  const token = import.meta.env.GITHUB_TOKEN || ''
+  const token = import.meta.env.GITHUB_TOKEN
+  const headers: Record<string, string> = {
+    Accept: 'application/vnd.github.v3+json',
+    'User-Agent': 'gitfox-enter-blog'
+  }
+  if (token) {
+    headers['Authorization'] = `token ${token}`
+  }
   const res = await fetch(
     `https://api.github.com/users/${user}/repos?per_page=100&sort=updated&type=owner`,
-    {
-      headers: {
-        Authorization: `token ${token}`,
-        Accept: 'application/vnd.github.v3+json',
-        'User-Agent': 'gitfox-enter-blog'
-      }
-    }
+    { headers }
   )
 
   if (!res.ok) {
