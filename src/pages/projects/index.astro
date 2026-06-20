@@ -7,109 +7,99 @@ import projectConfig from '@/data/project-config.json'
 const categories = (projectConfig as any).categories as Record<string, { title: string; description: string }>
 const projects = (projectConfig as any).projects as Record<string, any>
 
-const headings = [
-  { depth: 2, slug: 'applications', text: '应用项目' },
-  { depth: 2, slug: 'programs', text: '自动化脚本' },
-  { depth: 2, slug: 'learnings', text: '学习项目' },
-  { depth: 2, slug: 'github', text: 'GitHub 活动' },
-  { depth: 2, slug: 'roadmap', text: '学习路线' },
-  { depth: 2, slug: 'sponsorship', text: '赞助' }
+const categoryOrder = ['applications', 'programs', 'learnings', 'others']
+
+const headings: any[] = [
+  { depth: 2, slug: 'github-activities', text: 'Github Activities' },
 ]
+
+categoryOrder.forEach((key) => {
+  const cat = (categories as any)[key]
+  if (cat) {
+    headings.push({ depth: 2, slug: key, text: cat.title })
+  }
+})
+
+headings.push(
+  { depth: 2, slug: 'sponsorship', text: 'Sponsorship' }
+)
 
 // Group projects by category
 const grouped: Record<string, any[]> = {}
-for (const [key, proj] of Object.entries(projects) as [string, any][]) {
-  const cat = proj.category || 'other'
+for (const [name, proj] of Object.entries(projects) as [string, any][]) {
+  const cat = proj.category || 'others'
   if (!grouped[cat]) grouped[cat] = []
-  grouped[cat].push(proj)
+  grouped[cat].push({ name, ...proj })
 }
-
-const categoryOrder = ['applications', 'programs', 'learnings']
-
-const roadmap = [
-  { step: 1, name: '学习笔记仓库', status: 'done', repo: 'github-learning-notes', desc: '熟悉 GitHub 基础操作、Markdown、Git 提交流程' },
-  { step: 2, name: '个人名片页', status: 'current', desc: '学会 HTML + CSS + GitHub Pages 部署' },
-  { step: 3, name: 'Todo 待办清单', status: 'todo', desc: '入门 JavaScript + 分支操作 + commit 规范' },
-  { step: 4, name: 'Python 小脚本', status: 'todo', desc: '接触后端逻辑 + CLI 开发' },
-  { step: 5, name: '天气查询页面', status: 'todo', desc: '前后端交互 + API 调用' }
-]
 ---
 
 <PageLayout title='项目' {headings} view>
-  <p>以下是我在 GitHub 上的项目，按类型分类展示。</p>
+  <h2 id="github-activities">Github Activities</h2>
+  <p>如果我的项目对你有帮助，欢迎赞助支持我的工作。</p>
+  <p>
+    <img
+      src="https://ghchart.rshah.org/659eb9/gitfox-enter"
+      alt="GitHub contribution graph"
+      width="100%"
+      loading="lazy"
+      style="width: 100%; border-radius: 0.5rem;"
+    />
+  </p>
 
   {categoryOrder.map((catKey: string) => {
     const cat = (categories as any)[catKey] as { title: string; description: string } | undefined
     const items = grouped[catKey] || []
-    if (!cat || items.length === 0) return null
+    if (!cat) return null
     return (
-      <>
+      <div>
         <h2 id={catKey}>{cat.title}</h2>
-        <p class="category-desc">{cat.description}</p>
-        <div class="project-grid">
+        <div class="grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2 sm:gap-y-4">
           {items.map((proj: any) => {
-            const link = proj.repo ? `https://github.com/${proj.repo}` : (proj.homepage || '#')
+            const mainLink = proj.repo
+              ? `https://github.com/${proj.repo}`
+              : (proj.homepage || '#')
+            const homepage = proj.links?.homepage
+            const hasGithub = proj.links?.github
+            const hasScriptcat = proj.links?.scriptcat
             return (
-              <a class="project-card" href={link} target="_blank" rel="noopener noreferrer">
-                <div class="card-header">
-                  <span class="card-title">{proj.title}</span>
-                  <span class="card-subtitle">{proj.subtitle}</span>
-                </div>
-                <p class="card-desc">{proj.customDescription || ''}</p>
-                {proj.tags && proj.tags.length > 0 && (
-                  <div class="card-tags">
-                    {proj.tags.map((tag: string) => (
-                      <span class="tag">{tag}</span>
-                    ))}
+              <div class="project-card overflow-hidden rounded-xl border">
+                <div class="flex flex-col gap-y-1 px-2 py-1.5 sm:px-3 sm:py-2">
+                  <a class="project-title line-clamp-1 font-medium no-underline transition-colors" href={mainLink} target="_blank" rel="noopener noreferrer">
+                    {proj.title} {proj.label && <span class="project-label">[{proj.label}]</span>}
+                  </a>
+                  <div class="project-desc line-clamp-2 text-sm leading-snug">
+                    {proj.description || ''}
                   </div>
-                )}
-              </a>
+                  <div class="flex items-center gap-x-2 sm:gap-x-3">
+                    {hasGithub && proj.repo && (
+                      <a href={`https://github.com/${proj.repo}`} class="icon-link" aria-label="github" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49c.5.092.682-.217.682-.482c0-.237-.009-.866-.013-1.7c-2.782.604-3.369-1.34-3.369-1.34c-.454-1.156-1.11-1.463-1.11-1.463c-.908-.62.069-.608.069-.608c1.003.07 1.531 1.03 1.531 1.03c.892 1.529 2.341 1.087 2.91.831c.092-.646.35-1.086.636-1.336c-2.22-.253-4.555-1.11-4.555-4.943c0-1.091.39-1.984 1.029-2.683c-.103-.253-.446-1.27.098-2.647c0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025c.546 1.377.203 2.394.1 2.647c.64.699 1.028 1.592 1.028 2.683c0 3.842-2.339 4.687-4.566 4.935c.359.309.678.919.678 1.852c0 1.336-.012 2.415-.012 2.743c0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                      </a>
+                    )}
+                    {homepage && (
+                      <a href={homepage} class="icon-link" aria-label="homepage" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M10 6v2H5v11h11v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zm6-2h5v5h-2V6.414l-5.293 5.293l-1.414-1.414L17.586 5H14z"/></svg>
+                      </a>
+                    )}
+                    {hasScriptcat && (
+                      <a href={proj.homepage || '#'} class="icon-link" aria-label="scriptcat" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M3 3h18v18H3zm2 2v14h14V5zm2 2h10v2H7zm0 4h10v2H7zm0 4h7v2H7z"/></svg>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
             )
           })}
         </div>
-      </>
+      </div>
     )
   })}
 
-  <h2 id="github">GitHub 活动</h2>
+  <h2 id="sponsorship">Sponsorship</h2>
   <p>
-    <img
-      src={`https://ghchart.rshah.org/659eb9/gitfox-enter`}
-      alt='GitHub contributions chart for gitfox-enter'
-      width='100%'
-      loading='lazy'
-      style='width: 100%; border-radius: 8px;'
-    />
+    如果我的项目对你有帮助，欢迎赞助支持我的工作 ☕
   </p>
-
-  <h2 id="roadmap">学习路线</h2>
-  <p>从零开始系统学习 GitHub 的进度，每个阶段对应一个实际项目。</p>
-  <div class="roadmap">
-    {roadmap.map((item: any) => (
-      <div class:list={['roadmap-item', item.status]}>
-        <div class="roadmap-marker">
-          {item.status === 'done' && '✅'}
-          {item.status === 'current' && '🔄'}
-          {item.status === 'todo' && '⬜'}
-        </div>
-        <div class="roadmap-content">
-          <div class="roadmap-title">
-            <span class="step-badge">Step {item.step}</span>
-            {item.name}
-            {item.repo && <a href={`https://github.com/gitfox-enter/${item.repo}`} target="_blank" class="repo-link">→ 仓库</a>}
-          </div>
-          <p class="roadmap-desc">{item.desc}</p>
-        </div>
-      </div>
-    ))}
-  </div>
-
-  <h2 id="sponsorship">赞助</h2>
-  <p>
-    如果我的内容对你有所帮助，欢迎请我喝杯咖啡 ☕。
-    你的支持是我持续输出的动力！
-  </p>
-  <p>国内方式：微信赞赏</p>
   <Sponsorship
     methods={[
       { name: '微信赞赏', icon: 'wechat-pay', image: wechat }
@@ -118,152 +108,47 @@ const roadmap = [
 </PageLayout>
 
 <style>
-  .category-desc {
-    color: hsl(var(--muted-foreground));
-    font-size: 0.875rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .project-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-  }
-
-  @media (min-width: 640px) {
-    .project-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
   .project-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem;
-    border-radius: 0.75rem;
-    border: 1px solid hsl(var(--border));
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.2s;
+    position: relative;
   }
 
-  .project-card:hover {
-    background-color: hsl(var(--muted));
-    border-color: hsl(var(--primary) / 0.3);
-    transform: translateY(-2px);
-  }
-
-  .card-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.125rem;
-  }
-
-  .card-title {
-    font-weight: 600;
-    font-size: 1rem;
+  .project-title {
     color: hsl(var(--foreground));
-    transition: color 0.2s;
   }
 
-  .project-card:hover .card-title {
+  .project-title:hover {
     color: hsl(var(--primary));
   }
 
-  .card-subtitle {
-    font-size: 0.8125rem;
+  .project-label {
+    font-weight: 400;
+    font-size: 0.85em;
     color: hsl(var(--muted-foreground));
   }
 
-  .card-desc {
-    font-size: 0.875rem;
-    line-height: 1.5;
+  .project-desc {
     color: hsl(var(--muted-foreground));
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    min-height: 2.5em;
   }
 
-  .card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.375rem;
-    margin-top: 0.25rem;
-  }
-
-  .tag {
-    font-size: 0.75rem;
-    padding: 0.125rem 0.5rem;
-    border-radius: 9999px;
-    border: 1px solid hsl(var(--primary) / 0.2);
-    background: hsl(var(--primary) / 0.05);
-    color: hsl(var(--primary));
-  }
-
-  .roadmap {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 0.5rem;
-  }
-
-  .roadmap-item {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-  }
-
-  .roadmap-marker {
-    flex-shrink: 0;
-    width: 2rem;
-    height: 2rem;
+  .icon-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.25rem;
-  }
-
-  .roadmap-content {
-    flex: 1;
-  }
-
-  .roadmap-title {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 500;
-    flex-wrap: wrap;
-  }
-
-  .step-badge {
-    font-size: 0.6875rem;
-    padding: 0.0625rem 0.375rem;
-    border-radius: 0.25rem;
+    padding: 0.25rem;
+    border-radius: 9999px;
     background: hsl(var(--muted));
     color: hsl(var(--muted-foreground));
-    font-weight: 400;
+    transition: all 0.2s;
   }
 
-  .repo-link {
-    font-size: 0.8125rem;
-    color: hsl(var(--primary));
-    text-decoration: none;
+  .icon-link:hover {
+    color: hsl(var(--foreground));
+    background: hsl(var(--accent));
   }
 
-  .repo-link:hover {
-    opacity: 0.8;
-  }
-
-  .roadmap-desc {
-    font-size: 0.875rem;
-    color: hsl(var(--muted-foreground));
-    margin-top: 0.25rem;
-  }
-
-  .roadmap-item.current .roadmap-title {
-    color: hsl(var(--primary));
+  .icon-link svg {
+    width: 18px;
+    height: 18px;
   }
 </style>
