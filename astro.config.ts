@@ -25,11 +25,8 @@ import config from './src/site.config.ts'
 export default defineConfig({
   // [Basic]
   site: 'https://gitfox-enter.github.io',
-  // GitHub Pages 子路径部署
-  trailingSlash: 'never',
-  // root: './my-project-directory',
   server: { host: true },
-  // [Build Optimization]
+
   // [Build Optimization]
   build: {
     // Inline small CSS to avoid extra requests
@@ -37,19 +34,22 @@ export default defineConfig({
   },
   // https://docs.astro.build/en/guides/prefetch/
   prefetch: {
-    // prefetchAll: true,
     defaultStrategy: 'viewport'
   },
 
- // [Assets]
+  // [Assets]
   image: {
     responsiveStyles: true,
     service: { entrypoint: 'astro/assets/services/sharp' },
-    // domains: ['ghchart.rshah.org'],
-    remotePatterns: [{ protocol: 'https' }]
+    // Restrict remote patterns to specific known domains instead of wildcard
+    remotePatterns: [
+      { protocol: 'https', domain: 'ghchart.rshah.org' },
+      { protocol: 'https', domain: 'avatars.githubusercontent.com' },
+      { protocol: 'https', domain: 'github.com' },
+      { protocol: 'https', domain: 'cdn.jsdelivr.net' }
+    ]
   },
   // Enable font preloading and optimization
-  // https://docs.astro.build/en/guides/fonts/
   fonts: [
     {
       provider: fontProviders.fontshare(),
@@ -65,7 +65,7 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [
-      [rehypeKatex, {}],
+      [rehypeKatex, { trust: false, strict: false }],
       rehypeHeadingIds,
       [
         rehypeAutolinkHeadings,
@@ -76,60 +76,34 @@ export default defineConfig({
         }
       ]
     ],
-    // https://docs.astro.build/en/guides/syntax-highlighting/
     shikiConfig: {
       themes: {
         light: 'github-light',
         dark: 'github-dark'
       },
       transformers: [
-        // Two copies of @shikijs/types (one under node_modules
-        // and another nested under @astrojs/markdown-remark → shiki).
-        // Official transformers
-        // @ts-ignore this happens due to multiple versions of shiki types
         transformerNotationDiff(),
-        // @ts-ignore this happens due to multiple versions of shiki types
         transformerNotationHighlight(),
-        // @ts-ignore this happens due to multiple versions of shiki types
         transformerRemoveNotationEscape(),
-        // Custom transformers
-        // @ts-ignore this happens due to multiple versions of shiki types
         updateStyle(),
-        // @ts-ignore this happens due to multiple versions of shiki types
         addTitle(),
-        // @ts-ignore this happens due to multiple versions of shiki types
         addLanguage(),
-        // @ts-ignore this happens due to multiple versions of shiki types
-        addCopyButton(2000), // timeout in ms
-        // @ts-ignore this happens due to multiple versions of shiki types
-        addCollapse(15) // max lines that needs to collapse
+        addCopyButton(2000),
+        addCollapse(15)
       ]
     }
   },
 
   // [Integrations]
   integrations: [
-    // astro-pure will automatically add sitemap, mdx & unocss
-    // sitemap(),
-    // mdx(),
     AstroPureIntegration(config)
   ],
 
   // [Experimental]
   experimental: {
-    // Allow compatible editors to support intellisense features for content collection entries
-    // https://docs.astro.build/en/reference/experimental-flags/content-intellisense/
     contentIntellisense: true,
-    // Enable SVGO optimization for SVG assets
-    // https://docs.astro.build/en/reference/experimental-flags/svg-optimization/
     svgo: true,
-    // Enables pre-rendering your prefetched pages on the client in supported browsers.
-    // https://docs.astro.build/en/reference/experimental-flags/client-prerender/
     clientPrerender: true,
-    // Enables using the new Rust-based compiler for Astro files.
-    // https://docs.astro.build/en/reference/experimental-flags/rust-compiler/
-    rustCompiler: false,
-    // https://docs.astro.build/en/reference/experimental-flags/queued-rendering/
     queuedRendering: {
       enabled: true
     }

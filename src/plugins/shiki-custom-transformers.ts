@@ -96,6 +96,7 @@ export const addCopyButton = (timeout?: number): ShikiTransformer => {
           class: 'copy text-muted-foreground p-1 box-content border rounded-lg bg-card',
           'aria-label': 'Copy code',
           'data-code': this.source,
+          tabindex: '0',
           onclick: `
           navigator.clipboard.writeText(this.dataset.code);
           this.classList.add('copied');
@@ -136,6 +137,7 @@ export const addCollapse = (displayLineCount?: number): ShikiTransformer => {
         {
           class: 'collapse-toggle bg-card text-muted-foreground rounded-lg m-2',
           'aria-label': 'Toggle collapse code block',
+          tabindex: '0',
           onclick: "this.parentElement.classList.toggle('collapsed')"
         },
         [

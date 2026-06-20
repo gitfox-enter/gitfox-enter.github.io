@@ -14,15 +14,12 @@ import config from 'virtual:config'
 
 // Get dynamic import of images as a map collection
 const imagesGlob = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/content/blog/**/*.{jpeg,jpg,png,gif,avif,webp}' // add more image formats if needed
+  '/src/content/blog/**/*.{jpeg,jpg,png,gif,avif,webp}'
 )
 
 const renderContent = async (post: CollectionEntry<'blog'>, site: URL) => {
   // Replace image links with the correct path
   function remarkReplaceImageLink() {
-    /**
-     * @param {Root} tree
-     */
     return async (tree: Root) => {
       const promises: Promise<void>[] = []
       visit(tree, 'image', (node) => {
@@ -43,14 +40,33 @@ const renderContent = async (post: CollectionEntry<'blog'>, site: URL) => {
     }
   }
 
-  const file = await unified()
-    .use(remarkParse)
-    .use(remarkReplaceImageLink)
-    .use(remarkRehype)
-    .use(rehypeStringify)
-    .process(post.body)
+  try {
+    const file = await unified()
+      .use(remarkParse)
+      .use(remarkReplaceImageLink)
+      .use(remarkRehype)
+      .use(rehypeStringify)
+      .process(post.body)
+    return String(file)
+  } catch (e) {
+    console.error(`Failed to render RSS content for ${post.id}:`, e)
+    return ''
+  }
+}
 
-  return String(file)
+// Safely extract image URL from heroImage
+function getHeroImageUrl(heroImage: any, siteUrl: string): string | null {
+  if (!heroImage) return null
+  try {
+    if (typeof heroImage === 'string') return heroImage
+    if (heroImage.src) {
+      if (typeof heroImage.src === 'string') return heroImage.src
+      if (heroImage.src.src) return heroImage.src.src
+    }
+  } catch {
+    return null
+  }
+  return null
 }
 
 const GET = async (context: AstroGlobal) => {
@@ -58,24 +74,29 @@ const GET = async (context: AstroGlobal) => {
   const siteUrl = context.site ?? new URL(import.meta.env.SITE)
 
   return rss({
-    // Basic configs
     trailingSlash: false,
     xmlns: { h: 'http://www.w3.org/TR/html4/' },
     stylesheet: '/scripts/pretty-feed-v3.xsl',
 
-    // Contents
     title: config.title,
     description: config.description,
     site: import.meta.env.SITE,
     items: await Promise.all(
-      allPostsByDate.map(async (post) => ({
-        pubDate: post.data.publishDate,
-        link: `/blog/${post.id}`,
-        customData: `<h:img src="${typeof post.data.heroImage?.src === 'string' ? post.data.heroImage?.src : post.data.heroImage?.src.src}" />
-          <enclosure url="${typeof post.data.heroImage?.src === 'string' ? post.data.heroImage?.src : post.data.heroImage?.src.src}" />`,
-        content: await renderContent(post, siteUrl),
-        ...post.data
-      }))
+      allPostsByDate.map(async (post) => {
+        const heroUrl = getHeroImageUrl(post.data.heroImage, String(siteUrl))
+        const customDataParts: string[] = []
+        if (heroUrl) {
+          customDataParts.push(`<h:img src="${heroUrl}" />`)
+          customDataParts.push(`<enclosure url="${heroUrl}" type="image/jpeg" length="0" />`)
+        }
+        return {
+          pubDate: post.data.publishDate,
+          link: `/blog/${post.id}`,
+          customData: customDataParts.length > 0 ? customDataParts.join('\n          ') : undefined,
+          content: await renderContent(post, siteUrl),
+          ...post.data
+        }
+      })
     )
   })
 }

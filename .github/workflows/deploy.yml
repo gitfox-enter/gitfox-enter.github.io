@@ -5,12 +5,13 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    # 每天北京时间 8:00 (UTC 0:00) 自动重建，更新 GitHub 数据
+    # 每天北京时间 8:00 (UTC 0:00) 自动构建部署到 GitHub Pages
     - cron: '0 0 * * *'
 
 permissions:
-  contents: write
+  contents: read
   pages: write
+  id-token: write
 
 concurrency:
   group: pages
@@ -21,12 +22,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          bun-version: '1.2'
 
       - name: Install dependencies
         run: bun install
@@ -34,9 +35,7 @@ jobs:
       - name: Build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "GITHUB_TOKEN=$GITHUB_TOKEN" > .env
-          bun run build
+        run: bun run build
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
