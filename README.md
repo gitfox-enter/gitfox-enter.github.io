@@ -1,12 +1,12 @@
-# Gold Bear Blog
+# GitFox Blog
 
 Personal blog built with [Astro](https://astro.build) and the [astro-pure](https://github.com/cworld1/astro-theme-pure) theme.
 
-Deployed via GitHub Actions to GitHub Pages at `/`.
+Deployed via GitHub Actions to GitHub Pages.
 
 ## Features
 
-- Documentation-style blog with clean, fast interface
+- Documentation-style blog with a clean, fast interface
 - Full-text search powered by Pagefind
 - Dynamic GitHub repository cards via Web Components
 - Sitemap & RSS feed
@@ -14,16 +14,17 @@ Deployed via GitHub Actions to GitHub Pages at `/`.
 
 ## Development
 
-```bash
-bun install
-bun run dev
-```
+    bun install
+    bun run dev
 
 ## Build
 
 The CI pipeline runs:
-```bash
-node scripts/fetch-github-projects.mjs && astro check && astro build && node scripts/fix-base-path.mjs
-```
+
+    node scripts/fetch-github-projects.mjs && astro check && astro build && node scripts/fix-base-path.mjs
 
 Project data is fetched from the GitHub API at build time and stored in `src/data/`.
+
+## License
+
+This project is licensed under the [Apache License 2.0](./LICENSE).
