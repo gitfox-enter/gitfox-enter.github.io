@@ -1,8 +1,8 @@
 # Astro Theme Pure
 
-[English](./README.md) | 简体中文
+[English](./README.md)
 
-一个由 Astro 构建的，轻便简洁、快速强大的博客 & 文档主题。
+A lightweight, clean, fast and powerful blog & documentation theme built with [Astro](https://astro.build).
 
 [![GitHub deployments](https://img.shields.io/github/deployments/cworld1/astro-theme-pure/production?style=flat&logo=vercel&label=vercel)](https://astro-pure.js.org/)
 [![NPM Version](https://img.shields.io/npm/v/astro-pure?logo=npm&style=flat)](https://www.npmjs.com/package/astro-pure)
@@ -13,87 +13,83 @@
 ![image](./.github/assets/body.webp)
 
 > [!NOTE]
-> 已知问题：Head 标签和自定义选项仍在开发中（已暴露模板用于修改）
+> Known issue: Head tags and custom options are still under development (the template is exposed for modification).
 
-## 简介
+## Overview
 
-查看 [预览 →](https://astro-pure.js.org/)
+Check out the [Preview](https://astro-pure.js.org/)
 
-### :fire: 特性
+### :fire: Features
 
-- [x] :rocket: 快速高性能
-- [x] :star: 简单干净的设计
-- [x] :iphone: 响应式设计
-- [x] :mag: 使用 [pagefind](https://pagefind.app/) 构建的全站搜索
-- [x] :world_map: 站点地图和 RSS 订阅
-- [x] :spider_web: 友好的 SEO
-- [x] :book: 目录（table of contents）
-- [x] :framed_picture: 动态为文章生成可供三方媒体预览的分享图像
-- [x] :framed_picture: Mediumzoom 图像灯箱
+- [x] :rocket: Fast and high-performance
+- [x] :star: Simple and clean design
+- [x] :iphone: Responsive design
+- [x] :mag: Full-site search powered by [pagefind](https://pagefind.app/)
+- [x] :world_map: Sitemap and RSS feed
+- [x] :spider_web: SEO-friendly
+- [x] :book: Table of contents
+- [x] :framed_picture: Dynamic social sharing images for articles
+- [x] :framed_picture: Mediumzoom image lightbox
 
-### :package: 组件
+### :package: Components
 
-主题包含了许多组件，不仅可以在主题中使用，还可以在其他 Astro 项目中使用。
+The theme includes many components that can be used not only within the theme but also in other Astro projects.
 
-> 其他 Astro 项目使用需要 UnoCSS。更多详情请查阅 [Package README](https://github.com/cworld1/astro-theme-pure/blob/main/packages/pure/README.md#use-with-common-astro-project)。
+> Using in other Astro projects requires UnoCSS. For more details, see the [Package README](https://github.com/cworld1/astro-theme-pure/blob/main/packages/pure/README.md#use-with-common-astro-project).
 
-- 基础组件：`Aside`、`Tabs`、`Timeline`、`Steps`、`Spoiler`...
-- 高级组件：`GithubCard`、`LinkPreview`、`Quote`、`QRCode`...
+- Basic components: Aside, Tabs, Timeline, Steps, Spoiler...
+- Advanced components: GithubCard, LinkPreview, Quote, QRCode...
 
-## :white_check_mark: Lighthouse 分数
+## :white_check_mark: Lighthouse Score
 
 [![lighthouse-score](./.github/assets/lighthouse-score.png)](https://pagespeed.web.dev/analysis/https-cworld-top/o229zrt5o4?form_factor=mobile&hl=en)
 
-## 文档
+## Documentation
 
-[文档](https://astro-pure.js.org/docs) | [展示台](https://github.com/cworld1/astro-theme-pure/issues/10)
+[Docs](https://astro-pure.js.org/docs) | [Showcase](https://github.com/cworld1/astro-theme-pure/issues/10)
 
-## NPM 包
+## NPM Package
 
-在 NPM 上查看：[astro-theme-pure](https://www.npmjs.com/package/astro-pure)
+Available on NPM: [astro-theme-pure](https://www.npmjs.com/package/astro-pure)
 
-## 本地开发
+## Local Development
 
-环境要求：
+Requirements:
 
-- [Nodejs](https://nodejs.org/): 18.0.0+
+- [Node.js](https://nodejs.org/): 18.0.0+
 
-克隆存储库：
+Clone the repository:
 
-```shell
-git clone https://github.com/cworld1/astro-theme-pure.git
-cd astro-theme-pure
-```
+    git clone https://github.com/cworld1/astro-theme-pure.git
+    cd astro-theme-pure
 
-有用的命令：
+Useful commands:
 
-```shell
-# Install dependencies
-bun install
-# Start the dev server
-bun dev
-# Build the project
-bun run build
-# Preview (after the build)
-bun preview
-# Create a new post
-bun pure new
-```
+    # Install dependencies
+    bun install
+    # Start the dev server
+    bun dev
+    # Build the project
+    bun run build
+    # Preview (after the build)
+    bun preview
+    # Create a new post
+    bun pure new
 
-## 贡献
+## Contributing
 
-为了花更多时间编写代码，减少在空白上纠结的时间，本项目使用代码约定和样式来鼓励一致性。风格一致的代码更容易（且更不容易出错）进行审查、维护和理解。
+To spend more time writing code and less time debating whitespace, this project uses code conventions and styles to encourage consistency. Consistent code is easier (and less error-prone) to review, maintain, and understand.
 
-## 鸣谢
+## Acknowledgements
 
 - [Astro Cactus](https://github.com/chrismwilliams/astro-theme-cactus)
 - [Astro Resume](https://github.com/srleom/astro-theme-resume)
 - [Starlight](https://github.com/withastro/starlight)
 
-其他第三方参考资料在 [Docs#Contributions](https://astro-pure.js.org/docs/advanced/about) 上。感谢所有开源库。
+Other third-party references can be found at [Docs#Contributions](https://astro-pure.js.org/docs/advanced/about). Thanks to all open-source libraries.
 
-## 许可证
+## License
 
-本项目基于 Apache 2.0 许可证。
+This project is licensed under the [Apache License 2.0](./LICENSE).
 
 [![Star History Chart](https://api.star-history.com/svg?repos=cworld1/astro-theme-pure&type=Date)](https://star-history.com/#cworld1/astro-theme-pure&Date)
