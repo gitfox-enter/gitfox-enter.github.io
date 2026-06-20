@@ -85,7 +85,20 @@ if (!images[imagePath])
       </Section>
 
       <Section title='项目'>
-        <GithubRepos user='gitfox-enter' profileLink='false' />
+        <div class="flex flex-col gap-y-3">
+          <div>
+            <h4 class='mb-2 text-sm font-medium'>应用项目</h4>
+            <GithubRepos user='gitfox-enter' profileLink='false' />
+          </div>
+          <div>
+            <h4 class='mb-2 text-sm font-medium'>学习进度</h4>
+            <div class="flex items-center gap-x-2 text-sm text-muted-foreground">
+              <span class="inline-flex items-center gap-x-1"><span class="inline-block size-2 rounded-full bg-primary"></span> 当前：Step 2 — 个人名片页</span>
+              <span>·</span>
+              <a href="/projects#roadmap" class="text-primary hover:underline">查看完整路线 →</a>
+            </div>
+          </div>
+        </div>
       </Section>
 
       <Section title='技能'>
