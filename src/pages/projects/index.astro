@@ -1,51 +1,24 @@
 ---
 import PageLayout from '@/layouts/CommonPage.astro'
-import GithubRepos from '@/components/GithubRepos.astro'
 import Sponsorship from '@/components/projects/Sponsorship.astro'
 import wechat from '@/assets/images/wechat-tip.jpg'
-import projectConfig from '@/data/project-config.json'
+import { getCategories, getProjectsByCategory } from '@/lib/projects'
 
 const headings = [
-  { depth: 2, slug: 'applications', text: '应用项目' },
-  { depth: 2, slug: 'programs', text: '自动化脚本' },
-  { depth: 2, slug: 'learnings', text: '学习项目' },
   { depth: 2, slug: 'github', text: 'GitHub 活动' },
   { depth: 2, slug: 'roadmap', text: '学习路线' },
   { depth: 2, slug: 'sponsorship', text: '赞助' }
 ]
 
-interface Project {
-  title: string
-  subtitle: string
-  category: string
-  repo?: string
-  homepage?: string
-  customDescription?: string
-  tags?: string[]
-  featured?: boolean
-  order?: number
-}
+const categories = getCategories()
+const groupedProjects = getProjectsByCategory()
 
-const categories = projectConfig.categories as Record<string, { title: string; description: string }>
-const projects = projectConfig.projects as Record<string, Project>
+// Add headings for each category
+const categoryHeadings = Object.entries(categories).map(([key, cat]) => ({
+  depth: 2, slug: key, text: cat.title
+}))
 
-// Group projects by category
-const grouped: Record<string, Project[]> = {}
-for (const [key, proj] of Object.entries(projects)) {
-  const cat = proj.category || 'other'
-  if (!grouped[cat]) grouped[cat] = []
-  grouped[cat].push({ ...proj, order: proj.order ?? 999 })
-}
-// Sort within each category
-for (const cat of Object.keys(grouped)) {
-  grouped[cat].sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
-}
-
-function getLink(proj: Project): string {
-  if (proj.repo) return `https://github.com/${proj.repo}`
-  if (proj.homepage) return proj.homepage
-  return '#'
-}
+headings.splice(0, 0, ...categoryHeadings)
 
 // Learning roadmap data
 const roadmap = [
@@ -55,6 +28,12 @@ const roadmap = [
   { step: 4, name: 'Python 小脚本', status: 'todo', desc: '接触后端逻辑 + CLI 开发' },
   { step: 5, name: '天气查询页面', status: 'todo', desc: '前后端交互 + API 调用' }
 ]
+
+function getLink(proj: any): string {
+  if (proj.repo) return `https://github.com/${proj.repo}`
+  if (proj.homepage) return proj.homepage
+  return proj.url || '#'
+}
 ---
 
 <PageLayout title='项目' {headings} view>
@@ -64,13 +43,13 @@ const roadmap = [
     <h2 id={key}>{cat.title}</h2>
     <p class="category-desc">{cat.description}</p>
     <div class="project-grid">
-      {(grouped[key] || []).map((proj) => (
+      {(groupedProjects[key] || []).map((proj: any) => (
         <a class="project-card" href={getLink(proj)} target="_blank" rel="noopener noreferrer">
           <div class="card-header">
             <span class="card-title">{proj.title}</span>
             <span class="card-subtitle">{proj.subtitle}</span>
           </div>
-          <p class="card-desc">{proj.customDescription || ''}</p>
+          <p class="card-desc">{proj.description || ''}</p>
           {proj.tags && proj.tags.length > 0 && (
             <div class="card-tags">
               {proj.tags.map((tag: string) => (
@@ -98,7 +77,7 @@ const roadmap = [
   <p>从零开始系统学习 GitHub 的进度，每个阶段对应一个实际项目。</p>
   <div class="roadmap">
     {roadmap.map((item) => (
-      <div class={`roadmap-item ${item.status}`}>
+      <div class:list={['roadmap-item', item.status]}>
         <div class="roadmap-marker">
           {item.status === 'done' && '✅'}
           {item.status === 'current' && '🔄'}
@@ -215,7 +194,6 @@ const roadmap = [
     color: hsl(var(--primary));
   }
 
-  /* Roadmap Styles */
   .roadmap {
     display: flex;
     flex-direction: column;
