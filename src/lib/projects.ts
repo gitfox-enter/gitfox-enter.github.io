@@ -19,6 +19,32 @@ export interface Project {
   language?: string
   featured: boolean
   order: number
+  category?: string
+  tags?: string[]
+  repo?: string
+}
+
+export interface Category {
+  title: string
+  description: string
+}
+
+export interface ProjectConfig {
+  categories: Record<string, Category>
+  projects: Record<string, ProjectCustomConfig>
+}
+
+interface ProjectCustomConfig {
+  title?: string
+  subtitle?: string
+  category?: string
+  customDescription?: string
+  image?: string
+  homepage?: string
+  featured?: boolean
+  order?: number
+  repo?: string
+  tags?: string[]
 }
 
 interface GithubRepo {
@@ -31,14 +57,11 @@ interface GithubRepo {
   forks: number
 }
 
-interface CustomConfig {
-  title?: string
-  subtitle?: string
-  customDescription?: string
-  image?: string
-  homepage?: string
-  featured?: boolean
-  order?: number
+/**
+ * 获取分类信息
+ */
+export function getCategories(): Record<string, Category> {
+  return (projectConfig as any).categories ?? {}
 }
 
 /**
@@ -46,11 +69,11 @@ interface CustomConfig {
  */
 export function getProjects(): Project[] {
   const githubProjects: GithubRepo[] = (githubData as any).allProjects ?? []
-  const config: Record<string, CustomConfig> = (projectConfig as any).projects ?? {}
+  const config: Record<string, ProjectCustomConfig> = (projectConfig as any).projects ?? {}
   
   // 合并 GitHub 数据和配置
   const mergedProjects: Project[] = githubProjects.map((repo: GithubRepo) => {
-    const customConfig: CustomConfig = config[repo.name] || {}
+    const customConfig: ProjectCustomConfig = config[repo.name] || {}
     
     return {
       name: repo.name,
@@ -64,12 +87,15 @@ export function getProjects(): Project[] {
       forks: repo.forks,
       language: repo.language,
       featured: customConfig.featured !== false,
-      order: customConfig.order || 999
+      order: customConfig.order || 999,
+      category: customConfig.category || 'other',
+      tags: customConfig.tags || [],
+      repo: customConfig.repo || repo.url.replace('https://github.com/', '')
     }
   })
   
-  // 添加配置中有但 GitHub 没有的项目（如外部项目）
-  for (const [name, customConfig] of Object.entries(config) as [string, CustomConfig][]) {
+  // 添加配置中有但 GitHub 没有的项目
+  for (const [name, customConfig] of Object.entries(config) as [string, ProjectCustomConfig][]) {
     if (!mergedProjects.find(p => p.name === name)) {
       mergedProjects.push({
         name,
@@ -77,22 +103,38 @@ export function getProjects(): Project[] {
         subtitle: customConfig.subtitle || '',
         description: customConfig.customDescription || '',
         image: customConfig.image || '/default-project.png',
-        url: customConfig.homepage || '#',
+        url: customConfig.homepage || customConfig.repo ? `https://github.com/${customConfig.repo}` : '#',
         homepage: customConfig.homepage,
         stars: 0,
         forks: 0,
         featured: customConfig.featured !== false,
-        order: customConfig.order || 999
+        order: customConfig.order || 999,
+        category: customConfig.category || 'other',
+        tags: customConfig.tags || [],
+        repo: customConfig.repo || ''
       })
     }
   }
   
-  // 按配置的 order 排序
   return mergedProjects.sort((a, b) => a.order - b.order)
 }
 
 /**
- * 获取精选项目（首页展示）
+ * 按分类获取项目
+ */
+export function getProjectsByCategory(): Record<string, Project[]> {
+  const projects = getProjects()
+  const grouped: Record<string, Project[]> = {}
+  for (const proj of projects) {
+    const cat = proj.category || 'other'
+    if (!grouped[cat]) grouped[cat] = []
+    grouped[cat].push(proj)
+  }
+  return grouped
+}
+
+/**
+ * 获取精选项目
  */
 export function getFeaturedProjects(): Project[] {
   return getProjects().filter(p => p.featured)
