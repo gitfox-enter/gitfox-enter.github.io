@@ -1,6 +1,6 @@
 // GitFox Blog Service Worker
-const CACHE_NAME = 'gitfox-blog-v3';
-const CACHE_URLS = [
+const CACHE_NAME = 'gitfox-blog-v4';
+const STATIC_ASSETS = [
   '/',
   '/blog/',
   '/about/',
@@ -17,7 +17,7 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('[SW] Caching core assets');
-        return cache.addAll(CACHE_URLS);
+        return cache.addAll(STATIC_ASSETS);
       })
       .catch(err => console.log('[SW] Cache install error:', err))
   );
@@ -41,44 +41,52 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch: cache-first strategy
+// Fetch: network-first for HTML, cache-first for static assets
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
-  
+
   const url = new URL(event.request.url);
-  if (!url.pathname.startsWith('/')) return;
-  
-  event.respondWith(
-    caches.match(event.request)
-      .then(cachedResponse => {
-        if (cachedResponse) {
-          fetch(event.request)
-            .then(networkResponse => {
-              if (networkResponse && networkResponse.status === 200) {
-                caches.open(CACHE_NAME).then(cache => {
-                  cache.put(event.request, networkResponse.clone());
-                });
-              }
-            })
-            .catch(() => {});
-          return cachedResponse;
-        }
-        
-        return fetch(event.request)
-          .then(networkResponse => {
-            if (!networkResponse || networkResponse.status !== 200) {
-              return networkResponse;
-            }
+  // Only handle same-origin requests
+  if (url.origin !== self.location.origin) return;
+
+  const isHTML = event.request.headers.get('Accept')?.includes('text/html');
+  const isStaticAsset = /\.(js|css|png|jpg|jpeg|gif|avif|webp|svg|ico|woff2?)$/i.test(url.pathname);
+
+  if (isHTML) {
+    // Network-first for HTML pages (users want fresh content)
+    event.respondWith(
+      fetch(event.request)
+        .then(networkResponse => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseClone = networkResponse.clone();
             caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, networkResponse.clone());
+              cache.put(event.request, responseClone);
             });
-            return networkResponse;
-          })
-          .catch(() => {
-            if (event.request.destination === 'document') {
-              return caches.match('/');
-            }
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          return caches.match(event.request).then(cachedResponse => {
+            return cachedResponse || caches.match('/');
           });
-      })
-  );
+        })
+    );
+  } else if (isStaticAsset) {
+    // Cache-first for static assets (rarely change)
+    event.respondWith(
+      caches.match(event.request)
+        .then(cachedResponse => {
+          if (cachedResponse) return cachedResponse;
+          return fetch(event.request).then(networkResponse => {
+            if (networkResponse && networkResponse.status === 200) {
+              const responseClone = networkResponse.clone();
+              caches.open(CACHE_NAME).then(cache => {
+                cache.put(event.request, responseClone);
+              });
+            }
+            return networkResponse;
+          });
+        })
+    );
+  }
 });
