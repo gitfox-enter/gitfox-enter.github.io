@@ -8,17 +8,19 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import { unified } from 'unified'
 import { visit } from 'unist-util-visit'
-
 import { getBlogCollection, sortMDByDate } from 'astro-pure/server'
 import config from 'virtual:config'
 
-// Get dynamic import of images as a map collection
 const imagesGlob = import.meta.glob<{ default: ImageMetadata }>(
   '/src/content/blog/**/*.{jpeg,jpg,png,gif,avif,webp}'
 )
 
 const renderContent = async (post: CollectionEntry<'blog'>, site: URL) => {
-  // Replace image links with the correct path
+  if (!post.body) { // #16: guard empty body
+    console.warn(`[RSS] Skipping empty body for: ${post.id}`)
+    return ''
+  }
+
   function remarkReplaceImageLink() {
     return async (tree: Root) => {
       const promises: Promise<void>[] = []
@@ -26,12 +28,10 @@ const renderContent = async (post: CollectionEntry<'blog'>, site: URL) => {
         if (node.url.startsWith('/images')) {
           node.url = `${site}${node.url.replace('/', '')}`
         } else {
-          const imagePathPrefix = `/src/content/blog/${post.id}/${node.url.replace('./', '')}`
-          const promise = imagesGlob[imagePathPrefix]?.().then(async (res) => {
-            const imagePath = res?.default
-            if (imagePath) {
-              node.url = `${site}${(await getImage({ src: imagePath })).src.replace('/', '')}`
-            }
+          const p = `/src/content/blog/${post.id}/${node.url.replace('./', '')}`
+          const promise = imagesGlob[p]?.().then(async (res) => {
+            const img = res?.default
+            if (img) node.url = `${site}${(await getImage({ src: img })).src.replace('/', '')}`
           })
           if (promise) promises.push(promise)
         }
@@ -42,20 +42,16 @@ const renderContent = async (post: CollectionEntry<'blog'>, site: URL) => {
 
   try {
     const file = await unified()
-      .use(remarkParse)
-      .use(remarkReplaceImageLink)
-      .use(remarkRehype)
-      .use(rehypeStringify)
+      .use(remarkParse).use(remarkReplaceImageLink).use(remarkRehype).use(rehypeStringify)
       .process(post.body)
     return String(file)
   } catch (e) {
-    console.error(`Failed to render RSS content for ${post.id}:`, e)
+    console.error(`[RSS] Render failed for ${post.id}:`, e)
     return ''
   }
 }
 
-// Safely extract image URL from heroImage
-function getHeroImageUrl(heroImage: any, siteUrl: string): string | null {
+function getHeroImageUrl(heroImage: any): string | null {
   if (!heroImage) return null
   try {
     if (typeof heroImage === 'string') return heroImage
@@ -63,41 +59,32 @@ function getHeroImageUrl(heroImage: any, siteUrl: string): string | null {
       if (typeof heroImage.src === 'string') return heroImage.src
       if (heroImage.src.src) return heroImage.src.src
     }
-  } catch {
-    return null
-  }
+  } catch {}
   return null
 }
 
 const GET = async (context: AstroGlobal) => {
-  const allPostsByDate = sortMDByDate(await getBlogCollection()) as CollectionEntry<'blog'>[]
-  const siteUrl = context.site ?? new URL(import.meta.env.SITE)
+  const posts = sortMDByDate(await getBlogCollection()) as CollectionEntry<'blog'>[]
+  const siteUrl = context.site ?? new URL(import.meta.env.SITE) // #25: use context.site
 
   return rss({
     trailingSlash: false,
     xmlns: { h: 'http://www.w3.org/TR/html4/' },
     stylesheet: '/scripts/pretty-feed-v3.xsl',
-
     title: config.title,
     description: config.description,
-    site: import.meta.env.SITE,
-    items: await Promise.all(
-      allPostsByDate.map(async (post) => {
-        const heroUrl = getHeroImageUrl(post.data.heroImage, String(siteUrl))
-        const customDataParts: string[] = []
-        if (heroUrl) {
-          customDataParts.push(`<h:img src="${heroUrl}" />`)
-          customDataParts.push(`<enclosure url="${heroUrl}" type="image/jpeg" length="0" />`)
-        }
-        return {
-          pubDate: post.data.publishDate,
-          link: `/blog/${post.id}`,
-          customData: customDataParts.length > 0 ? customDataParts.join('\n          ') : undefined,
-          content: await renderContent(post, siteUrl),
-          ...post.data
-        }
-      })
-    )
+    site: String(siteUrl),
+    items: await Promise.all(posts.map(async (post) => {
+      const heroUrl = getHeroImageUrl(post.data.heroImage)
+      const customData = heroUrl ? `<h:img src="${heroUrl}" />` : undefined // #17: omit enclosure with length=0
+      return {
+        pubDate: post.data.publishDate,
+        link: `/blog/${post.id}`,
+        customData,
+        content: await renderContent(post, siteUrl),
+        ...post.data
+      }
+    }))
   })
 }
 
