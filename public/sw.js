@@ -1,5 +1,5 @@
-// GitFox Blog Service Worker v5
-const CACHE_NAME = 'gitfox-blog-v5';
+// GitFox Blog Service Worker v6
+const CACHE_NAME = 'gitfox-blog-v6';
 const STATIC_ASSETS = [
   '/favicon/favicon.ico',
   '/favicon/favicon-32x32.png',
@@ -32,23 +32,42 @@ self.addEventListener('fetch', event => {
   const isStatic = /\.(js|css|png|jpg|jpeg|gif|avif|webp|svg|ico|woff2?)$/i.test(url.pathname);
 
   if (isHTML) {
+    // Network-first with cache fallback, tolerate opaque responses
     event.respondWith(
       fetch(event.request).then(res => {
-        if (res.ok && res.type === 'basic') {
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, res.clone()));
+        // Cache successful responses - be lenient with response type
+        if (res.ok) {
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, clone).catch(() => {});
+          });
         }
         return res;
-      }).catch(() => caches.match(event.request).then(r => r || caches.match('/offline.html')))
+      }).catch(() => {
+        // Network failed - try cache, then offline page, then let browser handle
+        return caches.match(event.request).then(cached => {
+          if (cached) return cached;
+          return caches.match('/offline.html').then(offline => {
+            if (offline) return offline;
+            // If even offline.html is not cached, let the browser handle it natively
+            return fetch(event.request);
+          });
+        });
+      })
     );
   } else if (isStatic) {
+    // Cache-first for static assets
     event.respondWith(
       caches.match(event.request).then(cached => {
         const fetchPromise = fetch(event.request).then(res => {
-          if (res.ok && res.type === 'basic') caches.open(CACHE_NAME).then(cache => cache.put(event.request, res.clone()));
+          if (res.ok) {
+            caches.open(CACHE_NAME).then(cache => cache.put(event.request, res.clone()).catch(() => {}));
+          }
           return res;
         }).catch(() => cached);
         return cached || fetchPromise;
       })
     );
   }
+  // Non-HTML, non-static requests are not intercepted - let browser handle natively
 });
