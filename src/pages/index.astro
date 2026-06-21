@@ -7,7 +7,7 @@ import { getBlogCollection, sortMDByDate } from 'astro-pure/server'
 import { Button, Card, Icon, Label } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import Section from '@/components/home/Section.astro'
-import SiteProjects from '@/components/SiteProjects.astro'
+import ProjectCard from '@/components/home/ProjectCard.astro'
 import config from '@/site-config'
 
 const MAX_POSTS = 10
@@ -84,8 +84,33 @@ if (!images[imagePath])
         </Card>
       </Section>
 
-      <Section title='网站列表'>
-        <SiteProjects />
+      <Section title='项目'>
+        <div class='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+          <ProjectCard
+            heading='GitFox Blog'
+            subheading='个人博客，分享项目展示、技术文章与自动化实践'
+            imagePath='/src/assets/projects/1.avif'
+            href='https://gitfox-enter.github.io/'
+          />
+          <ProjectCard
+            heading='RSSForge'
+            subheading='基于 GitHub Actions 的免费 RSS 订阅源生成器'
+            imagePath='/src/assets/projects/2.avif'
+            href='https://gitfox-enter.github.io/RSSForge/'
+          />
+          <ProjectCard
+            heading='Site Backup'
+            subheading='备份互联网上有价值的博客和网站内容'
+            imagePath='/src/assets/projects/3.avif'
+            href='https://gitfox-enter.github.io/site-backup/'
+          />
+          <ProjectCard
+            heading='Learning Notes'
+            subheading='从零开始学习 GitHub 的完整笔记'
+            imagePath='/src/assets/projects/4.avif'
+            href='https://gitfox-enter.github.io/github-learning-notes/'
+          />
+        </div>
       </Section>
 
       <Section title='技能'>
