@@ -14,34 +14,18 @@ interface RepoData {
 interface Props {
   user: string
   class?: string
-  profileLink?: boolean | string
+  profileLink?: boolean
 }
 
 const { user, class: className = '', profileLink = true } = Astro.props
-const profileLinkStr = String(profileLink)
 
 const langColors: Record<string, string> = {
-  TypeScript: '#3178c6',
-  JavaScript: '#f1e05a',
-  Python: '#3572A5',
-  HTML: '#e34c26',
-  CSS: '#563d7c',
-  Shell: '#89e051',
-  Vue: '#41b883',
-  Go: '#00ADD8',
-  Rust: '#dea584',
-  Java: '#b07219',
-  'C++': '#f34b7d',
-  C: '#555555',
-  'C#': '#178600',
-  Ruby: '#701516',
-  PHP: '#4F5D95',
-  Swift: '#F05138',
-  Kotlin: '#A97BFF',
-  Dart: '#00B4AB',
-  Astro: '#ff5a03',
-  MDX: '#fcb32c',
-  Svelte: '#ff3e00'
+  TypeScript: '#3178c6', JavaScript: '#f1e05a', Python: '#3572A5',
+  HTML: '#e34c26', CSS: '#563d7c', Shell: '#89e051', Vue: '#41b883',
+  Go: '#00ADD8', Rust: '#dea584', Java: '#b07219', 'C++': '#f34b7d',
+  C: '#555555', 'C#': '#178600', Ruby: '#701516', PHP: '#4F5D95',
+  Swift: '#F05138', Kotlin: '#A97BFF', Dart: '#00B4AB', Astro: '#ff5a03',
+  MDX: '#fcb32c', Svelte: '#ff3e00'
 }
 
 function getLangColor(lang: string): string {
@@ -51,45 +35,41 @@ function getLangColor(lang: string): string {
 let reposData: RepoData[] = []
 let fetchError = false
 
-try {
-  const token = import.meta.env.GITHUB_TOKEN
-  const headers: Record<string, string> = {
-    Accept: 'application/vnd.github.v3+json',
-    'User-Agent': 'gitfox-enter-blog'
-  }
-  if (token) {
-    headers['Authorization'] = `token ${token}`
-  }
-  const res = await fetch(
-    `https://api.github.com/users/${user}/repos?per_page=100&sort=updated&type=owner`,
-    { headers }
-  )
-
-  if (!res.ok) {
-    throw new Error(`GitHub API error: ${res.status}`)
-  }
-
-  let repos: RepoData[] = await res.json()
-
-  repos = repos.filter((r) => !r.private && !r.fork)
-  repos.sort((a, b) => {
-    if (b.stargazers_count !== a.stargazers_count) {
-      return b.stargazers_count - a.stargazers_count
-    }
-    return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
-  })
-
-  reposData = repos.slice(0, 6)
-} catch (e) {
-  console.error('Failed to fetch GitHub repos at build time:', e)
+// Security: never expose GITHUB_TOKEN to client-side (#13)
+if (import.meta.env.SSR === false) {
+  console.error('GITHUB_TOKEN must not be accessed on the client side')
   fetchError = true
+} else {
+  try {
+    const token = import.meta.env.GITHUB_TOKEN
+    const headers: Record<string, string> = {
+      Accept: 'application/vnd.github.v3+json',
+      'User-Agent': 'gitfox-enter-blog'
+    }
+    if (token) headers['Authorization'] = `token ${token}`
+    const res = await fetch(
+      `https://api.github.com/users/${user}/repos?per_page=100&sort=updated&type=owner`,
+      { headers }
+    )
+    if (!res.ok) throw new Error(`GitHub API error: ${res.status}`)
+    let repos: RepoData[] = await res.json()
+    repos = repos.filter((r) => !r.private && !r.fork)
+    repos.sort((a, b) => {
+      if (b.stargazers_count !== a.stargazers_count) return b.stargazers_count - a.stargazers_count
+      return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+    })
+    reposData = repos.slice(0, 6)
+  } catch (e) {
+    console.error('Failed to fetch GitHub repos at build time:', e)
+    fetchError = true
+  }
 }
 ---
 
-<github-repos class={`github-repos-container ${className}`} data-user={user} data-profile-link={profileLinkStr}>
+<github-repos class={`github-repos-container ${className}`} data-user={user} data-profile-link={String(profileLink)}>
   {
     fetchError || reposData.length === 0 ? (
-      <p class="repos-error">GitHub 项目加载失败，请稍后刷新</p>
+      <p class="repos-error">GitHub \u9879\u76ee\u52a0\u8f7d\u5931\u8d25\uff0c\u8bf7\u7a0d\u540e\u5237\u65b0</p>
     ) : (
       <div>
         <div class='github-repos-grid'>
@@ -98,7 +78,7 @@ try {
               <a class='repo-link' href={repo.html_url} target='_blank' rel='noopener noreferrer'>
                 <div class='repo-name'>{repo.name}</div>
                 <div class='repo-desc'>
-                  {repo.description || <span style="opacity:0.5">暂无描述</span>}
+                  {repo.description || <span style="opacity:0.5">\u6682\u65e0\u63cf\u8ff0</span>}
                 </div>
               </a>
               <div class='repo-stats'>
@@ -113,7 +93,7 @@ try {
         </div>
         {profileLink && (
           <div class='profile-link-row'>
-            <a href={`https://github.com/${user}`} target='_blank' rel='noopener noreferrer'>查看全部 GitHub 项目 &rarr;</a>
+            <a href={`https://github.com/${user}`} target='_blank' rel='noopener noreferrer'>\u67e5\u770b\u5168\u90e8 GitHub \u9879\u76ee &rarr;</a>
           </div>
         )}
       </div>
@@ -122,118 +102,22 @@ try {
 </github-repos>
 
 <style>
-  .github-repos-container {
-    width: 100%;
-  }
-
-  .github-repos-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-
-  @media (min-width: 640px) {
-    .github-repos-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .github-repo-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-    padding: 0.75rem;
-    border-radius: 0.75rem;
-    border: 1px solid hsl(var(--border));
-    transition: background-color 0.2s, border-color 0.2s;
-  }
-
-  .github-repo-card:hover {
-    background-color: hsl(var(--muted));
-    border-color: hsl(var(--border) / 0.8);
-  }
-
-  .github-repo-card a.repo-link {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .repo-name {
-    display: flex;
-    align-items: center;
-    gap: 0.375rem;
-    font-weight: 500;
-    color: hsl(var(--foreground));
-    transition: color 0.2s;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  .github-repo-card:hover .repo-name {
-    color: hsl(var(--primary));
-  }
-
-  .repo-desc {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    font-size: 0.875rem;
-    line-height: 1.4;
-    color: hsl(var(--muted-foreground));
-    min-height: 2.45em;
-  }
-
-  .repo-stats {
-    display: flex;
-    align-items: center;
-    gap: 0.875rem;
-    margin-top: 0.125rem;
-  }
-
-  .repo-stat {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.8125rem;
-    color: hsl(var(--muted-foreground));
-  }
-
-  .repo-stat svg {
-    width: 15px;
-    height: 15px;
-    flex-shrink: 0;
-  }
-
-  .lang-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* Profile link */
-  .profile-link-row {
-    margin-top: 0.75rem;
-    text-align: right;
-  }
-
-  .profile-link-row a {
-    font-size: 0.875rem;
-    color: hsl(var(--muted-foreground));
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .profile-link-row a:hover {
-    color: hsl(var(--primary));
-  }
-
-  .repos-error {
-    color: hsl(var(--muted-foreground));
-    font-size: 0.875rem;
-  }
+  .github-repos-container { width: 100%; }
+  .github-repos-grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
+  @media (min-width: 640px) { .github-repos-grid { grid-template-columns: repeat(2, 1fr); } }
+  .github-repo-card { position: relative; display: flex; flex-direction: column; gap: 0.375rem; padding: 0.75rem; border-radius: 0.75rem; border: 1px solid hsl(var(--border)); transition: background-color 0.2s, border-color 0.2s; }
+  .github-repo-card:hover { background-color: hsl(var(--muted)); border-color: hsl(var(--border) / 0.8); }
+  .github-repo-card a.repo-link { text-decoration: none; color: inherit; }
+  .repo-name { display: flex; align-items: center; gap: 0.375rem; font-weight: 500; color: hsl(var(--foreground)); transition: color 0.2s; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .github-repo-card:hover .repo-name { color: hsl(var(--primary)); }
+  .repo-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.875rem; line-height: 1.4; color: hsl(var(--muted-foreground)); min-height: 2.45em; }
+  .repo-stats { display: flex; align-items: center; gap: 0.875rem; margin-top: 0.125rem; }
+  .repo-stat { display: flex; align-items: center; gap: 0.25rem; font-size: 0.8125rem; color: hsl(var(--muted-foreground)); }
+  .repo-stat svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .lang-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .profile-link-row { margin-top: 0.75rem; text-align: right; }
+  .profile-link-row a { font-size: 0.875rem; color: hsl(var(--muted-foreground)); text-decoration: none; transition: color 0.2s; }
+  .profile-link-row a:hover { color: hsl(var(--primary)); }
+  .repos-error { color: hsl(var(--muted-foreground)); font-size: 0.875rem; }
 </style>
 ---
