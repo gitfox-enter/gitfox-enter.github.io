@@ -7,7 +7,7 @@ import { getBlogCollection, sortMDByDate } from 'astro-pure/server'
 import { Button, Card, Icon, Label } from 'astro-pure/user'
 import PageLayout from '@/layouts/BaseLayout.astro'
 import Section from '@/components/home/Section.astro'
-import GithubRepos from '@/components/GithubRepos.astro'
+import SiteProjects from '@/components/SiteProjects.astro'
 import config from '@/site-config'
 
 const MAX_POSTS = 10
@@ -85,7 +85,7 @@ if (!images[imagePath])
       </Section>
 
       <Section title='项目'>
-        <GithubRepos user='gitfox-enter' profileLink={false} />
+        <SiteProjects />
       </Section>
 
       <Section title='技能'>
