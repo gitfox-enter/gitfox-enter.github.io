@@ -8,6 +8,7 @@ tags:
 language: 中文
 heroImage:
   src: ./cover.jpg
+  color: "#6c543c"
 ---
 ## 为什么写博客
 

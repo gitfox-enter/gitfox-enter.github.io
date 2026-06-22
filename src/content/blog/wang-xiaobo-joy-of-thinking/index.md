@@ -10,6 +10,7 @@ tags:
 language: 中文
 heroImage:
   src: ./cover.jpg
+  color: "#ccb49c"
 ---
 ## 一
 

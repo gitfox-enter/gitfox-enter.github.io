@@ -10,6 +10,7 @@ tags:
 language: 中文
 heroImage:
   src: ./cover.jpg
+  color: "#9c846c"
 ---
 推荐一个校园网自动登录脚本，目前有 29 次安装，版本 1.2.0。
 

@@ -10,6 +10,7 @@ tags:
 language: 中文
 heroImage:
   src: ./cover.jpg
+  color: "#3c546c"
 ---
 
 ![藏刀](./img1.jpg)

@@ -11,6 +11,7 @@ tags:
 language: 中文
 heroImage:
   src: https://cdn.jsdelivr.net/gh/gitfox-enter/gitfox-enter.github.io@main/src/content/blog/pilgrim-mani/cover.jpg
+  color: "#549ce4"
   width: 1536
   height: 1024
 ---

@@ -10,6 +10,7 @@ tags:
 language: 中文
 heroImage:
   src: ./cover.jpg
+  color: "#9c9c6c"
 ---
 我一回头，身后的草全开花了。一大片，像谁说了一个笑话，把一滩草惹笑了。
 

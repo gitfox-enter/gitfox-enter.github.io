@@ -9,6 +9,7 @@ tags:
 language: 中文
 heroImage:
   src: https://cdn.jsdelivr.net/gh/gitfox-enter/gitfox-enter.github.io@main/src/content/blog/yangkaluofu-yisheng/cover.jpg
+  color: "#e4ccb4"
   width: 1200
   height: 800
 ---

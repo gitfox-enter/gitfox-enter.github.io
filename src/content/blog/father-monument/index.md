@@ -10,6 +10,7 @@ tags:
 language: 中文
 heroImage:
   src: https://cdn.jsdelivr.net/gh/gitfox-enter/gitfox-enter.github.io@main/src/content/blog/father-monument/cover.jpg
+  color: "#543c0c"
   width: 1536
   height: 1024
 ---

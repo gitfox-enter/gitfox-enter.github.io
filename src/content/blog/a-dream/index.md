@@ -8,6 +8,7 @@ tags:
 language: 中文
 heroImage:
   src: ./cover.jpg
+  color: "#24243c"
   width: 1200
   height: 800
 ---

@@ -9,6 +9,7 @@ tags:
 language: 中文
 heroImage:
   src: ./cover.jpg
+  color: "#242454"
 ---
 目前我在 GitHub 上有两个自己的项目，记录一下它们的来龙去脉。
 

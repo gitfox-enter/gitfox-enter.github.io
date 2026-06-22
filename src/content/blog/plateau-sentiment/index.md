@@ -11,6 +11,7 @@ tags:
 language: 中文
 heroImage:
   src: https://cdn.jsdelivr.net/gh/gitfox-enter/gitfox-enter.github.io@main/src/content/blog/plateau-sentiment/cover.jpg
+  color: "#6c9ce4"
   width: 1536
   height: 1024
 ---
