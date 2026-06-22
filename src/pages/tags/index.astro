@@ -1,11 +1,22 @@
 ---
-import { getBlogCollection, getUniqueTagsWithCount } from 'astro-pure/server'
+import { getCollection } from 'astro:content'
 import { Button } from 'astro-pure/user'
 import { cn } from 'astro-pure/utils'
 import PageLayout from '@/layouts/BaseLayout.astro'
 
-const allPosts = await getBlogCollection()
-const allTags = getUniqueTagsWithCount(allPosts)
+// Use direct Astro content API to avoid astro-pure compatibility bugs (#42)
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+
+// Build tag -> count map manually
+const tagCounts = new Map<string, number>()
+for (const post of allPosts) {
+  for (const tag of post.data.tags) {
+    tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1)
+  }
+}
+const allTags: Array<[string, number]> = [...tagCounts.entries()].sort(
+  ([, a], [, b]) => b - a
+)
 
 const meta = {
   description: "A list of all the topics I've written about in my posts",

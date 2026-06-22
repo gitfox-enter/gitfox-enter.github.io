@@ -69,14 +69,19 @@ const GET = async (context: AstroGlobal) => {
 
   return rss({
     trailingSlash: false,
-    xmlns: { h: 'http://www.w3.org/TR/html4/' },
+    xmlns: { h: 'http://www.w3.org/TR/html4/', media: 'http://search.yahoo.com/mrss/' },
     stylesheet: '/scripts/pretty-feed-v3.xsl',
     title: config.title,
     description: config.description,
     site: String(siteUrl),
     items: await Promise.all(posts.map(async (post) => {
       const heroUrl = getHeroImageUrl(post.data.heroImage)
-      const customData = heroUrl ? `<h:img src="${heroUrl}" />` : undefined // #17: omit enclosure with length=0
+      let customDataParts: string[] = []
+      if (heroUrl) {
+        customDataParts.push(`<media:content xmlns:media="http://search.yahoo.com/mrss/" url="${heroUrl}" medium="image" />`)
+        customDataParts.push(`<h:img src="${heroUrl}" />`)
+      }
+      const customData = customDataParts.length > 0 ? customDataParts.join('\n') : undefined
       return {
         pubDate: post.data.publishDate,
         link: `/blog/${post.id}`,

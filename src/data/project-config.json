@@ -65,14 +65,20 @@
       "label": "Python",
       "category": "programs",
       "description": "青龙面板自动签到脚本，Docker 部署，定时执行",
-      "links": {}
+      "repo": "gitfox-enter/dailycheckin",
+      "links": {
+        "github": true
+      }
     },
     "site-update-monitor": {
       "title": "📡 站点更新监控",
       "label": "Python",
       "category": "programs",
       "description": "自动化多站点更新监控系统，GitHub Actions 定时抓取 35 个站点",
-      "links": {}
+      "repo": "gitfox-enter/RSSForge",
+      "links": {
+        "github": true
+      }
     },
     "github-learning-notes": {
       "title": "📖 GitHub 学习笔记",
