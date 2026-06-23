@@ -4,10 +4,6 @@
       "title": "Applications",
       "description": "可以直接使用的产品和工具"
     },
-    "programs": {
-      "title": "Programs",
-      "description": "用代码解决重复性工作的自动化脚本"
-    },
     "learnings": {
       "title": "Learnings",
       "description": "边学边做的练习仓库"
@@ -46,36 +42,6 @@
       "category": "applications",
       "repo": "gitfox-enter/site-backup",
       "description": "备份互联网上有价值的博客和网站内容，防止原站失效后资源丢失",
-      "links": {
-        "github": true
-      }
-    },
-    "BZXY_GWIFI": {
-      "title": "🌐 校园网自动登录",
-      "label": "JavaScript",
-      "category": "programs",
-      "homepage": "https://scriptcat.org/zh-CN/script-show-page/5981",
-      "description": "亳州学院校园网 GiWiFi 自动登录工具，支持断网重连、后台运行",
-      "links": {
-        "scriptcat": true
-      }
-    },
-    "qinglong-checkin": {
-      "title": "✅ 青龙面板自动签到",
-      "label": "Python",
-      "category": "programs",
-      "description": "青龙面板自动签到脚本，Docker 部署，定时执行",
-      "repo": "gitfox-enter/dailycheckin",
-      "links": {
-        "github": true
-      }
-    },
-    "site-update-monitor": {
-      "title": "📡 站点更新监控",
-      "label": "Python",
-      "category": "programs",
-      "description": "自动化多站点更新监控系统，GitHub Actions 定时抓取 35 个站点",
-      "repo": "gitfox-enter/RSSForge",
       "links": {
         "github": true
       }
