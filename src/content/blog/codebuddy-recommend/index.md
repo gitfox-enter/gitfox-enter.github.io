@@ -8,9 +8,6 @@ tags:
   - 编程工具
   - CodeBuddy
 language: 中文
-heroImage:
-  src: ./cover.jpg
-  color: "#1e40af"
 ---
 
 > ⚠️ **【限时福利】通过我的邀请链接注册，立即获得大量积分奖励！**
