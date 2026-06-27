@@ -3,28 +3,9 @@
     "applications": {
       "title": "Applications",
       "description": "可以直接使用的产品和工具"
-    },
-    "learnings": {
-      "title": "Learnings",
-      "description": "边学边做的练习仓库"
-    },
-    "others": {
-      "title": "Others",
-      "description": "其他项目"
     }
   },
   "projects": {
-    "RSSForge": {
-      "title": "⚡ RSSForge",
-      "label": "Python",
-      "category": "applications",
-      "repo": "gitfox-enter/RSSForge",
-      "description": "基于 GitHub Actions 的免费 RSS 订阅源生成器，给任何网站生成 RSS",
-      "links": {
-        "github": true,
-        "homepage": "https://gitfox-enter.github.io/RSSForge/"
-      }
-    },
     "gitfox-enter.github.io": {
       "title": "📝 个人博客",
       "label": "Astro",
@@ -34,26 +15,6 @@
       "links": {
         "github": true,
         "homepage": "https://gitfox-enter.github.io/"
-      }
-    },
-    "site-backup": {
-      "title": "📦 站点备份",
-      "label": "Archive",
-      "category": "applications",
-      "repo": "gitfox-enter/site-backup",
-      "description": "备份互联网上有价值的博客和网站内容，防止原站失效后资源丢失",
-      "links": {
-        "github": true
-      }
-    },
-    "github-learning-notes": {
-      "title": "📖 GitHub 学习笔记",
-      "label": "Markdown",
-      "category": "learnings",
-      "repo": "gitfox-enter/github-learning-notes",
-      "description": "系统化学习 GitHub 的完整笔记仓库，涵盖 Git 基础、前端开发、Python 脚本",
-      "links": {
-        "github": true
       }
     }
   }
