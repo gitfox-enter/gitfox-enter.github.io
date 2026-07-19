@@ -55,8 +55,8 @@ jobs:
           const fs = require("fs");
           const injectJS = fs.readFileSync("inject.js", "utf-8");
           const scriptTag = "<script>" + injectJS + "</script>";
-          // 注意：#resume-toolbar 必须在 @media print {} 内部，否则会全局隐藏工具栏！
-          const printStyle = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><style>@media print{body{box-shadow:none!important;max-width:100%!important;margin:0!important;padding:0!important}#resume-toolbar{display:none!important}}</style>`;
+          // 注意：#resume-nav 必须在 @media print {} 内部，否则会全局隐藏工具栏！
+          const printStyle = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><style>@media print{body{box-shadow:none!important;max-width:100%!important;margin:0!important;padding:0!important}#resume-nav{display:none!important}}</style>`;
           ["index.html", "index.zh.html", "index.en.html"].forEach(function(f){
             let html = fs.readFileSync(f, "utf-8");
             html = html.replace("</head>", printStyle + "</head>");
