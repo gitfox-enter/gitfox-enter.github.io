@@ -10,21 +10,31 @@
   function init() {
     if (document.getElementById('resume-toolbar')) return;
 
+    // 注入动画 CSS
+    var animStyle = document.createElement('style');
+    animStyle.textContent = [
+      '@keyframes rtBounceIn{0%{opacity:0;transform:scale(0) translateY(40px)}60%{opacity:1;transform:scale(1.1) translateY(-5px)}100%{opacity:1;transform:scale(1) translateY(0)}}',
+      '@keyframes rtPulse{0%,100%{box-shadow:0 3px 12px rgba(0,0,0,0.4)}50%{box-shadow:0 3px 20px rgba(0,115,170,0.6),0 0 30px rgba(0,115,170,0.3)}}',
+      '#resume-toolbar button:hover{animation:rtPulse 1s infinite}'
+    ].join('\n');
+    document.head.appendChild(animStyle);
+
     var mode = 'view';
     var lang = localStorage.getItem('resume-lang') || 'zh';
     var originalHTML = document.documentElement.outerHTML;
 
-    // 创建工具栏
+    // 创建工具栏 —— 内联到 HTML，无外部依赖
     var toolbar = document.createElement('div');
     toolbar.id = 'resume-toolbar';
     toolbar.style.cssText = [
       'position:fixed',
-      'right:20px',
-      'bottom:20px',
+      'right:16px',
+      'bottom:max(16px, env(safe-area-inset-bottom) + 10px)',
       'display:flex',
       'flex-direction:column',
       'gap:8px',
-      'z-index:9999'
+      'z-index:99999',
+      'animation:rtBounceIn 0.5s ease-out'
     ].join(';');
 
     function makeBtn(icon, title, bg) {
@@ -32,20 +42,22 @@
       b.innerHTML = icon;
       b.title = title;
       b.style.cssText = [
-        'width:48px',
-        'height:48px',
+        'width:56px',
+        'height:56px',
         'border-radius:50%',
         'border:none',
         'background:' + (bg || '#0073aa'),
         'color:#fff',
-        'font-size:16px',
+        'font-size:20px',
         'cursor:pointer',
-        'box-shadow:0 2px 8px rgba(0,0,0,0.3)',
+        'box-shadow:0 3px 12px rgba(0,0,0,0.4)',
         'transition:all 0.2s',
         'display:flex',
         'align-items:center',
         'justify-content:center'
       ].join(';');
+      b.onmouseover = function () { this.style.transform = 'scale(1.15)'; };
+      b.onmouseout = function () { this.style.transform = 'scale(1)'; };
       return b;
     }
 
