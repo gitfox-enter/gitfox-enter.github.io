@@ -51,13 +51,19 @@ jobs:
 
       - name: Inject toolbar (inline JS) + print styles into all HTML files
         run: |
-          INJECT=$(cat inject.js)
-          for f in index.html index.zh.html index.en.html; do
-            # 1) 注入 viewport meta + 打印样式
-            sed -i 's|</head>|<meta name="viewport" content="width=device-width, initial-scale=1.0"><style>@media print{body{box-shadow:none!important;max-width:100%!important;margin:0!important;padding:0!important}}#resume-toolbar{display:none!important}</style></head>|' "$f"
-            # 2) 把 inject.js 完整内联到 </body> 前（不再依赖外部文件）
-            sed -i "/<\/body>/i\\<script>${INJECT}<\/script>" "$f"
-          done
+          node -e '
+          const fs = require("fs");
+          const injectJS = fs.readFileSync("inject.js", "utf-8");
+          const scriptTag = "<script>" + injectJS + "</script>";
+          const printStyle = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><style>@media print{body{box-shadow:none!important;max-width:100%!important;margin:0!important;padding:0!important}}#resume-toolbar{display:none!important}</style>`;
+          ["index.html", "index.zh.html", "index.en.html"].forEach(function(f){
+            let html = fs.readFileSync(f, "utf-8");
+            html = html.replace("</head>", printStyle + "</head>");
+            html = html.replace("</body>", scriptTag + "</body>");
+            fs.writeFileSync(f, html);
+            console.log("Injected: " + f);
+          });
+          '
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
