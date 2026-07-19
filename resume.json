@@ -1,156 +1,244 @@
 {
-  "basics": {
-    "name": "金军",
-    "label": "全栈开发学生",
-    "image": "",
-    "email": "mrjin2004@163.com",
-    "phone": "XXX-XXXX-XXXX",
-    "url": "https://gitfox-enter.github.io/",
-    "summary": "亳州学院在读学生，热爱技术折腾与自托管。熟悉全栈开发、Docker 部署、API 调用及 NAS 自托管服务。在 GitHub 维护多个开源项目，善于用 AI 工具提升开发效率。",
-    "location": {
-      "city": "亳州",
-      "countryCode": "CN",
-      "region": "安徽"
+  "zh": {
+    "basics": {
+      "name": "金军",
+      "label": "全栈开发学生",
+      "image": "",
+      "email": "mrjin2004@163.com",
+      "phone": "XXX-XXXX-XXXX",
+      "url": "https://gitfox-enter.github.io/",
+      "summary": "亳州学院在读学生，热爱技术折腾与自托管。熟悉全栈开发、Docker 部署、API 调用及 NAS 自托管服务。在 GitHub 维护多个开源项目，善于用 AI 工具提升开发效率。",
+      "location": {
+        "city": "亳州",
+        "countryCode": "CN",
+        "region": "安徽"
+      },
+      "profiles": [
+        {
+          "network": "GitHub",
+          "username": "gitfox-enter",
+          "url": "https://github.com/gitfox-enter"
+        }
+      ]
     },
-    "profiles": [
+    "work": [
       {
-        "network": "GitHub",
-        "username": "gitfox-enter",
-        "url": "https://github.com/gitfox-enter"
+        "name": "个人项目",
+        "position": "全栈开发者",
+        "url": "https://github.com/gitfox-enter",
+        "startDate": "2024-01-01",
+        "summary": "独立开发并维护多个开源项目，涵盖 RSS 工具、在线阅读器、自动化订阅等。",
+        "highlights": [
+          "RSSForge: 基于 GitHub Actions 的免费 RSS 订阅源生成器",
+          "FeedForge: 在线 RSS 阅读器（localStorage 免登录）",
+          "网易矩阵号订阅自动投递系统（36 账号、200 封/天）"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "institution": "亳州学院",
+        "url": "",
+        "area": "计算机科学与技术",
+        "studyType": "本科在读",
+        "startDate": "2023-09-01",
+        "endDate": "",
+        "score": "",
+        "courses": [
+          "数据结构",
+          "操作系统",
+          "计算机网络",
+          "数据库原理"
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "name": "前端开发",
+        "level": "",
+        "keywords": ["HTML", "CSS", "JavaScript", "Astro", "Vue"]
+      },
+      {
+        "name": "后端开发",
+        "level": "",
+        "keywords": ["Node.js", "Python", "FastAPI"]
+      },
+      {
+        "name": "运维与部署",
+        "level": "",
+        "keywords": ["Docker", "GitHub Actions", "NAS 自托管", "Linux"]
+      },
+      {
+        "name": "工具与协作",
+        "level": "",
+        "keywords": ["Git", "Obsidian", "AI 工具（Claude Code / CodeBuddy）"]
+      }
+    ],
+    "projects": [
+      {
+        "name": "RSSForge",
+        "startDate": "2024-01-01",
+        "description": "基于 GitHub Actions 的免费 RSS 订阅源生成器，给任何网站生成 RSS。",
+        "url": "https://github.com/gitfox-enter/RSSForge",
+        "type": "tool"
+      },
+      {
+        "name": "FeedForge",
+        "startDate": "2024-01-01",
+        "description": "在线 RSS 阅读器，localStorage 免登录，1:1 克隆 newsfeeder。",
+        "url": "https://github.com/gitfox-enter/feedforge",
+        "type": "web"
+      },
+      {
+        "name": "GitHub 学习笔记",
+        "startDate": "2026-06-01",
+        "description": "从零开始学习 GitHub 的完整笔记仓库，VitePress 文档站。",
+        "url": "https://gitfox-enter.github.io/github-learning-notes/",
+        "type": "documentation"
+      },
+      {
+        "name": "网易矩阵号订阅系统",
+        "startDate": "2024-01-01",
+        "description": "自动抓取 36 账号并投递到邮箱的自动化系统，200 封/天上限。",
+        "url": "https://github.com/gitfox-enter/netease-subscribe",
+        "type": "automation"
+      }
+    ],
+    "languages": [
+      { "language": "中文", "fluency": "母语" },
+      { "language": "英语", "fluency": "能阅读技术文档" }
+    ],
+    "interests": [
+      {
+        "name": "自托管服务",
+        "keywords": ["NAS", "Docker", "Reader", "File Browser"]
+      },
+      {
+        "name": "AI 工具链",
+        "keywords": ["Claude Code", "CodeBuddy", "多模型集成"]
       }
     ]
   },
-  "work": [
-    {
-      "name": "个人项目",
-      "position": "全栈开发者",
-      "url": "https://github.com/gitfox-enter",
-      "startDate": "2024-01-01",
-      "summary": "独立开发并维护多个开源项目，涵盖 RSS 工具、在线阅读器、自动化订阅等。",
-      "highlights": [
-        "RSSForge: 基于 GitHub Actions 的免费 RSS 订阅源生成器",
-        "FeedForge: 在线 RSS 阅读器（localStorage 免登录）",
-        "网易矩阵号订阅自动投递系统（36 账号、200 封/天）"
-      ]
-    }
-  ],
-  "education": [
-    {
-      "institution": "亳州学院",
-      "url": "",
-      "area": "计算机科学与技术",
-      "studyType": "本科在读",
-      "startDate": "2023-09-01",
-      "endDate": "",
-      "score": "",
-      "courses": [
-        "数据结构",
-        "操作系统",
-        "计算机网络",
-        "数据库原理"
-      ]
-    }
-  ],
-  "skills": [
-    {
-      "name": "前端开发",
-      "level": "",
-      "keywords": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "Astro",
-        "Vue"
+  "en": {
+    "basics": {
+      "name": "Jin Jun",
+      "label": "Full-Stack Developer Student",
+      "image": "",
+      "email": "mrjin2004@163.com",
+      "phone": "XXX-XXXX-XXXX",
+      "url": "https://gitfox-enter.github.io/",
+      "summary": "Student at Bozhou University, passionate about technology tinkering and self-hosting. Familiar with full-stack development, Docker deployment, API integration, and NAS self-hosted services. Maintains multiple open-source projects on GitHub, adept at using AI tools to boost development efficiency.",
+      "location": {
+        "city": "Bozhou",
+        "countryCode": "CN",
+        "region": "Anhui"
+      },
+      "profiles": [
+        {
+          "network": "GitHub",
+          "username": "gitfox-enter",
+          "url": "https://github.com/gitfox-enter"
+        }
       ]
     },
-    {
-      "name": "后端开发",
-      "level": "",
-      "keywords": [
-        "Node.js",
-        "Python",
-        "FastAPI"
-      ]
-    },
-    {
-      "name": "运维与部署",
-      "level": "",
-      "keywords": [
-        "Docker",
-        "GitHub Actions",
-        "NAS 自托管",
-        "Linux"
-      ]
-    },
-    {
-      "name": "工具与协作",
-      "level": "",
-      "keywords": [
-        "Git",
-        "Obsidian",
-        "AI 工具（Claude Code / CodeBuddy）"
-      ]
-    }
-  ],
-  "projects": [
-    {
-      "name": "RSSForge",
-      "startDate": "2024-01-01",
-      "description": "基于 GitHub Actions 的免费 RSS 订阅源生成器，给任何网站生成 RSS。",
-      "url": "https://github.com/gitfox-enter/RSSForge",
-      "type": "tool"
-    },
-    {
-      "name": "FeedForge",
-      "startDate": "2024-01-01",
-      "description": "在线 RSS 阅读器，localStorage 免登录，1:1 克隆 newsfeeder。",
-      "url": "https://github.com/gitfox-enter/feedforge",
-      "type": "web"
-    },
-    {
-      "name": "GitHub 学习笔记",
-      "startDate": "2026-06-01",
-      "description": "从零开始学习 GitHub 的完整笔记仓库，VitePress 文档站。",
-      "url": "https://gitfox-enter.github.io/github-learning-notes/",
-      "type": "documentation"
-    },
-    {
-      "name": "网易矩阵号订阅系统",
-      "startDate": "2024-01-01",
-      "description": "自动抓取 36 账号并投递到邮箱的自动化系统，200 封/天上限。",
-      "url": "https://github.com/gitfox-enter/netease-subscribe",
-      "type": "automation"
-    }
-  ],
-  "languages": [
-    {
-      "language": "中文",
-      "fluency": "母语"
-    },
-    {
-      "language": "英语",
-      "fluency": "能阅读技术文档"
-    }
-  ],
-  "interests": [
-    {
-      "name": "自托管服务",
-      "keywords": [
-        "NAS",
-        "Docker",
-        "Reader",
-        "File Browser"
-      ]
-    },
-    {
-      "name": "AI 工具链",
-      "keywords": [
-        "Claude Code",
-        "CodeBuddy",
-        "多模型集成"
-      ]
-    }
-  ],
+    "work": [
+      {
+        "name": "Personal Projects",
+        "position": "Full-Stack Developer",
+        "url": "https://github.com/gitfox-enter",
+        "startDate": "2024-01-01",
+        "summary": "Independently developed and maintained multiple open-source projects, covering RSS tools, online readers, and automated subscriptions.",
+        "highlights": [
+          "RSSForge: Free RSS feed generator based on GitHub Actions",
+          "FeedForge: Online RSS reader (localStorage, no login required)",
+          "NetEase matrix account subscription auto-delivery system (36 accounts, 200 emails/day)"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "institution": "Bozhou University",
+        "url": "",
+        "area": "Computer Science and Technology",
+        "studyType": "Undergraduate (in progress)",
+        "startDate": "2023-09-01",
+        "endDate": "",
+        "score": "",
+        "courses": [
+          "Data Structures",
+          "Operating Systems",
+          "Computer Networks",
+          "Database Principles"
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "name": "Frontend",
+        "level": "",
+        "keywords": ["HTML", "CSS", "JavaScript", "Astro", "Vue"]
+      },
+      {
+        "name": "Backend",
+        "level": "",
+        "keywords": ["Node.js", "Python", "FastAPI"]
+      },
+      {
+        "name": "DevOps & Deployment",
+        "level": "",
+        "keywords": ["Docker", "GitHub Actions", "NAS Self-hosting", "Linux"]
+      },
+      {
+        "name": "Tools & Collaboration",
+        "level": "",
+        "keywords": ["Git", "Obsidian", "AI Tools (Claude Code / CodeBuddy)"]
+      }
+    ],
+    "projects": [
+      {
+        "name": "RSSForge",
+        "startDate": "2024-01-01",
+        "description": "Free RSS feed generator based on GitHub Actions, generates RSS for any website.",
+        "url": "https://github.com/gitfox-enter/RSSForge",
+        "type": "tool"
+      },
+      {
+        "name": "FeedForge",
+        "startDate": "2024-01-01",
+        "description": "Online RSS reader, localStorage no login, 1:1 clone of newsfeeder.",
+        "url": "https://github.com/gitfox-enter/feedforge",
+        "type": "web"
+      },
+      {
+        "name": "GitHub Learning Notes",
+        "startDate": "2026-06-01",
+        "description": "Complete notes repository for learning GitHub from scratch, VitePress documentation site.",
+        "url": "https://gitfox-enter.github.io/github-learning-notes/",
+        "type": "documentation"
+      },
+      {
+        "name": "NetEase Subscription System",
+        "startDate": "2024-01-01",
+        "description": "Automated system that fetches 36 accounts and delivers to email, 200 emails/day limit.",
+        "url": "https://github.com/gitfox-enter/netease-subscribe",
+        "type": "automation"
+      }
+    ],
+    "languages": [
+      { "language": "Chinese", "fluency": "Native" },
+      { "language": "English", "fluency": "Can read technical docs" }
+    ],
+    "interests": [
+      {
+        "name": "Self-hosting",
+        "keywords": ["NAS", "Docker", "Reader", "File Browser"]
+      },
+      {
+        "name": "AI Toolchain",
+        "keywords": ["Claude Code", "CodeBuddy", "Multi-model Integration"]
+      }
+    ]
+  },
   "meta": {
     "themeOptions": {
       "colors": {
