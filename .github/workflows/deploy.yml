@@ -26,32 +26,30 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install resumed and theme
-        run: npm install resumed jsonresume-theme-even
+      - name: Install theme (standalone CLI mode)
+        run: npm install jsonresume-theme-even
 
-      - name: Split resume.json into zh/en and render both
+      - name: Split resume.json into zh/en
         run: |
           node -e "
           const fs = require('fs');
           const data = JSON.parse(fs.readFileSync('resume.json', 'utf-8'));
-          // 中文版
           const zh = { ...data.zh, meta: data.meta };
-          fs.writeFileSync('resume.zh.json', JSON.stringify(zh, null, 2));
-          // 英文版
+          fs.writeFileSync('resume.zh.json', JSON.stringify(zh));
           const en = { ...data.en, meta: data.meta };
-          fs.writeFileSync('resume.en.json', JSON.stringify(en, null, 2));
+          fs.writeFileSync('resume.en.json', JSON.stringify(en));
           "
 
       - name: Build Chinese HTML
-        run: npx resumed render --theme jsonresume-theme-even --input resume.zh.json --output index.zh.html
+        run: npx jsonresume-theme-even < resume.zh.json > index.zh.html
 
       - name: Build English HTML
-        run: npx resumed render --theme jsonresume-theme-even --input resume.en.json --output index.en.html
+        run: npx jsonresume-theme-even < resume.en.json > index.en.html
 
       - name: Build default index.html (Chinese)
         run: cp index.zh.html index.html
 
-      - name: Inject editor and print styles into both HTML files
+      - name: Inject editor and print styles into all HTML files
         run: |
           for f in index.html index.zh.html index.en.html; do
             sed -i 's|</head>|<meta name="viewport" content="width=device-width, initial-scale=1.0"><style>@media print{body{box-shadow:none!important;max-width:100%!important;margin:0!important;padding:0!important}}#resume-toolbar{display:none!important}</style></head>|' "$f"
