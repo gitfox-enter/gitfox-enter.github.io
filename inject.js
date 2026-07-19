@@ -49,10 +49,50 @@
       return b;
     }
 
+    var themeBtn = makeBtn('🌓', '切换亮/暗模式', '#6c7781');
     var langBtn = makeBtn('🌐', '切换中英文', '#8e44ad');
     var editBtn = makeBtn('✏️', '切换到编辑器模式（临时编辑，不会保存）');
     var printBtn = makeBtn('🖨️', '打印简历', '#46b450');
     var githubBtn = makeBtn('🔗', '本项目仓库', '#24292e');
+
+    // 亮暗切换
+    function updateThemeBtn() {
+      var isDark = localStorage.getItem('resume-theme') === 'dark';
+      themeBtn.innerHTML = isDark ? '☀️' : '🌙';
+      themeBtn.title = isDark ? '当前暗色模式，点击切换亮色' : '当前亮色模式，点击切换暗色';
+    }
+
+    // 初始化主题
+    (function () {
+      var saved = localStorage.getItem('resume-theme');
+      if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else if (saved === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+      updateThemeBtn();
+    })();
+
+    themeBtn.onclick = function () {
+      var current = localStorage.getItem('resume-theme');
+      var next = (current === 'dark') ? 'light' : 'dark';
+      localStorage.setItem('resume-theme', next);
+      // even 主题用 CSS 变量控制颜色，我们通过修改 html 属性 + 注入 style 实现
+      if (next === 'dark') {
+        document.documentElement.style.setProperty('--color-background', 'var(--color-background-dark)');
+        document.documentElement.style.setProperty('--color-dimmed', 'var(--color-dimmed-dark)');
+        document.documentElement.style.setProperty('--color-primary', 'var(--color-primary-dark)');
+        document.documentElement.style.setProperty('--color-secondary', 'var(--color-secondary-dark)');
+        document.documentElement.style.setProperty('--color-accent', 'var(--color-accent-dark)');
+      } else {
+        document.documentElement.style.setProperty('--color-background', 'var(--color-background-light)');
+        document.documentElement.style.setProperty('--color-dimmed', 'var(--color-dimmed-light)');
+        document.documentElement.style.setProperty('--color-primary', 'var(--color-primary-light)');
+        document.documentElement.style.setProperty('--color-secondary', 'var(--color-secondary-light)');
+        document.documentElement.style.setProperty('--color-accent', 'var(--color-accent-light)');
+      }
+      updateThemeBtn();
+    };
 
     githubBtn.onclick = function () {
       window.open('https://github.com/gitfox-enter/gitfox-enter.github.io', '_blank');
@@ -333,6 +373,7 @@
       // 不自动跳转，避免循环
     }
 
+    toolbar.appendChild(themeBtn);
     toolbar.appendChild(langBtn);
     toolbar.appendChild(editBtn);
     toolbar.appendChild(printBtn);
