@@ -1,0 +1,93 @@
+{
+  "zh": {
+    "basics": {
+      "name": "张三",
+      "label": "软件工程 · 应届生",
+      "image": "",
+      "email": "zhangsan@example.com",
+      "phone": "+86 138-0000-0000",
+      "url": "https://zhangsan.example.com",
+      "summary": "计算机专业应届生，熟悉前端开发与全栈实践，具备扎实的算法基础与项目落地经验。",
+      "location": { "city": "上海", "region": "上海", "countryCode": "CN" },
+      "profiles": [
+        { "network": "GitHub", "username": "zhangsan", "url": "https://github.com/zhangsan" }
+      ]
+    },
+    "work": [
+      {
+        "name": "某科技有限公司",
+        "position": "前端开发实习生",
+        "url": "https://example.com",
+        "startDate": "2024-06-01",
+        "endDate": "2024-12-01",
+        "summary": "参与公司官网与后台管理系统的前端开发。",
+        "highlights": [
+          "使用 React 重构核心表单模块，页面加载性能提升 30%",
+          "独立负责组件库文档站，沉淀 20+ 可复用组件"
+        ]
+      }
+    ],
+    "volunteer": [
+      {
+        "organization": "校园开源社区",
+        "position": "志愿者",
+        "startDate": "2023-09-01",
+        "summary": "组织技术分享与新手训练营。"
+      }
+    ],
+    "education": [
+      {
+        "institution": "某某大学",
+        "url": "https://university.edu.cn",
+        "area": "软件工程",
+        "studyType": "本科",
+        "startDate": "2021-09-01",
+        "endDate": "2025-07-01",
+        "score": "GPA 3.7/4.0",
+        "courses": ["数据结构", "操作系统", "Web 开发"]
+      }
+    ],
+    "skills": [
+      { "name": "前端", "level": "", "keywords": ["React", "TypeScript", "Vite"] },
+      { "name": "后端", "level": "", "keywords": ["Node.js", "PostgreSQL"] },
+      { "name": "工具", "level": "", "keywords": ["Git", "Docker", "GitHub Actions"] }
+    ],
+    "projects": [
+      {
+        "name": "个人简历生成器",
+        "description": "基于 JSON Resume 的静态简历站点，支持多主题与 GitHub Pages 部署。",
+        "url": "https://github.com/zhangsan/resume",
+        "type": "开源",
+        "keywords": ["JSON Resume", "Pages"],
+        "summary": "一键渲染多套简历模板并自动部署。"
+      }
+    ],
+    "awards": [
+      { "title": "校级一等奖学金", "date": "2023-12", "awarder": "某某大学", "summary": "综合成绩前 5%" }
+    ],
+    "languages": [
+      { "language": "中文", "fluency": "母语" },
+      { "language": "英语", "fluency": "CET-6" }
+    ],
+    "interests": [
+      { "name": "开源与技术分享", "keywords": ["GitHub", "AI 工具"] }
+    ]
+  },
+  "en": {
+    "basics": {
+      "name": "San Zhang",
+      "label": "Software Engineering · New Grad",
+      "email": "zhangsan@example.com",
+      "phone": "+86 138-0000-0000",
+      "url": "https://zhangsan.example.com",
+      "summary": "CS new grad with frontend and full-stack practice.",
+      "location": { "city": "Shanghai", "countryCode": "CN" },
+      "profiles": [{ "network": "GitHub", "username": "zhangsan", "url": "https://github.com/zhangsan" }]
+    },
+    "work": [{ "name": "Example Co.", "position": "Frontend Intern", "url": "https://example.com", "startDate": "2024-06-01", "endDate": "2024-12-01", "summary": "Frontend development.", "highlights": ["Rebuilt forms with React", "Built component docs"] }],
+    "education": [{ "institution": "Example University", "url": "https://university.edu.cn", "area": "Software Engineering", "studyType": "BSc", "startDate": "2021-09-01", "endDate": "2025-07-01", "courses": ["Algorithms", "OS", "Web"] }],
+    "skills": [{ "name": "Frontend", "keywords": ["React", "TypeScript"] }, { "name": "Backend", "keywords": ["Node.js"] }],
+    "projects": [{ "name": "Resume Builder", "description": "Static resume site with multi-theme + Pages deploy.", "url": "https://github.com/zhangsan/resume", "keywords": ["JSON Resume"] }],
+    "languages": [{ "language": "Chinese", "fluency": "Native" }, { "language": "English", "fluency": "Fluent" }]
+  }
+}
