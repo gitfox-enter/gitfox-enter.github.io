@@ -1,9 +1,4 @@
-@anthonyjdella/jsonresume-theme-anthonyjdella-simple-red
-@borgius/jsonresume-theme-engineering
-@briankung/jsonresume-theme-onepage-wide
-@jsonresume/jsonresume-theme-class
-@jsonresume/theme-papirus
-@randy.tarampi/resume
+jsonresume-theme-even
 jsonresume-theme-a11y
 jsonresume-theme-academic
 jsonresume-theme-apage
@@ -59,9 +54,7 @@ jsonresume-theme-student
 jsonresume-theme-verbum
 jsonresume-theme-vitae
 jsonresume-theme-waterfall
-kcv-theme-cora
-kcv-theme-eternal
-kcv-theme-papirus-ru
-kcv-theme-resu
-kcv-theme-simple-red
-kcv-theme-striking
+@anthonyjdella/jsonresume-theme-anthonyjdella-simple-red
+@borgius/jsonresume-theme-engineering
+@briankung/jsonresume-theme-onepage-wide
+@jsonresume/jsonresume-theme-class
