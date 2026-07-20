@@ -53,6 +53,8 @@ fs.writeFileSync(path.join(ROOT, 'resume.zh.json'), JSON.stringify(zh));
 
 // 2) 注入脚本（单主题用 inject.js，多模板用 inject-multi.js）
 function injectInto(html, themeList, multi) {
+  // 移除 cjean 等主题 footer 的作者署名（"made with love by cjean.fr"），避免给主题作者导流
+  html = html.replace(/<footer[\s\S]*?<\/footer>/gi, '');
   const injectJS = fs.readFileSync(path.join(ROOT, multi ? 'inject-multi.js' : 'inject.js'), 'utf-8');
   const injectScript = `<script>${injectJS}</script>`;
   const printStyle = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><style>@media print{body{box-shadow:none!important;max-width:100%!important;margin:0!important;padding:0!important}#resume-nav{display:none!important}#resume-theme-overlay{display:none!important}}</style>`;
