@@ -84,6 +84,19 @@ async function renderOne(pkg, multi) {
   return injectInto(html, multi ? [] : null, multi);
 }
 
+// 3.5) 复制 JSON 编辑器页面 + 主题 bundle 到 dist（方案 C：新增 /editor.html）
+function copyEditorAssets() {
+  for (const f of ['editor.html', 'even-browser.mjs']) {
+    const src = path.join(ROOT, f);
+    if (fs.existsSync(src)) {
+      fs.copyFileSync(src, path.join(DIST, f));
+      console.log('➡ 已复制', f, '→ dist/');
+    } else {
+      console.log('⚠ 未找到', f, '，跳过编辑器页面');
+    }
+  }
+}
+
 // 4) 解析主题清单
 function parsePkgs() {
   const pkgs = fs.readFileSync(path.join(ROOT, 'theme_pkgs.txt'), 'utf-8')
@@ -113,6 +126,7 @@ async function build() {
     const html = await renderOne(THEME, false);
     fs.writeFileSync(path.join(DIST, 'index.html'), html);
     console.log(`✅ 构建完成：${THEME} → dist/index.html`);
+    copyEditorAssets();
     return;
   }
 
@@ -150,6 +164,7 @@ async function build() {
   results.forEach(r => fillList(path.join(DIST, r.path)));
 
   console.log(`✅ 构建完成：主页 + ${results.length} 个主题`);
+  copyEditorAssets();
 }
 
 build().catch(e => {

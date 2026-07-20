@@ -19,6 +19,15 @@
     var printSVG = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>';
     var githubSVG = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>';
 
+    // 📝 JSON 编辑器（方案 C：跳转 /editor.html，左侧填 JSON 右侧实时预览）
+    var jsonEditLink = document.createElement('a');
+    jsonEditLink.setAttribute('href', '/editor.html');
+    jsonEditLink.setAttribute('target', '_blank');
+    jsonEditLink.setAttribute('rel', 'noopener');
+    jsonEditLink.setAttribute('title', 'JSON 编辑器（左填 JSON · 右实时预览）');
+    jsonEditLink.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>';
+    jsonEditLink.style.cssText = childCss;
+
     // ✏️ 编辑：切换正文 contenteditable（默认关闭，链接可点）
     var editing = false;
     var editBtn = document.createElement('button');
@@ -52,11 +61,12 @@
     githubLink.innerHTML = githubSVG;
     githubLink.style.cssText = childCss;
 
-    [editBtn, printBtn, githubLink].forEach(function (el) {
+    [jsonEditLink, editBtn, printBtn, githubLink].forEach(function (el) {
       el.onmouseover = function () { if (el !== editBtn || !editing) this.style.background = 'Canvas'; };
       el.onmouseout = function () { if (el !== editBtn || !editing) this.style.background = 'ButtonFace'; };
     });
 
+    nav.appendChild(jsonEditLink);
     nav.appendChild(editBtn);
     nav.appendChild(printBtn);
     nav.appendChild(githubLink);
