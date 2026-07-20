@@ -26,50 +26,13 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install theme (standalone CLI mode)
-        run: npm install jsonresume-theme-even
-
-      - name: Split resume.json into zh/en
-        run: |
-          node -e "
-          const fs = require('fs');
-          const data = JSON.parse(fs.readFileSync('resume.json', 'utf-8'));
-          const zh = { ...data.zh, meta: data.meta };
-          fs.writeFileSync('resume.zh.json', JSON.stringify(zh));
-          const en = { ...data.en, meta: data.meta };
-          fs.writeFileSync('resume.en.json', JSON.stringify(en));
-          "
-
-      - name: Build Chinese HTML
-        run: npx jsonresume-theme-even < resume.zh.json > index.zh.html
-
-      - name: Build English HTML
-        run: npx jsonresume-theme-even < resume.en.json > index.en.html
-
-      - name: Build default index.html (Chinese)
-        run: cp index.zh.html index.html
-
-      - name: Inject toolbar (inline JS) + print styles into all HTML files
-        run: |
-          node -e '
-          const fs = require("fs");
-          const injectJS = fs.readFileSync("inject.js", "utf-8");
-          const scriptTag = "<script>" + injectJS + "</script>";
-          // 注意：#resume-nav 必须在 @media print {} 内部，否则会全局隐藏工具栏！
-          const printStyle = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><style>@media print{body{box-shadow:none!important;max-width:100%!important;margin:0!important;padding:0!important}#resume-nav{display:none!important}}</style>`;
-          ["index.html", "index.zh.html", "index.en.html"].forEach(function(f){
-            let html = fs.readFileSync(f, "utf-8");
-            html = html.replace("</head>", printStyle + "</head>");
-            html = html.replace("</body>", scriptTag + "</body>");
-            fs.writeFileSync(f, html);
-            console.log("Injected: " + f);
-          });
-          '
+      - name: Build all themes + inject navbar
+        run: node build-resume.js
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: dist
 
   deploy:
     needs: build

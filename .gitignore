@@ -1,0 +1,6 @@
+node_modules/
+dist/
+resume.zh.json
+resume.en.json
+package-lock.json
+themes-built.json
