@@ -16,9 +16,36 @@ const DIST = path.join(ROOT, 'dist');
 fs.rmSync(DIST, { recursive: true, force: true });
 fs.mkdirSync(path.join(DIST, 'themes'), { recursive: true });
 
+// 0) 清洗简历数据：严格主题（如 cjean）会用 Zod 校验 url/image 为合法 URL，
+//    空字符串 "" 或非法值会抛 ZodError 导致构建崩溃。渲染前统一丢弃非法 URL 字段。
+function isValidUrl(v) {
+  if (typeof v !== 'string' || !v.trim()) return false;
+  try {
+    const u = new URL(v);
+    return u.protocol === 'http:' || u.protocol === 'https:' || u.protocol === 'mailto:';
+  } catch (_) { return false; }
+}
+function sanitize(obj) {
+  if (Array.isArray(obj)) return obj.map(sanitize);
+  if (obj && typeof obj === 'object') {
+    const out = {};
+    for (const k of Object.keys(obj)) {
+      const v = obj[k];
+      const lk = String(k).toLowerCase();
+      // url / website / image 等字段：非法或为空则直接丢弃，避免严格主题校验崩溃
+      if ((lk === 'url' || lk === 'website' || lk === 'image') && typeof v === 'string') {
+        if (!isValidUrl(v)) continue;
+      }
+      out[k] = sanitize(v);
+    }
+    return out;
+  }
+  return obj;
+}
+
 // 1) 准备中文简历数据
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'resume.json'), 'utf-8'));
-const zh = { ...data.zh, meta: data.meta };
+const zh = sanitize({ ...data.zh, meta: data.meta });
 fs.writeFileSync(path.join(ROOT, 'resume.zh.json'), JSON.stringify(zh));
 
 // 2) 读取主题包清单
@@ -65,7 +92,7 @@ function injectInto(html, themeList) {
   return html;
 }
 
-themes.forEach(t => {
+async function renderTheme(t) {
   try {
     // 每个主题单独安装（--no-package-lock 减少重写锁文件开销）
     execSync(`npm install --no-save --no-audit --no-fund --legacy-peer-deps --no-package-lock ${t.pkg}`, { stdio: 'ignore', cwd: ROOT });
@@ -86,6 +113,7 @@ themes.forEach(t => {
     const fn = (typeof mod === 'function') ? mod : (mod && mod.render);
     if (typeof fn !== 'function') throw new Error('no render()');
     let html = fn(zh);
+    if (html && typeof html.then === 'function') html = await html; // 支持异步主题（如 cjean 的 render 返回 Promise）
     if (typeof html !== 'string') throw new Error('bad output');
     if (!/^\s*<!doctype|<html/i.test(html)) {
       html = '<!doctype html><html><head><meta charset="utf-8"></head><body>' + html + '</body></html>';
@@ -101,28 +129,34 @@ themes.forEach(t => {
   } catch (e) {
     console.log('SKIP', t.short, '->', (e.message || '').split('\n')[0].slice(0, 60));
   }
-});
-
-// 5b) 兜底：若主页 even 缺失，用第一个成功渲染的主题顶上
-if (!fs.existsSync(path.join(DIST, 'index.html')) && builtPaths.length) {
-  fs.copyFileSync(builtPaths[0], path.join(DIST, 'index.html'));
-  results.unshift({ name: 'even', path: 'index.html' });
-  console.log('⚠️ even 渲染失败，已用', path.basename(path.dirname(builtPaths[0])), '作为主页兜底');
 }
 
-// 6) 把主题清单回填进所有 HTML（导航/面板需要）
-const themeList = JSON.stringify(results);
-function fillList(file) {
-  if (!fs.existsSync(file)) return;
-  let h = fs.readFileSync(file, 'utf-8');
-  h = h.replace('window.__THEMES__=null', `window.__THEMES__=${themeList}`);
-  fs.writeFileSync(file, h);
-}
-fillList(path.join(DIST, 'index.html'));
-fs.readdirSync(path.join(DIST, 'themes')).forEach(name => {
-  const f = path.join(DIST, 'themes', name, 'index.html');
-  fillList(f);
-});
+(async () => {
+  for (const t of themes) {
+    await renderTheme(t);
+  }
 
-console.log(`\n✅ 构建完成：主页 + ${results.length - 1} 个主题`);
-fs.writeFileSync(path.join(ROOT, 'themes-built.json'), JSON.stringify(results, null, 2));
+  // 5b) 兜底：若主页 even 缺失，用第一个成功渲染的主题顶上
+  if (!fs.existsSync(path.join(DIST, 'index.html')) && builtPaths.length) {
+    fs.copyFileSync(builtPaths[0], path.join(DIST, 'index.html'));
+    results.unshift({ name: 'even', path: 'index.html' });
+    console.log('⚠️ even 渲染失败，已用', path.basename(path.dirname(builtPaths[0])), '作为主页兜底');
+  }
+
+  // 6) 把主题清单回填进所有 HTML（导航/面板需要）
+  const themeList = JSON.stringify(results);
+  function fillList(file) {
+    if (!fs.existsSync(file)) return;
+    let h = fs.readFileSync(file, 'utf-8');
+    h = h.replace('window.__THEMES__=null', `window.__THEMES__=${themeList}`);
+    fs.writeFileSync(file, h);
+  }
+  fillList(path.join(DIST, 'index.html'));
+  fs.readdirSync(path.join(DIST, 'themes')).forEach(name => {
+    const f = path.join(DIST, 'themes', name, 'index.html');
+    fillList(f);
+  });
+
+  console.log(`\n✅ 构建完成：主页 + ${results.length - 1} 个主题`);
+  fs.writeFileSync(path.join(ROOT, 'themes-built.json'), JSON.stringify(results, null, 2));
+})();
