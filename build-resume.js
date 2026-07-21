@@ -14,7 +14,7 @@ const path = require('path');
 
 const ROOT = __dirname;
 const DIST = path.join(ROOT, 'dist');
-const THEME = process.env.RESUME_THEME || 'jsonresume-theme-cjean';
+const THEME = process.env.RESUME_THEME || 'jsonresume-theme-even';
 const MULTI = THEME === 'all';
 
 fs.rmSync(DIST, { recursive: true, force: true });
@@ -57,7 +57,7 @@ function injectInto(html, themeList, multi) {
   html = html.replace(/<footer[\s\S]*?<\/footer>/gi, '');
   const injectJS = fs.readFileSync(path.join(ROOT, multi ? 'inject-multi.js' : 'inject.js'), 'utf-8');
   const injectScript = `<script>${injectJS}</script>`;
-  const printStyle = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><style>@media print{body{box-shadow:none!important;max-width:100%!important;margin:0!important;padding:0!important}#resume-nav{display:none!important}#resume-theme-overlay{display:none!important}}</style>`;
+  const printStyle = `<meta name="viewport" content="width=device-width, initial-scale=1.0"><style>@media print{body{box-shadow:none!important;max-width:100%!important;margin:0!important;padding:0!important}#resume-nav{display:none!important}#resume-theme-overlay{display:none!important}a[href]{color:#000!important;text-decoration:underline!important}a[href]:after{content:" (" attr(href) ")"!important;font-size:.82em;color:#333!important;word-break:break-all}}</style>`;
   const listScript = multi ? `<script>window.__THEMES__=${JSON.stringify(themeList)};</script>` : '';
   html = html.replace('</head>', printStyle + listScript + '</head>');
   html = html.replace('</body>', injectScript + '</body>');
