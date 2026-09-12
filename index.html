@@ -3,201 +3,251 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jun — 专升本 · 2027 届 · 自动化 & 数据实践者</title>
-<meta name="description" content="金军（Jun）的个人主页：爬虫、自动化、自托管与 AI 工作流的实战作品集。">
+<title>JUN — Hospitality × Code</title>
+<meta name="description" content="Jun — 酒店管理在读 · 开发者。把每一位客人的模糊需求，翻译成恰到好处的服务。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0a0a0f; --panel:#131320;
-  --line:#23233a; --txt:#e8e8f0; --dim:#8a8aa3;
-  --acc:#6c8cff; --acc2:#39d0c8;
-  --mono:"SF Mono",ui-monospace,"Cascadia Code",Consolas,monospace;
-  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --bg:#fafaf8;
+  --ink:#1c1c1a;
+  --ink-soft:#55534e;
+  --gold:#a8894f;
+  --line:#e5e2da;
+  --card:#f3f1ea;
+  --serif:"Cormorant Garamond","Noto Serif SC",serif;
+  --sans:"Inter","Noto Serif SC",sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--txt);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-::selection{background:var(--acc);color:#fff}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.8;-webkit-font-smoothing:antialiased}
+::selection{background:var(--gold);color:#fff}
 
-/* 背景：网格 + 光斑 */
-.bg{position:fixed;inset:0;z-index:-2;background:
-  radial-gradient(900px 500px at 85% -5%,rgba(108,140,255,.14),transparent 60%),
-  radial-gradient(700px 500px at -10% 110%,rgba(57,208,200,.10),transparent 60%),
-  var(--bg)}
-.bg::before{content:"";position:absolute;inset:0;background:
-  linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
-  background-size:44px 44px;
-  mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 30%,transparent 75%);
-  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 30%,transparent 75%)}
+/* ---------- Nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;
+  padding:22px 6vw;transition:background .4s,box-shadow .4s;}
+nav.scrolled{background:rgba(250,250,248,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+nav .logo{font-family:var(--serif);font-size:22px;letter-spacing:.35em;font-weight:600;text-decoration:none;color:var(--ink)}
+nav .links{display:flex;gap:34px}
+nav .links a{text-decoration:none;color:var(--ink-soft);font-size:12px;letter-spacing:.22em;text-transform:uppercase;transition:color .3s}
+nav .links a:hover{color:var(--gold)}
+nav .book{border:1px solid var(--ink);padding:9px 22px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;
+  text-decoration:none;color:var(--ink);transition:.35s}
+nav .book:hover{background:var(--ink);color:#fff}
+@media(max-width:720px){nav .links{display:none}}
 
-.wrap{max-width:920px;margin:0 auto;padding:0 24px}
+/* ---------- Hero ---------- */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 6vw;position:relative}
+.eyebrow{font-size:12px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:28px}
+.hero h1{font-family:var(--serif);font-size:clamp(72px,16vw,180px);font-weight:500;letter-spacing:.12em;line-height:1}
+.hero .sub{font-family:var(--serif);font-size:clamp(18px,2.6vw,26px);font-style:italic;color:var(--ink-soft);margin-top:26px;max-width:640px}
+.hero .rule{width:64px;height:1px;background:var(--gold);margin:38px auto}
+.hero .cta{margin-top:6px}
+.hero .cta a{display:inline-block;border:1px solid var(--ink);padding:14px 44px;font-size:12px;letter-spacing:.3em;
+  text-transform:uppercase;text-decoration:none;color:var(--ink);transition:.35s}
+.hero .cta a:hover{background:var(--ink);color:#fff}
+.scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.4em;
+  text-transform:uppercase;color:var(--ink-soft);display:flex;flex-direction:column;align-items:center;gap:10px}
+.scroll-hint::after{content:"";width:1px;height:44px;background:var(--gold);animation:drip 2.2s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* Hero */
-.hero{min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding:60px 0 40px}
-.term{font-family:var(--mono);font-size:.85rem;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;max-width:520px;margin-bottom:34px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
-.term .dots span{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
-.term .dots span:nth-child(1){background:#ff5f57}.term .dots span:nth-child(2){background:#febc2e}.term .dots span:nth-child(3){background:#28c840}
-.term .cmd{margin-top:10px;color:var(--acc2)}
-.term .cmd::before{content:"$ ";color:var(--acc)}
-.term .out{color:var(--txt)}
-.caret{display:inline-block;width:8px;height:14px;background:var(--acc2);vertical-align:-2px;animation:blink 1s steps(1) infinite}
-@keyframes blink{50%{opacity:0}}
+/* ---------- Sections ---------- */
+section{padding:120px 6vw;max-width:1200px;margin:0 auto}
+.sec-eyebrow{font-size:11px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.sec-title{font-family:var(--serif);font-size:clamp(34px,5vw,54px);font-weight:500;margin-bottom:60px}
+.sec-title em{font-style:italic;color:var(--gold)}
 
-.avatar-ring{position:relative;width:132px;height:132px;margin-bottom:26px}
-.avatar-ring::before{content:"";position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(var(--acc),var(--acc2),var(--acc));animation:spin 6s linear infinite}
-.avatar-ring img{position:relative;width:100%;height:100%;border-radius:50%;object-fit:cover;border:4px solid var(--bg);display:block}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
+.reveal.in{opacity:1;transform:none}
 
-.hero h1{font-size:clamp(2.4rem,6vw,4rem);line-height:1.15;letter-spacing:-.02em;font-weight:800}
-.hero h1 .grad{background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero .sub{margin-top:18px;color:var(--dim);font-size:1.05rem;max-width:560px}
-.hero .sub b{color:var(--txt);font-weight:600}
-.hero .cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:10px;font-size:.92rem;font-weight:600;text-decoration:none;transition:.2s;border:1px solid transparent}
-.btn.primary{background:var(--acc);color:#fff}
-.btn.primary:hover{filter:brightness(1.15);transform:translateY(-2px)}
-.btn.ghost{border-color:var(--line);color:var(--txt);background:rgba(255,255,255,.02)}
-.btn.ghost:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-2px)}
+/* ---------- About ---------- */
+.about-grid{display:grid;grid-template-columns:280px 1fr;gap:70px;align-items:start}
+.about-grid img{width:100%;aspect-ratio:220/280;object-fit:cover;filter:grayscale(28%) contrast(1.02);border:1px solid var(--line)}
+.about-text p{color:var(--ink-soft);margin-bottom:22px;font-size:16px}
+.about-text .lede{font-family:var(--serif);font-size:clamp(20px,2.4vw,25px);font-style:italic;color:var(--ink);line-height:1.6;margin-bottom:30px}
+.signature{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--gold);margin-top:8px}
+@media(max-width:820px){.about-grid{grid-template-columns:1fr}.about-grid img{max-width:260px}}
 
-/* Section */
-section{padding:64px 0}
-.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:34px}
-.sec-head .num{font-family:var(--mono);color:var(--acc2);font-size:.9rem}
-.sec-head h2{font-size:1.5rem;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
-.sec-head .line{flex:1;height:1px;background:var(--line)}
+/* ---------- Portfolio ---------- */
+.project{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:70px 0;border-top:1px solid var(--line)}
+.project:last-child{border-bottom:1px solid var(--line)}
+.project:nth-child(even) .p-visual{order:2}
+.p-visual{aspect-ratio:4/3;background:linear-gradient(135deg,#efece4,#e6e1d4);display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:110px;color:var(--gold);letter-spacing:.05em;transition:transform .6s ease}
+.project:hover .p-visual{transform:scale(1.02)}
+.p-no{font-size:11px;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.p-title{font-family:var(--serif);font-size:clamp(26px,3.4vw,38px);font-weight:500;margin-bottom:16px}
+.p-desc{color:var(--ink-soft);font-size:15px;margin-bottom:18px}
+.p-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.p-tags span{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft);border:1px solid var(--line);padding:4px 12px}
+.p-link{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);text-decoration:none;
+  border-bottom:1px solid var(--gold);padding-bottom:4px;transition:color .3s}
+.p-link:hover{color:var(--gold)}
+@media(max-width:820px){.project{grid-template-columns:1fr;gap:30px}.project:nth-child(even) .p-visual{order:0}.p-visual{font-size:72px}}
 
-/* Projects */
-.projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
-.card{position:relative;display:block;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;text-decoration:none;color:var(--txt);transition:.25s;overflow:hidden}
-.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--acc2));opacity:0;transition:.25s}
-.card:hover{transform:translateY(-4px);border-color:#3a3a5c;box-shadow:0 18px 40px rgba(0,0,0,.35)}
-.card:hover::before{opacity:1}
-.card .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.card .name{font-weight:700;font-size:1.02rem}
-.card .star{font-family:var(--mono);font-size:.78rem;color:#ffd76a}
-.card p{color:var(--dim);font-size:.87rem}
-.card .lang{margin-top:14px;font-family:var(--mono);font-size:.75rem;color:var(--acc2)}
-.card .lang i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+/* ---------- Skills / Amenities ---------- */
+.amen{border-top:1px solid var(--line)}
+.amen-row{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--line);transition:padding-left .4s ease}
+.amen-row:hover{padding-left:14px}
+.amen-name{font-family:var(--serif);font-size:clamp(20px,2.6vw,27px);font-weight:500}
+.amen-name small{display:block;font-family:var(--sans);font-size:12px;color:var(--ink-soft);letter-spacing:.08em;margin-top:2px}
+.amen-level{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
 
-/* Skills */
-.skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
-.skill{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;transition:.2s}
-.skill:hover{border-color:var(--acc);transform:translateY(-2px)}
-.skill h3{font-size:.92rem;font-weight:600}
-.skill .bar{margin-top:12px;height:4px;background:#22223a;border-radius:2px;overflow:hidden}
-.skill .bar i{display:block;height:100%;border-radius:2px;background:linear-gradient(90deg,var(--acc),var(--acc2));width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
-.skill .lv{margin-top:8px;font-family:var(--mono);font-size:.72rem;color:var(--dim)}
+/* ---------- Contact ---------- */
+.contact{text-align:center}
+.contact .sec-title{margin-bottom:20px}
+.contact .note{color:var(--ink-soft);max-width:520px;margin:0 auto 60px;font-style:italic;font-family:var(--serif);font-size:18px}
+.concierge{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.concierge a{background:var(--bg);padding:44px 16px;text-decoration:none;color:var(--ink);transition:background .4s}
+.concierge a:hover{background:var(--card)}
+.concierge .k{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.concierge .v{font-family:var(--serif);font-size:20px}
+@media(max-width:820px){.concierge{grid-template-columns:repeat(2,1fr)}}
 
-/* Contact */
-.contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
-.clink{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--txt);transition:.2s}
-.clink:hover{border-color:var(--acc2);transform:translateY(-2px)}
-.clink .ico{font-size:1.3rem}
-.clink .t1{font-weight:600;font-size:.92rem}
-.clink .t2{color:var(--dim);font-size:.78rem;font-family:var(--mono)}
-
-footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:#555;font-size:.82rem;font-family:var(--mono)}
-
-/* reveal 动画 */
-.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
-.rv.on{opacity:1;transform:none}
-
-@media(max-width:600px){
-  .hero{min-height:auto;padding-top:80px}
-  .term{font-size:.78rem}
-}
+/* ---------- Footer ---------- */
+footer{text-align:center;padding:70px 6vw 50px;border-top:1px solid var(--line)}
+footer .mark{font-family:var(--serif);letter-spacing:.4em;font-size:18px;margin-bottom:14px}
+footer p{font-size:12px;letter-spacing:.12em;color:var(--ink-soft)}
 </style>
 </head>
 <body>
-<div class="bg"></div>
-<div class="wrap">
 
-<header class="hero">
-  <div class="term rv">
-    <div class="dots"><span></span><span></span><span></span></div>
-    <div class="cmd">whoami</div>
-    <div class="out">jun —— 自动化 / 爬虫 / 自托管 <span class="caret"></span></div>
+<nav id="nav">
+  <a class="logo" href="#top">JUN</a>
+  <div class="links">
+    <a href="#about">The Host</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#craft">Amenities</a>
+    <a href="#contact">Concierge</a>
   </div>
-  <div class="avatar-ring rv"><img src="avatar.png" alt="Jun"></div>
-  <h1 class="rv">你好，我是 <span class="grad">Jun</span>。<br>用代码把重复的事<br>全部交给机器。</h1>
-  <p class="sub rv">专升本在读 · <b>2027 届</b> · 亳州学院 · 酒店管理 × 数智经济。<br>课余时间折腾 <b>Python 爬虫、GitHub Actions、Nextcloud 自托管、AI 工作流</b>——下面全是能跑的证据。</p>
-  <div class="cta rv">
-    <a class="btn primary" href="#projects">看项目 ↓</a>
-    <a class="btn ghost" href="https://gitfox-enter.github.io/resume/" target="_blank">在线简历 →</a>
-  </div>
+  <a class="book" href="#portfolio">View Portfolio</a>
+</nav>
+
+<header class="hero" id="top">
+  <p class="eyebrow reveal">Hospitality × Code</p>
+  <h1 class="reveal">JUN</h1>
+  <p class="sub reveal">把每一位客人的模糊需求，翻译成恰到好处的服务。</p>
+  <div class="rule reveal"></div>
+  <div class="cta reveal"><a href="#portfolio">View Portfolio</a></div>
+  <div class="scroll-hint">Scroll to Discover</div>
 </header>
 
-<section id="projects">
-  <div class="sec-head rv"><span class="num">01</span><h2>精选项目</h2><span class="line"></span></div>
-  <div class="projects">
-    <a class="card rv" href="https://github.com/gitfox-enter/RSSForge" target="_blank">
-      <div class="top"><span class="name">RSSForge</span><span class="star">★ 3</span></div>
-      <p>用 GitHub Actions 免费生成 RSS 订阅源，零成本零服务器，定时全自动更新。</p>
-      <div class="lang"><i style="background:#3572A5"></i>Python · GitHub Actions</div>
-    </a>
-    <a class="card rv" href="https://github.com/gitfox-enter/bzuu-ima-importer" target="_blank">
-      <div class="top"><span class="name">bzuu-ima-importer</span></div>
-      <p>B 站 UP 主视频批量导入腾讯 ima 知识库的自动化脚本，解放双手。</p>
-      <div class="lang"><i style="background:#3572A5"></i>Python · 自动化</div>
-    </a>
-    <a class="card rv" href="https://github.com/gitfox-enter/wy-media-crawler" target="_blank">
-      <div class="top"><span class="name">wy-media-crawler</span></div>
-      <p>多平台自媒体数据采集爬虫，支持并发、断点续传与结构化导出。</p>
-      <div class="lang"><i style="background:#3572A5"></i>Python · 爬虫</div>
-    </a>
-    <a class="card rv" href="https://github.com/gitfox-enter/web-showcase" target="_blank">
-      <div class="top"><span class="name">web-showcase</span></div>
-      <p>前端动效与 Three.js 作品展示集，探索浏览器里的视觉边界。</p>
-      <div class="lang"><i style="background:#f1e05a"></i>JavaScript · Three.js</div>
-    </a>
-    <a class="card rv" href="https://github.com/gitfox-enter/nhor4-exam-prep" target="_blank">
-      <div class="top"><span class="name">nhor4-exam-prep</span></div>
-      <p>护理考试备考资料整理与刷题工具，真实帮到人。</p>
-      <div class="lang"><i style="background:#f1e05a"></i>JavaScript · 工具</div>
-    </a>
-    <a class="card rv" href="https://github.com/gitfox-enter/resume" target="_blank">
-      <div class="top"><span class="name">resume</span></div>
-      <p>我的在线简历，持续更新，源码即页面。</p>
-      <div class="lang"><i style="background:#e34c26"></i>HTML · 简历</div>
-    </a>
+<section id="about">
+  <p class="sec-eyebrow reveal">The Host</p>
+  <h2 class="sec-title reveal">Welcome, <em>I've been expecting you.</em></h2>
+  <div class="about-grid">
+    <img class="reveal" src="avatar.png" alt="Jun">
+    <div class="about-text">
+      <p class="lede reveal">酒店前台，是这个世界上最古老的提示词工程。</p>
+      <p class="reveal">我是 Jun，亳州学院酒店管理专业在读。在我看来，客人一句"想安静点"，需要被翻译成"高楼层、远离电梯、不靠马路"——这和把模糊需求整理成一段好 prompt，是同一门手艺。</p>
+      <p class="reveal">所以我把这门手艺带到了代码世界：写爬虫、做自动化、玩自托管。有人开玩笑说 Linus 是最早用上"人工智能编程"的人——他发一句话，无数工程师帮他优化。酒店也是如此：客人说一句话，整个团队为它运转。</p>
+      <p class="reveal">这个主页里的每个项目，都是一次"客房服务"：发现需求、整理需求、交付得体。</p>
+      <p class="signature reveal">— Jun</p>
+    </div>
   </div>
 </section>
 
-<section id="skills">
-  <div class="sec-head rv"><span class="num">02</span><h2>技能栈</h2><span class="line"></span></div>
-  <div class="skills">
-    <div class="skill rv" data-lv="85"><h3>Python / 爬虫</h3><div class="bar"><i></i></div><div class="lv">熟练 · 实战主力</div></div>
-    <div class="skill rv" data-lv="75"><h3>自动化 & GitHub Actions</h3><div class="bar"><i></i></div><div class="lv">熟练 · CI/CD</div></div>
-    <div class="skill rv" data-lv="70"><h3>Linux / 自托管</h3><div class="bar"><i></i></div><div class="lv">Nextcloud · Docker</div></div>
-    <div class="skill rv" data-lv="60"><h3>JavaScript / 前端</h3><div class="bar"><i></i></div><div class="lv">会用 · Three.js</div></div>
-    <div class="skill rv" data-lv="65"><h3>AI 工作流</h3><div class="bar"><i></i></div><div class="lv">Obsidian + API 联动</div></div>
-    <div class="skill rv" data-lv="60"><h3>Markdown / 技术写作</h3><div class="bar"><i></i></div><div class="lv">博客持续输出</div></div>
+<section id="portfolio">
+  <p class="sec-eyebrow reveal">The Portfolio</p>
+  <h2 class="sec-title reveal">Rooms &amp; <em>Suites</em></h2>
+
+  <div class="project reveal">
+    <div class="p-visual">R</div>
+    <div>
+      <p class="p-no">№ 01 · Signature Suite</p>
+      <h3 class="p-title">RSSForge</h3>
+      <p class="p-desc">像一位 24 小时值守的夜班经理：自动抓取、清洗、聚合信息源，在你醒来前把全世界的新鲜事整齐地摆上早餐台。</p>
+      <div class="p-tags"><span>Python</span><span>RSS</span><span>自动化</span></div>
+      <a class="p-link" href="https://github.com/gitfox-enter/RSSForge">View Project</a>
+    </div>
+  </div>
+
+  <div class="project reveal">
+    <div class="p-visual">B</div>
+    <div>
+      <p class="p-no">№ 02 · Executive Room</p>
+      <h3 class="p-title">bzuu-ima-importer</h3>
+      <p class="p-desc">为知识库铺好红地毯：把散落各处的网页内容，优雅地迎进 ima 知识库，一次入住，永不退房。</p>
+      <div class="p-tags"><span>JavaScript</span><span>知识管理</span><span>效率工具</span></div>
+      <a class="p-link" href="https://github.com/gitfox-enter/bzuu-ima-importer">View Project</a>
+    </div>
+  </div>
+
+  <div class="project reveal">
+    <div class="p-visual">W</div>
+    <div>
+      <p class="p-no">№ 03 · Garden View</p>
+      <h3 class="p-title">wy-media-crawler</h3>
+      <p class="p-desc">一位安静勤恳的客房部同事：按你整理的清单，把媒体资源一件不少地取回、归类、归档。</p>
+      <div class="p-tags"><span>Python</span><span>爬虫</span><span>数据采集</span></div>
+      <a class="p-link" href="https://github.com/gitfox-enter/wy-media-crawler">View Project</a>
+    </div>
+  </div>
+
+  <div class="project reveal">
+    <div class="p-visual">W</div>
+    <div>
+      <p class="p-no">№ 04 · Loft</p>
+      <h3 class="p-title">web-showcase</h3>
+      <p class="p-desc">酒店大堂的吊灯：前场展示合集，把作品以最体面的方式呈现在访客面前。</p>
+      <div class="p-tags"><span>HTML/CSS</span><span>前端</span><span>展示</span></div>
+      <a class="p-link" href="https://github.com/gitfox-enter/web-showcase">View Project</a>
+    </div>
+  </div>
+
+  <div class="project reveal">
+    <div class="p-visual">N</div>
+    <div>
+      <p class="p-no">№ 05 · Residence</p>
+      <h3 class="p-title">nhor4-exam-prep</h3>
+      <p class="p-desc">长住客人的专属楼层：备考资料的结构化整理，知识点像布草一样叠放整齐，随取随用。</p>
+      <div class="p-tags"><span>Markdown</span><span>知识库</span><span>备考</span></div>
+      <a class="p-link" href="https://github.com/gitfox-enter/nhor4-exam-prep">View Project</a>
+    </div>
   </div>
 </section>
 
-<section id="contact">
-  <div class="sec-head rv"><span class="num">03</span><h2>找到我</h2><span class="line"></span></div>
-  <div class="contact-grid">
-    <a class="clink rv" href="https://github.com/gitfox-enter" target="_blank"><span class="ico">🐙</span><span><div class="t1">GitHub</div><div class="t2">@gitfox-enter</div></span></a>
-    <a class="clink rv" href="https://gitfox-enter.github.io/jun-log/" target="_blank"><span class="ico">✍️</span><span><div class="t1">博客 Jun's Log</div><div class="t2">实践记录与复盘</div></span></a>
-    <a class="clink rv" href="https://gitfox-enter.github.io/resume/" target="_blank"><span class="ico">📄</span><span><div class="t1">在线简历</div><div class="t2">求职中 · 2027 届</div></span></a>
-    <a class="clink rv" href="https://gitfox-enter.github.io/jun-log/rss.xml" target="_blank"><span class="ico">📡</span><span><div class="t1">RSS 订阅</div><div class="t2">rss.xml</div></span></a>
+<section id="craft">
+  <p class="sec-eyebrow reveal">Craft &amp; Skills</p>
+  <h2 class="sec-title reveal">The <em>Amenities</em></h2>
+  <div class="amen">
+    <div class="amen-row reveal"><div class="amen-name">Python<small>脚本、爬虫与自动化主力语言</small></div><span class="amen-level">Proficient</span></div>
+    <div class="amen-row reveal"><div class="amen-name">JavaScript<small>前端交互与工具开发</small></div><span class="amen-level">Experienced</span></div>
+    <div class="amen-row reveal"><div class="amen-name">爬虫与数据采集<small>请求、解析、反爬与清洗</small></div><span class="amen-level">Proficient</span></div>
+    <div class="amen-row reveal"><div class="amen-name">Docker &amp; 自托管<small>容器化部署与个人服务运维</small></div><span class="amen-level">Experienced</span></div>
+    <div class="amen-row reveal"><div class="amen-name">Linux 运维<small>日常服务器与终端环境</small></div><span class="amen-level">Experienced</span></div>
+    <div class="amen-row reveal"><div class="amen-name">GitHub Actions<small>CI/CD 与自动化工作流</small></div><span class="amen-level">Working</span></div>
+    <div class="amen-row reveal"><div class="amen-name">Three.js<small>网页 3D 与创意编码</small></div><span class="amen-level">Working</span></div>
+    <div class="amen-row reveal"><div class="amen-name">酒店运营与服务设计<small>需求洞察 · 流程设计 · 客人体验</small></div><span class="amen-level">Professional</span></div>
   </div>
 </section>
 
-</div>
-<footer>© 2026 Jun · Built by hand on GitHub Pages · No framework, just care.</footer>
+<section id="contact" class="contact">
+  <p class="sec-eyebrow reveal">Concierge</p>
+  <h2 class="sec-title reveal">At Your <em>Service</em></h2>
+  <p class="note reveal">有任何想法或合作意向，礼宾台随时为您服务。</p>
+  <div class="concierge reveal">
+    <a href="https://github.com/gitfox-enter"><p class="k">GitHub</p><p class="v">gitfox-enter</p></a>
+    <a href="https://gitfox-enter.github.io/jun-log/"><p class="k">博客</p><p class="v">Jun's Log</p></a>
+    <a href="https://gitfox-enter.github.io/resume/"><p class="k">简历</p><p class="v">Résumé</p></a>
+    <a href="https://gitfox-enter.github.io/jun-log/rss.xml"><p class="k">订阅</p><p class="v">RSS Feed</p></a>
+  </div>
+</section>
+
+<footer>
+  <p class="mark">JUN</p>
+  <p>At your service · Built by hand on GitHub Pages · © 2026</p>
+</footer>
 
 <script>
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
 const io=new IntersectionObserver(es=>es.forEach(e=>{
-  if(!e.isIntersecting)return;
-  e.target.classList.add('on');
-  if(e.target.dataset&&e.target.dataset.lv){
-    e.target.querySelector('.bar i').style.width=e.target.dataset.lv+'%';
-  }
-  io.unobserve(e.target);
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
 }),{threshold:.12});
-document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
