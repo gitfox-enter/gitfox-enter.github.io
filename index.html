@@ -38,7 +38,8 @@ nav .book:hover{background:var(--ink);color:#fff}
 @media(max-width:720px){nav .links{display:none}}
 
 /* ---------- Hero ---------- */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 6vw;position:relative}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 6vw;position:relative;
+  background:linear-gradient(rgba(250,250,248,.82),rgba(250,250,248,.88)),url("img/hero.jpg") center/cover no-repeat}
 .eyebrow{font-size:12px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:28px}
 .hero h1{font-family:var(--serif);font-size:clamp(72px,16vw,180px);font-weight:500;letter-spacing:.12em;line-height:1}
 .hero .sub{font-family:var(--serif);font-size:clamp(18px,2.6vw,26px);font-style:italic;color:var(--ink-soft);margin-top:26px;max-width:640px}
@@ -74,9 +75,10 @@ section{padding:120px 6vw;max-width:1200px;margin:0 auto}
 .project{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:70px 0;border-top:1px solid var(--line)}
 .project:last-child{border-bottom:1px solid var(--line)}
 .project:nth-child(even) .p-visual{order:2}
-.p-visual{aspect-ratio:4/3;background:linear-gradient(135deg,#efece4,#e6e1d4);display:flex;align-items:center;justify-content:center;
-  font-family:var(--serif);font-size:110px;color:var(--gold);letter-spacing:.05em;transition:transform .6s ease}
+.p-visual{aspect-ratio:4/3;background:#efece4;overflow:hidden;transition:transform .6s ease}
+.p-visual img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.82) contrast(1.02);transition:transform .8s ease}
 .project:hover .p-visual{transform:scale(1.02)}
+.project:hover .p-visual img{transform:scale(1.05)}
 .p-no{font-size:11px;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
 .p-title{font-family:var(--serif);font-size:clamp(26px,3.4vw,38px);font-weight:500;margin-bottom:16px}
 .p-desc{color:var(--ink-soft);font-size:15px;margin-bottom:18px}
@@ -154,7 +156,7 @@ footer p{font-size:12px;letter-spacing:.12em;color:var(--ink-soft)}
   <h2 class="sec-title reveal">Rooms &amp; <em>Suites</em></h2>
 
   <div class="project reveal">
-    <div class="p-visual">R</div>
+    <div class="p-visual"><img src="img/rssforge.jpg" alt="夜班前台" loading="lazy"></div>
     <div>
       <p class="p-no">№ 01 · Signature Suite</p>
       <h3 class="p-title">RSSForge</h3>
@@ -165,7 +167,7 @@ footer p{font-size:12px;letter-spacing:.12em;color:var(--ink-soft)}
   </div>
 
   <div class="project reveal">
-    <div class="p-visual">B</div>
+    <div class="p-visual"><img src="img/bzuu.jpg" alt="红地毯入口" loading="lazy"></div>
     <div>
       <p class="p-no">№ 02 · Executive Room</p>
       <h3 class="p-title">bzuu-ima-importer</h3>
@@ -176,7 +178,7 @@ footer p{font-size:12px;letter-spacing:.12em;color:var(--ink-soft)}
   </div>
 
   <div class="project reveal">
-    <div class="p-visual">W</div>
+    <div class="p-visual"><img src="img/wy-media.jpg" alt="整洁客房" loading="lazy"></div>
     <div>
       <p class="p-no">№ 03 · Garden View</p>
       <h3 class="p-title">wy-media-crawler</h3>
@@ -187,7 +189,7 @@ footer p{font-size:12px;letter-spacing:.12em;color:var(--ink-soft)}
   </div>
 
   <div class="project reveal">
-    <div class="p-visual">W</div>
+    <div class="p-visual"><img src="img/web-showcase.jpg" alt="大堂吊灯" loading="lazy"></div>
     <div>
       <p class="p-no">№ 04 · Loft</p>
       <h3 class="p-title">web-showcase</h3>
@@ -198,7 +200,7 @@ footer p{font-size:12px;letter-spacing:.12em;color:var(--ink-soft)}
   </div>
 
   <div class="project reveal">
-    <div class="p-visual">N</div>
+    <div class="p-visual"><img src="img/nhor4.jpg" alt="长住书房" loading="lazy"></div>
     <div>
       <p class="p-no">№ 05 · Residence</p>
       <h3 class="p-title">nhor4-exam-prep</h3>
